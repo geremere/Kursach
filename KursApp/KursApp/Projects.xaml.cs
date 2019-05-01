@@ -31,10 +31,11 @@ namespace KursApp
             if (flagApearing)
             {
                 ProjectCommands pc = new ProjectCommands();
-                List<string> list = await pc.GiveAllProjects();
+                List<Project> list = await pc.GiveAllProjects();
                 for (int i = 0; i < list.Count; i++)
                 {
                     listBox.Items.Add(list[i]);
+                    listBox.Items.ToString();
                 }
                 flagApearing = false;
             }
@@ -42,7 +43,9 @@ namespace KursApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            NewProject newpr = new NewProject();
+            newpr.Show();
+            Close();
         }
     }
 }

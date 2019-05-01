@@ -15,13 +15,13 @@ namespace KursApp
         SqlConnection sqlConnect;
         public ProjectCommands()
         {
-            string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\радмир\source\repos\KursApp\KursApp\Database.mdf;Integrated Security=True";
+            string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\GitHub\Kursach\Kursach\KursApp\KursApp\Database.mdf;Integrated Security=True";
             sqlConnect = new SqlConnection(key);
         }
 
-        public async Task<List<string>> GiveAllProjects()
+        public async Task<List<Project>> GiveAllProjects()
         {
-            List<string> lst = new List<string>();
+            List<Project> lst = new List<Project>();
             SqlDataReader sqlReader = null;
             SqlCommand command = new SqlCommand("SELECT * FROM[Projects]", sqlConnect);
             await sqlConnect.OpenAsync();
@@ -31,7 +31,7 @@ namespace KursApp
                 sqlReader = await command.ExecuteReaderAsync();
                 while (await sqlReader.ReadAsync())
                 {
-                    lst.Add(Convert.ToString(sqlReader["Name"]));
+                    lst.Add(new Project(Convert.ToInt32(sqlReader["id"]),Convert.ToString(sqlReader["Name"]), Convert.ToString(sqlReader["Owner"]),Convert.ToString(sqlReader["Type"])));
                 }
                 return lst;
             }
@@ -44,7 +44,6 @@ namespace KursApp
                 if (sqlReader != null)
                     sqlReader.Close();
             }
-            return null;
         }
     }
 }

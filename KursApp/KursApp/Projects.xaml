@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="Projects" Height="480.278" Width="840.719" Activated="Window_Activated">
-    <Grid Margin="0,0,270.6,0">
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="316" Margin="82,84,0,0" VerticalAlignment="Top" Width="235"/>
+        Title="Projects" Height="480.278" Width="701.427" Activated="Window_Activated">
+    <Grid Margin="0,0,7.2,3.4" Height="443" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="679">
+        <ListBox x:Name="listBox" Margin="75,83,369,44"/>
         <Label x:Name="label" Content="Projects:" HorizontalAlignment="Left" Margin="82,31,0,0" VerticalAlignment="Top" Height="41" Width="124"/>
-        <Button x:Name="button" Content="Create New Project" Margin="376,203,80.8,0" VerticalAlignment="Top" Height="76" Click="Button_Click"/>
+        <Button x:Name="button" Content="Create New Project" Margin="376,203,163,164" Click="Button_Click"/>
 
     </Grid>
 </Window>

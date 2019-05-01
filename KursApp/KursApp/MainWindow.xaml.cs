@@ -46,7 +46,7 @@ namespace KursApp
             {
                 Projects pr = new Projects();
                 pr.Show();
-                this.Close();
+                Close();
             }
             else
             {
