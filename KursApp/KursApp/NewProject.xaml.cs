@@ -23,5 +23,31 @@ namespace KursApp
         {
             InitializeComponent();
         }
+
+        private async void Create_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ProjectCommands pc = new ProjectCommands();
+                await pc.IsertNewProject(Name.Text, ((User)(Owners.SelectedItem)).Name, TypeOfProject.Text);
+            }
+            catch(ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void Window_Activated(object sender, EventArgs e)
+        {
+            List<User> userslst = await new UsersCommand().GiveAllUsers();
+            for (int i = 0; i < userslst.Count; i++)
+            {
+                Owners.Items.Add(userslst[i]);
+            }
+        }
     }
 }

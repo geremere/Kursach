@@ -19,12 +19,16 @@ namespace KursApp
             sqlConnect = new SqlConnection(key);
         }
 
+        /// <summary>
+        /// Выдать все рпоекты в БД
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Project>> GiveAllProjects()
         {
             List<Project> lst = new List<Project>();
             SqlDataReader sqlReader = null;
-            SqlCommand command = new SqlCommand("SELECT * FROM[Projects]", sqlConnect);
             await sqlConnect.OpenAsync();
+            SqlCommand command = new SqlCommand("SELECT * FROM[Projects]", sqlConnect);
 
             try
             {
@@ -44,6 +48,27 @@ namespace KursApp
                 if (sqlReader != null)
                     sqlReader.Close();
             }
+        }
+
+        /// <summary>
+        /// Записать проект
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="owner"></param>
+        /// <param name="type"></param>
+        public async Task IsertNewProject(string name, string owner, string type)
+        {
+            if (name == "")
+                throw new FormatException("Поле Name заполнено некорректно");
+                //return false;
+                    
+            await sqlConnect.OpenAsync();
+            SqlCommand command = new SqlCommand("INSERT INTO [Projects] (Name,Owner,Type) VALUES(@Name,@OWner,@Type)", sqlConnect);
+            command.Parameters.AddWithValue("Name", name);
+            command.Parameters.AddWithValue("Owner", owner);
+            command.Parameters.AddWithValue("Type", type);
+            await command.ExecuteNonQueryAsync();
+            //return true;
         }
     }
 }

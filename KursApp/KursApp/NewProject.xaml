@@ -5,16 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="Create a new project" Height="450" Width="376.102">
+        Title="Create a new project" Height="466.705" Width="380" Activated="Window_Activated">
     <Grid Margin="0,0,0,-3" HorizontalAlignment="Left" Width="345">
         <Label x:Name="ProjectName" Content="Enpty new Project Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,10"/>
-        <TextBox x:Name="Name" Margin="155,10,0,385" HorizontalAlignment="Left" Width="178"/>
-        <ComboBox Name="TypeOfProject" Text="Type of text" Margin="15,40,0,350" HorizontalAlignment="Left" Width="318">
+        <TextBox x:Name="Name" Margin="163,10,-2,404.8" HorizontalAlignment="Left" Width="184"/>
+        <ComboBox Name="TypeOfProject" Text="sdgsdgs" Margin="15,40,-1,363.8" HorizontalAlignment="Left" Width="331">
             <TextBlock> Web</TextBlock>
             <TextBlock> Mobile</TextBlock>
             <TextBlock> Desktop</TextBlock>
         </ComboBox>
         <Label x:Name="Owner" Content="Choise owner:" Margin="15,80,0,320" HorizontalAlignment="Left" Width="168"/>
-        <ListBox x:Name="Owners" Margin="15,110,0,20" HorizontalAlignment="Left" Width="318"/>
+        <ListBox x:Name="Owners" Margin="15,120,0,0" HorizontalAlignment="Left" Width="324" Height="223" VerticalAlignment="Top"/>
+        <Button x:Name="Create" Content="Create" Height="40" Margin="20,370,9,29.8" Click="Create_Click"/>
     </Grid>
 </Window>
