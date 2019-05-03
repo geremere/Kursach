@@ -44,8 +44,8 @@ namespace KursApp
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NewProject newpr = new NewProject();
-            newpr.Show();
             Close();
+            newpr.Show();
         }
     }
 }

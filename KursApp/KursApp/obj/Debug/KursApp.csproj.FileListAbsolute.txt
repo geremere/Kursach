@@ -64,3 +64,7 @@ C:\Users\радмир\source\repos\KursApp\obj\Debug\KursApp.exe
 C:\Users\радмир\source\repos\KursApp\obj\Debug\KursApp.pdb
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\NewProject.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\NewProject.baml
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ChoiseRisks.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ChoiseRisks.baml
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ProbabilityAndEffects.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ProbabilityAndEffects.baml

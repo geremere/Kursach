@@ -70,11 +70,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChoiseRisks.xaml.cs">
+      <DependentUpon>ChoiseRisks.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CommandsForDB\Risk.cs" />
     <Compile Include="CommandsForDB\RisksCommand.cs" />
     <Compile Include="CommandsForDB\User.cs" />
     <Compile Include="CommandsForDB\UsersCommand.cs" />
     <Compile Include="CommandsForDB\Project.cs" />
+    <Page Include="ChoiseRisks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,6 +98,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ProbabilityAndEffects.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Projects.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +111,9 @@
     <Compile Include="CommandsForDB\ProjectCommands.cs" />
     <Compile Include="NewProject.xaml.cs">
       <DependentUpon>NewProject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProbabilityAndEffects.xaml.cs">
+      <DependentUpon>ProbabilityAndEffects.xaml</DependentUpon>
     </Compile>
     <Compile Include="Projects.xaml.cs">
       <DependentUpon>Projects.xaml</DependentUpon>

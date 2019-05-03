@@ -44,9 +44,11 @@ namespace KursApp
             UsersCommand uc = new UsersCommand();
             if (await uc.InLogin(textBox.Text.Trim(),passwordBox.Password.Trim()))
             {
-                Projects pr = new Projects();
-                pr.Show();
+                //Projects pr = new Projects();
+                //pr.Show();
+                ChoiseRisks cr = new ChoiseRisks();
                 Close();
+                cr.Show();
             }
             else
             {
