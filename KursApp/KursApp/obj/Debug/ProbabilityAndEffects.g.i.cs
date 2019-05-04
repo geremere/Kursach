@@ -96,6 +96,14 @@ namespace KursApp {
         #line default
         #line hidden
         
+        
+        #line 19 "..\..\ProbabilityAndEffects.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Button Button2;
+        
+        #line default
+        #line hidden
+        
         private bool _contentLoaded;
         
         /// <summary>
@@ -163,6 +171,15 @@ namespace KursApp {
             
             #line 18 "..\..\ProbabilityAndEffects.xaml"
             this.Button1.Click += new System.Windows.RoutedEventHandler(this.Button1_Click);
+            
+            #line default
+            #line hidden
+            return;
+            case 9:
+            this.Button2 = ((System.Windows.Controls.Button)(target));
+            
+            #line 19 "..\..\ProbabilityAndEffects.xaml"
+            this.Button2.Click += new System.Windows.RoutedEventHandler(this.Button2_Click);
             
             #line default
             #line hidden
