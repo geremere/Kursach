@@ -34,11 +34,6 @@ namespace KursApp
             //    sqlConnect.Close();
         }
 
-        private async void Window_Activated(object sender, EventArgs e)
-        {
-            
-        }
-
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             UsersCommand uc = new UsersCommand();
@@ -54,8 +49,6 @@ namespace KursApp
             {
                 MessageBox.Show("Ошибка при вводе логина или пороля");
             }
-
-
         }
     }
 }

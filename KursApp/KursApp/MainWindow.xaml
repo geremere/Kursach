@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="238.399" Width="497.68" Closing="Window_Closing" Activated="Window_Activated" >
+        Title="MainWindow" Height="238.399" Width="497.68" Closing="Window_Closing">
     <Grid Margin="2,2,106.2,-46.2" Height="253" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="37*"/>

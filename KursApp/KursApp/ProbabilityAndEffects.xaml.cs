@@ -19,6 +19,7 @@ namespace KursApp
     /// </summary>
     public partial class ProbabilityAndEffects : Window
     {
+        bool flag = true;
         List<Risk> newlst=null;
         public ProbabilityAndEffects(List<Risk> risks)
         {
@@ -26,11 +27,76 @@ namespace KursApp
             InitializeComponent();
         }
 
-        private async void Window_Activated(object sender, EventArgs e)
+        private void Window_Activated(object sender, EventArgs e)
         {
-            for (int i = 0; i < newlst.Count; i++)
+            if (flag)
             {
-                ChoisedRisks.Items.Add(newlst[i]);
+                for (int i = 0; i < newlst.Count; i++)
+                {
+                    ChoisedRisks.Items.Add(newlst[i]);
+                }
+                flag = false;
+            }
+        }
+
+        private void ChoisedRisks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(((Risk)ChoisedRisks.SelectedItem).Probability == default(Double))           
+                Prob.Text = "";           
+            else
+                Prob.Text = ((Risk)ChoisedRisks.SelectedItem).Probability.ToString();
+            if (((Risk)ChoisedRisks.SelectedItem).Effect == default(Double))
+                Efect.Text = "";
+            else
+                Efect.Text = ((Risk)ChoisedRisks.SelectedItem).Effect.ToString();
+        }
+
+        //private void Prob_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        ((Risk)ChoisedRisks.SelectedItem).Probability = Double.Parse(Prob.Text);
+        //    }
+        //    catch(ArgumentException ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
+
+        //private void Efect_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        ((Risk)ChoisedRisks.SelectedItem).Effect = Double.Parse(Efect.Text);
+        //    }
+        //    catch (ArgumentException ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
+
+        private void Button1_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ((Risk)ChoisedRisks.SelectedItem).Effect = Double.Parse(Efect.Text);
+                ((Risk)ChoisedRisks.SelectedItem).Probability = Double.Parse(Prob.Text);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

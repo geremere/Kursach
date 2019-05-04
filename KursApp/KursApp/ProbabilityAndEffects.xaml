@@ -8,13 +8,14 @@
         Title="ProbabilityAndEffects" Height="450" Width="600" Activated="Window_Activated">
     <Grid>
         <Label x:Name="label1" Content="Risks:" Margin="40,25,490,350" FontSize="20"/>
-        <ListBox x:Name="ChoisedRisks" Margin="25,70,25,200"/>
+        <ListBox x:Name="ChoisedRisks" Margin="25,70,25,200" SelectionChanged="ChoisedRisks_SelectionChanged"/>
         <Label x:Name="Probability" Content="Probability:" Margin="50,230,400,140" FontSize="25"/>
-        <Label x:Name="Effects" Content="Effects:" Margin="50,300,400,70" FontSize="25"/>
+        <Label x:Name="Effect" Content="Effect:" Margin="50,300,400,70" FontSize="25"/>
         <TextBox x:Name="Prob" Margin="195,245,280,150" RenderTransformOrigin="0.5,0.5">
         </TextBox>
-        <TextBox x:Name="Prob_Copy" Margin="195,310,280,85" RenderTransformOrigin="0.5,0.5">
+        <TextBox x:Name="Efect" Margin="195,310,280,85" RenderTransformOrigin="0.5,0.5">
         </TextBox>
+        <Button x:Name="Button1" Content="set up" Margin="365,250,45,130" Click="Button1_Click" />
 
     </Grid>
 </Window>
