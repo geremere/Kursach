@@ -51,38 +51,6 @@ namespace KursApp
                 Efect.Text = ((Risk)ChoisedRisks.SelectedItem).Effect.ToString();
         }
 
-        //private void Prob_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        ((Risk)ChoisedRisks.SelectedItem).Probability = Double.Parse(Prob.Text);
-        //    }
-        //    catch(ArgumentException ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
-
-        //private void Efect_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        ((Risk)ChoisedRisks.SelectedItem).Effect = Double.Parse(Efect.Text);
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
-
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -98,6 +66,11 @@ namespace KursApp
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void Button2_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

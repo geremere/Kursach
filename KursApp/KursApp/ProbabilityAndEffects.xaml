@@ -16,6 +16,7 @@
         <TextBox x:Name="Efect" Margin="195,310,280,85" RenderTransformOrigin="0.5,0.5">
         </TextBox>
         <Button x:Name="Button1" Content="set up" Margin="365,250,45,130" Click="Button1_Click" />
+        <Button x:Name="Button2" Content="Continue" Margin="365,310,45,70" Click="Button2_Click" />
 
     </Grid>
 </Window>
