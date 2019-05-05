@@ -34,11 +34,14 @@ namespace KursApp
                 array[i].Y = 425 * Risklst[i].Probability + 75;
                 array[i].X = -350 * Risklst[i].Effect + 400;
                 Ellipse elipse = new Ellipse();
-                elipse.Height = 5;
-                elipse.Width = 5;
+                elipse.Height = 25;
+                elipse.Width = 25;
                 elipse.StrokeThickness = 2;
-                elipse.Stroke = Brushes.Black;
+                elipse.Stroke = Brushes.Red;
+                elipse.VerticalAlignment = VerticalAlignment.Top;
+                elipse.HorizontalAlignment = HorizontalAlignment.Left;
                 elipse.Margin = new Thickness(array[i].X, array[i].Y, 0, 0);
+                grid.Children.Add(elipse);
             }
         }
     }

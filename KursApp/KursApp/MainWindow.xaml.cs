@@ -42,6 +42,7 @@ namespace KursApp
                 //Projects pr = new Projects();
                 //pr.Show();
                 ChoiseRisks cr = new ChoiseRisks("mobile");
+                //TEstdesigh cr = new TEstdesigh();
                 Close();
                 cr.Show();
             }
