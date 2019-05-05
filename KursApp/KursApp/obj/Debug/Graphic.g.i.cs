@@ -78,6 +78,8 @@ namespace KursApp
 
         internal System.Windows.Shapes.Line Y;
         internal System.Windows.Shapes.Line X;
+        internal System.Windows.Controls.Label Impact;
+        internal System.Windows.Controls.Label Probability;
     }
 }
 

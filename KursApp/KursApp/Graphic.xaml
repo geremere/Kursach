@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="Graphic" Height="450" Width="800">
     <Grid>
-        
+        <Polyline Stroke="Black" Points="70, 60, 75, 50, 80, 60" />
+        <Label x:Name="Impact" Content="Impact" Margin="20,40,720,350"/>
+        <Line x:Name="Y" X1="75"  Y1="50" X2="75" Y2="400" Stroke="Black" />
+        <Polyline Stroke="Black" Points="490, 395, 500, 400, 490, 405" />
+        <Line x:Name="X" X1="75"  Y1="400" X2="500" Y2="400" Stroke="Black"/>
+        <Label x:Name="Probability" Content="Probability" Margin="430,395,290,0"/>
     </Grid>
 </Window>
