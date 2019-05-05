@@ -19,9 +19,27 @@ namespace KursApp
     /// </summary>
     public partial class Graphic : Window
     {
-        public Graphic()
+        List<Risk> Risklst = null;
+        public Graphic(List<Risk> lst)
         {
+            Risklst = lst;
             InitializeComponent();
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            Point[] array = new Point[Risklst.Count];
+            for (int i = 0; i < Risklst.Count; i++)
+            {
+                array[i].Y = 425 * Risklst[i].Probability + 75;
+                array[i].X = -350 * Risklst[i].Effect + 400;
+                Ellipse elipse = new Ellipse();
+                elipse.Height = 5;
+                elipse.Width = 5;
+                elipse.StrokeThickness = 2;
+                elipse.Stroke = Brushes.Black;
+                elipse.Margin = new Thickness(array[i].X, array[i].Y, 0, 0);
+            }
         }
     }
 }

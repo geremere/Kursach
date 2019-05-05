@@ -49,16 +49,14 @@ namespace KursApp
 
         private void Continue_Click(object sender, RoutedEventArgs e)
         {
-            int k1 = DefaultLST.SelectedItems.Count;
-            int k2 = SpecialLST.SelectedItems.Count;
             List <Risk> defailtlist= new List<Risk>();
             for (int i = 0; i < DefaultLST.SelectedItems.Count; i++)
             {
-                    defailtlist.Add((Risk)DefaultLST.SelectedItem);               
+                    defailtlist.Add((Risk)DefaultLST.SelectedItems[i]);               
             }
             for (int i = 0; i < SpecialLST.SelectedItems.Count; i++)
             {
-                defailtlist.Add((Risk)SpecialLST.SelectedItem);
+                defailtlist.Add((Risk)SpecialLST.SelectedItems[i]);
             }
             ProbabilityAndEffects pandef = new ProbabilityAndEffects(defailtlist);
             Close();

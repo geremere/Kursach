@@ -68,9 +68,31 @@ namespace KursApp
             }
         }
 
-        private void Button2_Click(object sender, RoutedEventArgs e)
+        private void Conrinue_Click(object sender, RoutedEventArgs e)
         {
+            List<Risk> lst = new List<Risk>();
+            //ChoisedRisks.SelectionMode = SelectionMode.Multiple;
+            //ChoisedRisks.SelectAll();
+            for (int i = 0; i < ChoisedRisks.Items.Count; i++)
+            {
+                lst.Add((Risk)ChoisedRisks.Items[i]);
+            }
+            if (CHechChech(lst))
+            {
+                Graphic gr = new Graphic(lst);
+                Close();
+                gr.Show();
+            }
+        }
 
+        private bool CHechChech(List<Risk> lst)
+        {
+            for (int i = 0; i < newlst.Count; i++)
+            {
+                if (lst[i].Probability == default(Double) || lst[i].Effect == default(Double))
+                    return false;
+            }
+            return true;
         }
 
         private void Delite_Click(object sender, RoutedEventArgs e)
