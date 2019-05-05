@@ -41,7 +41,7 @@ namespace KursApp
                 }
                 return lst;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

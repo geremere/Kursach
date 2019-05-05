@@ -41,7 +41,7 @@ namespace KursApp
             {
                 //Projects pr = new Projects();
                 //pr.Show();
-                ChoiseRisks cr = new ChoiseRisks();
+                ChoiseRisks cr = new ChoiseRisks("mobile");
                 Close();
                 cr.Show();
             }

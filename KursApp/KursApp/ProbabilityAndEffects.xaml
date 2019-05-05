@@ -17,6 +17,9 @@
         </TextBox>
         <Button x:Name="Button1" Content="set up" Margin="365,250,45,130" Click="Button1_Click" />
         <Button x:Name="Button2" Content="Continue" Margin="365,310,45,70" Click="Button2_Click" />
+        <Button x:Name="Add" Content="Add" Margin="365,25,45,360" Click="Add_Click" />
+        <Button x:Name="Delite" Content="Delite" Margin="165,25,245,360" Click="Delite_Click" />
+
 
     </Grid>
 </Window>

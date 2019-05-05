@@ -72,5 +72,15 @@ namespace KursApp
         {
 
         }
+
+        private void Delite_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

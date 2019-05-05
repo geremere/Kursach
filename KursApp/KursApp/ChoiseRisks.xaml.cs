@@ -19,25 +19,30 @@ namespace KursApp
     /// </summary>
     public partial class ChoiseRisks : Window
     {
-        public ChoiseRisks()
+        bool flag = true;
+        string Type = null;
+        public ChoiseRisks(string type)
         {
+            Type = type;
             InitializeComponent();
         }
 
         private async void Window_Activated(object sender, EventArgs e)
         {
-            string d = "default";
-            List<Risk> defaultlst = (List<Risk>)await new RisksCommand().GiveAllProjects(d);
-            d = "mobile";
-            List<Risk> speciallst = (List<Risk>)await new RisksCommand().GiveAllProjects(d);
+            if (flag)
+            {
+                List<Risk> defaultlst = (List<Risk>)await new RisksCommand().GiveAllProjects("default");
+                List<Risk> speciallst = (List<Risk>)await new RisksCommand().GiveAllProjects(Type);
 
-            for (int i = 0; i < defaultlst.Count; i++)
-            {
-                DefaultLST.Items.Add(defaultlst[i]);
-            }
-            for (int i = 0; i < speciallst.Count; i++)
-            {
-                SpecialLST.Items.Add(speciallst[i]);
+                for (int i = 0; i < defaultlst.Count; i++)
+                {
+                    DefaultLST.Items.Add(defaultlst[i]);
+                }
+                for (int i = 0; i < speciallst.Count; i++)
+                {
+                    SpecialLST.Items.Add(speciallst[i]);
+                }
+                flag = false;
             }
 
         }
