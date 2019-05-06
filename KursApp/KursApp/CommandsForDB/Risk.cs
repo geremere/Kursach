@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Shapes;
+using System.Windows;
 
 namespace KursApp
 {
@@ -31,6 +33,7 @@ namespace KursApp
         public string Description { get; set; }
         public string TypeOfProject { get; set; }
         double probability;
+        public Point point;
         public double Probability
         {
             get

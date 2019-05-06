@@ -13,6 +13,6 @@
         <Polyline Stroke="Black" Points="490, 395, 500, 400, 490, 405" />
         <Line x:Name="Y" X1="75"  Y1="400" X2="500" Y2="400" Stroke="Black"/>
         <Label x:Name="Probability" Content="Probability" Margin="430,395,290,0"/>
-        <Ellipse Margin="0,0" Stroke="Red" Height="25" Width="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Canvas x:Name="cnv"/>
     </Grid>
 </Window>
