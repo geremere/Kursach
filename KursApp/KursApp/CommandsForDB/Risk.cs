@@ -23,7 +23,19 @@ namespace KursApp
         public Risk(double probability, double effect)
         {
             Probability = probability;
-            Effect = effect;
+            Influence = effect;
+        }
+
+        public Risk(string riskName, string soursOfRisk, string effects, string description,
+            string typeOfProject, double probability, double influence) 
+        {
+            RiskName = riskName;
+            SoursOfRisk = soursOfRisk;
+            Effects = effects;
+            Description = description;
+            TypeOfProject = typeOfProject;
+            Probability = probability;
+            Influence = influence;
         }
 
         public int Id { get; set; }
@@ -46,17 +58,17 @@ namespace KursApp
                 probability = value;
             }
         }
-        double effect;
-        public double Effect
+        double influence;
+        public double Influence
         {
             get
             {
-                return effect;
+                return influence;
             }
             set
             {
                 if (value > 1 || value < 0) throw new ArgumentException("Значение должно лежать в промежутке (0;1]");
-                effect = value;
+                influence = value;
             }
         }
         public override string ToString() => $"Name: {RiskName}\nType: {TypeOfProject}";

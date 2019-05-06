@@ -35,7 +35,8 @@ namespace KursApp
                 sqlReader = await command.ExecuteReaderAsync();
                 while (await sqlReader.ReadAsync())
                 {
-                    lst.Add(new Project(Convert.ToInt32(sqlReader["id"]),Convert.ToString(sqlReader["Name"]), Convert.ToString(sqlReader["Owner"]),Convert.ToString(sqlReader["Type"])));
+                    lst.Add(new Project(Convert.ToInt32(sqlReader["id"]),Convert.ToString(sqlReader["Name"]),
+                        Convert.ToString(sqlReader["Owner"]),Convert.ToString(sqlReader["Type"])));
                 }
                 return lst;
             }

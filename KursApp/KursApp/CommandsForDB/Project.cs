@@ -8,6 +8,13 @@ namespace KursApp
 {
     public class Project
     {
+        public Project(string name, string owner, string type)
+        {
+            Name = name;
+            Owner = owner;
+            Type = type;
+        }
+
         public Project(int id, string name, string owner, string type)
         {
             Id = id;

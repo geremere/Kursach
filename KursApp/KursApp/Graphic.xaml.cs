@@ -23,28 +23,29 @@ namespace KursApp
         List<Risk> Risklst = null;
         Point mousePos;// точка, в которой щапонимается знчени мыши
         Point nowcenter;
+        bool flag = true;
         public Graphic(List<Risk> lst)
         {
             Risklst = lst;
             InitializeComponent();
-        }
-        private void pictureBox_MouseDown(object sender, MouseEventArgs e)
-        {
+        }        
 
-            mousePos = e.GetPosition(null);
-            nowcenter = center;
-        }
-        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
-        {
-            center.X = nowcenter.X - mousePos.X + e.GetPosition(null).X;
-            center.Y = nowcenter.Y - mousePos.Y + e.GetPosition(null).Y;
-        }
-
+        /// <summary>
+        /// когда открывается окно
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Activated(object sender, EventArgs e)
         {
-            Drawing();
+            if (flag)
+            {
+                Drawing();
+                flag = false;
+            }
         }
-
+        /// <summary>
+        /// отрисовываем точки и геперболу
+        /// </summary>
         private void Drawing()
         {
             cnv.Children.Clear();
@@ -67,7 +68,7 @@ namespace KursApp
             for (int i = 0; i < Risklst.Count; i++)
             {
                 Risklst[i].point.X = 425 * Risklst[i].Probability + 75;
-                Risklst[i].point.Y = -350 * Risklst[i].Effect + 400;
+                Risklst[i].point.Y = -350 * Risklst[i].Influence + 400;
                 Ellipse elipse = new Ellipse();
                 elipse.Height = 5;
                 elipse.Width = 5;
@@ -109,12 +110,22 @@ namespace KursApp
             return (-b + Math.Sqrt(desc)) / 2 * a;
         }
 
+        /// <summary>
+        /// нажатие на кнопку мыши
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Cnv_MouseDown(object sender, MouseButtonEventArgs e)
         {
             mousePos = e.GetPosition(null);
             nowcenter = center;
         }
 
+        /// <summary>
+        /// mouseup двигаем гиперболу
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Cnv_MouseUp(object sender, MouseButtonEventArgs e)
         {
             center.X = nowcenter.X - mousePos.X + e.GetPosition(null).X;
@@ -132,6 +143,11 @@ namespace KursApp
             Drawing();
         }
 
+        /// <summary>
+        /// переход с дереву рисков
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 

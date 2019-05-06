@@ -70,7 +70,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ChoiseRisks.xaml.cs">
+    <Compile Include="CommandsForDB\DataCommands.cs" />
+    <Compile Include="ForNewProject\ChoiseRisks.xaml.cs">
       <DependentUpon>ChoiseRisks.xaml</DependentUpon>
     </Compile>
     <Compile Include="CommandsForDB\Risk.cs" />
@@ -78,7 +79,7 @@
     <Compile Include="CommandsForDB\User.cs" />
     <Compile Include="CommandsForDB\UsersCommand.cs" />
     <Compile Include="CommandsForDB\Project.cs" />
-    <Page Include="ChoiseRisks.xaml">
+    <Page Include="ForNewProject\ChoiseRisks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -101,11 +102,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NewProject.xaml">
+    <Page Include="ForNewProject\NewProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProbabilityAndEffects.xaml">
+    <Page Include="ForNewProject\ProbabilityAndEffects.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -113,24 +114,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Projects.xaml">
+    <Page Include="ForNewProject\Projects.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectsRisks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandsForDB\ProjectCommands.cs" />
-    <Compile Include="NewProject.xaml.cs">
+    <Compile Include="ForNewProject\NewProject.xaml.cs">
       <DependentUpon>NewProject.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProbabilityAndEffects.xaml.cs">
+    <Compile Include="ForNewProject\ProbabilityAndEffects.xaml.cs">
       <DependentUpon>ProbabilityAndEffects.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProjectChoise.xaml.cs">
       <DependentUpon>ProjectChoise.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Projects.xaml.cs">
+    <Compile Include="ForNewProject\Projects.xaml.cs">
       <DependentUpon>Projects.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectsRisks.xaml.cs">
+      <DependentUpon>ProjectsRisks.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -177,6 +185,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ForOldProjects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
