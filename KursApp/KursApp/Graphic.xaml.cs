@@ -41,9 +41,15 @@ namespace KursApp
         }
 
         private void Window_Activated(object sender, EventArgs e)
-        {          
+        {
+            Drawing();
+        }
+
+        private void Drawing()
+        {
+            cnv.Children.Clear();
             double radius = 250;
-            const int K= 100;
+            const int K = 100;
             for (int i = 0; i < K - 1; i++)
             {
                 double old = center.X - radius + radius / K * i;
@@ -57,7 +63,7 @@ namespace KursApp
                 l.Stroke = Brushes.Black;
                 cnv.Children.Add(l);
             }
-            
+
             for (int i = 0; i < Risklst.Count; i++)
             {
                 Risklst[i].point.X = 425 * Risklst[i].Probability + 75;
@@ -66,7 +72,7 @@ namespace KursApp
                 elipse.Height = 5;
                 elipse.Width = 5;
                 elipse.StrokeThickness = 2;
-                if (Math.Sqrt((Risklst[i].point.X - center.X) * (Risklst[i].point.X - center.X) + 
+                if (Math.Sqrt((Risklst[i].point.X - center.X) * (Risklst[i].point.X - center.X) +
                     (Risklst[i].point.Y - center.Y) * (Risklst[i].point.Y - center.Y)) < radius)
                 {
                     elipse.Stroke = Brushes.Red;
@@ -83,6 +89,7 @@ namespace KursApp
                 cnv.Children.Add(elipse);
             }
         }
+
         static public double FindY(double x, double radius, Point center)
         {
             double c = -radius * radius + (x - center.X) * (x - center.X) + center.Y * center.Y;
@@ -94,6 +101,29 @@ namespace KursApp
                 throw new Exception("No point");
             }
             return (-b + Math.Sqrt(desc)) / 2 * a;
+        }
+
+        private void Cnv_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            mousePos = e.GetPosition(null);
+            nowcenter = center;
+        }
+
+        private void Cnv_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            center.X = nowcenter.X - mousePos.X + e.GetPosition(null).X;
+            center.Y = nowcenter.Y - mousePos.Y + e.GetPosition(null).Y;
+            if(center.X>750 || center.Y<-200)
+            {
+                center.Y = -150;
+                center.X = 750;
+            }
+            if(center.Y>200||center.X<300)
+            {
+                center.Y = 200;
+                center.X = 300;
+            }
+            Drawing();
         }
     }
 }
