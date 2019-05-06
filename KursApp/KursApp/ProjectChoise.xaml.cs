@@ -19,9 +19,21 @@ namespace KursApp
     /// </summary>
     public partial class ProjectChoise : Window
     {
-        public ProjectChoise()
+        string Login = null;
+        public ProjectChoise(string login)
         {
+            Login = login;
             InitializeComponent();
+        }
+
+        private async void Window_Activated(object sender, EventArgs e)
+        {
+            ProjectCommands pc = new ProjectCommands();
+            List<Project> prlst = await pc.GiveProjectsForOwner(Login);
+            for (int i = 0; i < prlst.Count; i++)
+            {
+                listBox.Items.Add(prlst[i]);
+            }
         }
     }
 }

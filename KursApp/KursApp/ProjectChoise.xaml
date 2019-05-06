@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="ProjectChoise" Height="450" Width="800">
+        Title="ProjectChoise" Height="450" Width="500" Activated="Window_Activated">
     <Grid>
+        <ListBox x:Name="listBox" Margin="50,70,50,25"/>
+        <Label x:Name="label" Content="Your Projects:" HorizontalAlignment="Left" Margin="50,31,0,0"
+               FontSize="20" VerticalAlignment="Top" Height="41" Width="124"/>
         
     </Grid>
 </Window>

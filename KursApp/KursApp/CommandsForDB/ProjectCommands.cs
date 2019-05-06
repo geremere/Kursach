@@ -47,6 +47,41 @@ namespace KursApp
             {
                 if (sqlReader != null)
                     sqlReader.Close();
+                sqlConnect.Close();
+
+            }
+        }
+
+        public async Task<List<Project>> GiveProjectsForOwner(string owner)
+        {
+            List<Project> lst = new List<Project>();
+            SqlDataReader sqlReader = null;
+            await sqlConnect.OpenAsync();
+            SqlCommand command = new SqlCommand("SELECT * FROM[Projects]", sqlConnect);
+
+            try
+            {
+                sqlReader = await command.ExecuteReaderAsync();
+                while (await sqlReader.ReadAsync())
+                {
+                    if (owner == Convert.ToString(sqlReader["Owner"]))
+                    {
+                        lst.Add(new Project(Convert.ToInt32(sqlReader["id"]), Convert.ToString(sqlReader["Name"]),
+                            Convert.ToString(sqlReader["Owner"]), Convert.ToString(sqlReader["Type"])));
+                    }
+                }
+                return lst;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                if (sqlReader != null)
+                    sqlReader.Close();
+                sqlConnect.Close();
+
             }
         }
 
@@ -68,6 +103,8 @@ namespace KursApp
             command.Parameters.AddWithValue("Owner", owner);
             command.Parameters.AddWithValue("Type", type);
             await command.ExecuteNonQueryAsync();
+            sqlConnect.Close();
+
             //return true;
         }
     }

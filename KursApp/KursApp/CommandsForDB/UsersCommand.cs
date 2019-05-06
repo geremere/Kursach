@@ -56,6 +56,7 @@ namespace KursApp
             {
                 if (sqlReader != null)
                     sqlReader.Close();
+                sqlConnect.Close();
             }
             return 0;
         }       
@@ -84,6 +85,7 @@ namespace KursApp
             {
                 if (sqlReader != null)
                     sqlReader.Close();
+                sqlConnect.Close();
             }
         }
     }

@@ -70,3 +70,5 @@ C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ProbabilityAndEffects.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ProbabilityAndEffects.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\Graphic.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\Graphic.baml
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ProjectChoise.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ProjectChoise.baml

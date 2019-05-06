@@ -49,6 +49,8 @@ namespace KursApp
             {
                 if (sqlReader != null)
                     sqlReader.Close();
+                sqlConnect.Close();
+
             }
         }
     }

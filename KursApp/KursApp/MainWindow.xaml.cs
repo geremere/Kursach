@@ -37,19 +37,19 @@ namespace KursApp
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             UsersCommand uc = new UsersCommand();
-            if (await uc.InLogin(textBox.Text.Trim(),passwordBox.Password.Trim())!=2)
+            if (await uc.InLogin(textBox.Text.Trim(),passwordBox.Password.Trim())==2)
             {
                 
-                NewProject np = new NewProject();
+                Projects np = new Projects();
                 Close();
                 np.Show();
             }
             else
             {
-                if (await uc.InLogin(textBox.Text.Trim(), passwordBox.Password.Trim()) != 1)
+                if (await uc.InLogin(textBox.Text.Trim(), passwordBox.Password.Trim()) == 1)
                 {
 
-                    ProjectChoise pc = new ProjectChoise();
+                    ProjectChoise pc = new ProjectChoise(textBox.Text.Trim());
                     Close();
                     pc.Show();
                 }
