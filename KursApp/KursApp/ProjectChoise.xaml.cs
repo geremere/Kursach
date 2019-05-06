@@ -35,5 +35,10 @@ namespace KursApp
                 listBox.Items.Add(prlst[i]);
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
