@@ -29,7 +29,7 @@ namespace KursApp
             try
             {
                 ProjectCommands pc = new ProjectCommands();
-                await pc.IsertNewProject(Name.Text, ((User)(Owners.SelectedItem)).Name, TypeOfProject.Text);
+                await pc.IsertNewProject(Name.Text, ((User)(Owners.SelectedItem)).Login, TypeOfProject.Text);
                 ChoiseRisks cr = new ChoiseRisks(new Project(Name.Text, ((User)(Owners.SelectedItem)).Login, TypeOfProject.Text));
                 Close();
                 cr.Show();

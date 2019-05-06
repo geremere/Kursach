@@ -20,11 +20,12 @@ namespace KursApp
 
         public async Task IsertNewRisks(List<Risk> risklst, string ProjectName)
         {
-            await sqlConnect.OpenAsync();
-            SqlCommand command = 
-                new SqlCommand("INSERT INTO [RiskData] (DRiskName,DProbability,DInfluence,DProject,DSourseOfRisk,DEffects,DDescriprion,DTypeOfProject) VALUES(@DriskName,@Dprobability,@Dinfluence,@Dproject,@DsourseOfRisk,@Deffects,@Ddescriprion,@DtypeOfProject)", sqlConnect);
             for (int i = 0; i < risklst.Count; i++)
             {
+                await sqlConnect.OpenAsync();
+                SqlCommand command =
+                    new SqlCommand("INSERT INTO [RiskData] (DRiskName,DProbability,DInfluence,DProject,DSourseOfRisk,DEffects,DDescriprion,DTypeOfProject) VALUES(@DriskName,@Dprobability,@Dinfluence,@Dproject,@DsourseOfRisk,@Deffects,@Ddescriprion,@DtypeOfProject)", sqlConnect);
+
                 command.Parameters.AddWithValue("DRiskName", risklst[i].RiskName);
                 command.Parameters.AddWithValue("DProbability", risklst[i].Probability);
                 command.Parameters.AddWithValue("DInfluence", risklst[i].Influence);
@@ -36,9 +37,9 @@ namespace KursApp
 
 
                 await command.ExecuteNonQueryAsync();
+                sqlConnect.Close();
 
             }
-            sqlConnect.Close();
 
         }
 
