@@ -22,8 +22,8 @@ namespace KursApp
         /// </summary>
         /// <param name="login"></param>
         /// <param name="password"></param>
-        /// <returns></returns>
-        public async Task<bool> InLogin(string login, string password)
+        /// <returns> возвращает 2 если менеджер, 1 если тестер, 0 если ввод неверный</returns>
+        public async Task<int> InLogin(string login, string password)
         {
             SqlDataReader sqlReader = null;
             SqlCommand command = new SqlCommand("SELECT * FROM[Users]", sqlConnect);
@@ -39,22 +39,26 @@ namespace KursApp
                     if (login == Convert.ToString(sqlReader["Login"])
                         && password == Convert.ToString(sqlReader["Password"]))
                     {
-                        return true;
+                        if ("Manager" == Convert.ToString(sqlReader["Position"]))
+                        {
+                            return 2;
+                        }
+                        else
+                            return 1;
                     }
                 }
             }
             catch (Exception)
             {
-                return false;
+                return 0;
             }
             finally
             {
                 if (sqlReader != null)
                     sqlReader.Close();
             }
-            return false;
-        }
-
+            return 0;
+        }       
         public async Task<List<User>> GiveAllUsers()
         {
             List<User> lst = new List<User>();

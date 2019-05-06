@@ -75,11 +75,17 @@ namespace KursApp
                 if (Math.Sqrt((Risklst[i].point.X - center.X) * (Risklst[i].point.X - center.X) +
                     (Risklst[i].point.Y - center.Y) * (Risklst[i].point.Y - center.Y)) < radius)
                 {
+                    DAngerous.Items.Remove(Risklst[i]);
+                    DAngerous.Items.Add(Risklst[i]);
                     elipse.Stroke = Brushes.Red;
                     elipse.Fill = Brushes.Red;
                 }
                 else
                 {
+                    if(DAngerous.HasItems)
+                    {
+                        DAngerous.Items.Remove(Risklst[i]);
+                    }
                     elipse.Stroke = Brushes.Green;
                     elipse.Fill = Brushes.Green;
                 }
@@ -118,12 +124,17 @@ namespace KursApp
                 center.Y = -150;
                 center.X = 750;
             }
-            if(center.Y>200||center.X<300)
+            if(center.Y>230||center.X<250)
             {
-                center.Y = 200;
-                center.X = 300;
+                center.Y = 230;
+                center.X = 250;
             }
             Drawing();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

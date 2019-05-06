@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="Graphic" Height="460" Width="800" Activated="Window_Activated" MouseDown="Cnv_MouseDown" MouseUp="Cnv_MouseUp">
+        Title="Graphic" Height="500" Width="900" Activated="Window_Activated" MouseDown="Cnv_MouseDown" MouseUp="Cnv_MouseUp">
     <Grid x:Name="grid">
         <Polyline Stroke="Black" Points="70, 60, 75, 50, 80, 60" />
         <Label x:Name="Impact" Content="Impact" Margin="20,40,720,350"/>
@@ -14,5 +14,8 @@
         <Line x:Name="Y" X1="75"  Y1="400" X2="500" Y2="400" Stroke="Black"/>
         <Label x:Name="Probability" Content="Probability" Margin="430,395,290,0"/>
         <Canvas x:Name="cnv" MouseDown="Cnv_MouseDown" MouseUp="Cnv_MouseUp"/>
+        <Label Content="Dangerous Risks:" Margin="590,35,60,375" FontSize="20"/>
+        <ListBox x:Name="DAngerous" Margin="580,80,25,70"/>
+        <Button Content="Continue" Margin="600,410,25,15" Click="Button_Click"/>
     </Grid>
 </Window>

@@ -109,6 +109,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ProjectChoise.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Projects.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +125,9 @@
     </Compile>
     <Compile Include="ProbabilityAndEffects.xaml.cs">
       <DependentUpon>ProbabilityAndEffects.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectChoise.xaml.cs">
+      <DependentUpon>ProjectChoise.xaml</DependentUpon>
     </Compile>
     <Compile Include="Projects.xaml.cs">
       <DependentUpon>Projects.xaml</DependentUpon>

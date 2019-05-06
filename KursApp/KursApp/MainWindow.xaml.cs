@@ -37,18 +37,26 @@ namespace KursApp
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             UsersCommand uc = new UsersCommand();
-            if (await uc.InLogin(textBox.Text.Trim(),passwordBox.Password.Trim()))
+            if (await uc.InLogin(textBox.Text.Trim(),passwordBox.Password.Trim())!=2)
             {
-                //Projects pr = new Projects();
-                //pr.Show();
-                ChoiseRisks cr = new ChoiseRisks("mobile");
-                //TEstdesigh cr = new TEstdesigh();
+                
+                NewProject np = new NewProject();
                 Close();
-                cr.Show();
+                np.Show();
             }
             else
             {
-                MessageBox.Show("Ошибка при вводе логина или пороля");
+                if (await uc.InLogin(textBox.Text.Trim(), passwordBox.Password.Trim()) != 1)
+                {
+
+                    ProjectChoise pc = new ProjectChoise();
+                    Close();
+                    pc.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при вводе логина или пороля");
+                }
             }
         }
     }
