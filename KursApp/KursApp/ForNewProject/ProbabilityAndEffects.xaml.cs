@@ -57,8 +57,8 @@ namespace KursApp
         {
             try
             {
-                ((Risk)ChoisedRisks.SelectedItem).Influence = Double.Parse(Efect.Text);
-                ((Risk)ChoisedRisks.SelectedItem).Probability = Double.Parse(Prob.Text);
+                ((Risk)ChoisedRisks.SelectedItem).Influence = Double.Parse(Parsing(Efect.Text));
+                ((Risk)ChoisedRisks.SelectedItem).Probability = Double.Parse(Parsing(Prob.Text));
             }
             catch (ArgumentException ex)
             {
@@ -68,6 +68,19 @@ namespace KursApp
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private string Parsing(string l)
+        {
+            string ret = "";
+            for (int i = 0; i < l.Length; i++)
+            {
+                if (l[i] == '.') ret += ',';
+                else
+                {
+                    ret += l[i];
+                }
+            }
+            return ret;
         }
 
         private async void Conrinue_Click(object sender, RoutedEventArgs e)

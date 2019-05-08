@@ -24,16 +24,16 @@ namespace KursApp
             {
                 await sqlConnect.OpenAsync();
                 SqlCommand command =
-                    new SqlCommand("INSERT INTO [RiskData] (DRiskName,DProbability,DInfluence,DProject,DSourseOfRisk,DEffects,DDescriprion,DTypeOfProject) VALUES(@DriskName,@Dprobability,@Dinfluence,@Dproject,@DsourseOfRisk,@Deffects,@Ddescriprion,@DtypeOfProject)", sqlConnect);
+                    new SqlCommand("INSERT INTO [RiskData] (RiskName,Probability,Influence,Project,SourseOfRisk,Effects,Descriprion,TypeOfProject) VALUES(@riskName,@probability,@influence,@project,@sourseOfRisk,@effects,@descriprion,@typeOfProject)", sqlConnect);
 
-                command.Parameters.AddWithValue("DRiskName", risklst[i].RiskName);
-                command.Parameters.AddWithValue("DProbability", risklst[i].Probability);
-                command.Parameters.AddWithValue("DInfluence", risklst[i].Influence);
-                command.Parameters.AddWithValue("DProject", ProjectName);
-                command.Parameters.AddWithValue("DSourseOfRisk", risklst[i].SoursOfRisk);
-                command.Parameters.AddWithValue("DEffects", risklst[i].Effects);
-                command.Parameters.AddWithValue("DDescriprion", risklst[i].Description);
-                command.Parameters.AddWithValue("DTypeOfProject", risklst[i].TypeOfProject);
+                command.Parameters.AddWithValue("RiskName", risklst[i].RiskName);
+                command.Parameters.AddWithValue("Probability", risklst[i].Probability);
+                command.Parameters.AddWithValue("Influence", risklst[i].Influence);
+                command.Parameters.AddWithValue("Project", ProjectName);
+                command.Parameters.AddWithValue("SourseOfRisk", risklst[i].SoursOfRisk);
+                command.Parameters.AddWithValue("Effects", risklst[i].Effects);
+                command.Parameters.AddWithValue("Descriprion", risklst[i].Description);
+                command.Parameters.AddWithValue("TypeOfProject", risklst[i].TypeOfProject);
 
 
                 await command.ExecuteNonQueryAsync();
@@ -57,10 +57,11 @@ namespace KursApp
                 {     
                     if(ProjectName== Convert.ToString(sqlReader["Project"]))
                     {
-                        lst.Add(new Risk(Convert.ToString(sqlReader["DRiskName"]),Convert.ToString(sqlReader["DSourseOfRisk"]),
-                        Convert.ToString(sqlReader["DEffects"]),Convert.ToString(sqlReader["DDescriprion"]), 
-                        Convert.ToString(sqlReader["DTypeOfProject"]), Convert.ToDouble(sqlReader["DProbability"]),
-                        Convert.ToDouble(sqlReader["DInfluence"])));
+                        lst.Add(new Risk(Convert.ToString(sqlReader["RiskName"]),Convert.ToString(sqlReader["SourseOfRisk"]),
+                        Convert.ToString(sqlReader["Effects"]),Convert.ToString(sqlReader["Descriprion"]), 
+                        Convert.ToString(sqlReader["TypeOfProject"]), 
+                        Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Probability"]))),
+                        Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Influence"])))));
                     }
                 }
                 return lst;
@@ -76,6 +77,20 @@ namespace KursApp
                 sqlConnect.Close();
 
             }
+        }
+
+        private string Parsing(string l)
+        {
+            string ret="";
+            for (int i = 0; i < l.Length; i++)
+            {
+                if (l[i] == '.') ret+= ',';
+                else
+                {
+                    ret += l[i];
+                }
+            }
+            return ret;
         }
     }
 }
