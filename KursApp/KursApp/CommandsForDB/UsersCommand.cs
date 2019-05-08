@@ -39,12 +39,18 @@ namespace KursApp
                     if (login == Convert.ToString(sqlReader["Login"])
                         && password == Convert.ToString(sqlReader["Password"]))
                     {
-                        if ("Manager" == Convert.ToString(sqlReader["Position"]))
+                        if ("MainManager" == Convert.ToString(sqlReader["Position"]))
                         {
-                            return 2;
+                            return 3;
                         }
                         else
+                        {
+                            if ("ProjectManager" == Convert.ToString(sqlReader["Position"]))
+                            {
+                                return 2;
+                            }
                             return 1;
+                        }
                     }
                 }
             }
