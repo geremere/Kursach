@@ -16,6 +16,6 @@
         </ComboBox>
         <Label x:Name="Owner" Content="Choise owner:" Margin="15,80,0,320" HorizontalAlignment="Left" Width="168"/>
         <ListBox x:Name="Owners" Margin="15,120,0,0" HorizontalAlignment="Left" Width="324" Height="223" VerticalAlignment="Top"/>
-        <Button x:Name="Create" Content="Create" Height="40" Margin="20,370,9,29.8" Click="Create_Click"/>
+        <Button x:Name="Create" Content="Create" Height="40" Margin="20,360,20,25" Click="Create_Click"/>
     </Grid>
 </Window>

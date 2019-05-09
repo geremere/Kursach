@@ -114,12 +114,14 @@ namespace KursApp
 
         private void Delite_Click(object sender, RoutedEventArgs e)
         {
-
+            ChoisedRisks.Items.Remove(ChoisedRisks.SelectedItem);
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-
+            ChoiseRisks cr = new ChoiseRisks(project);
+            Close();
+            cr.Show();
         }
     }
 }
