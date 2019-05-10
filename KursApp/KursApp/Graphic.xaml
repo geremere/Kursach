@@ -17,7 +17,7 @@
                 <Label x:Name="Probability" Content="Probability" Margin="430,395,290,0"/>
             </Canvas.Children>
         </Canvas>
-        <TabControl x:Name="TabRisks" Margin="600,50,25,100">
+        <TabControl x:Name="TabRisks" Margin="600,50,25,90">
             <TabItem x:Name="RiskData">
                 <TabItem.Header>
                     <TextBlock FontSize="15" Background="Beige">Risk Data</TextBlock>
@@ -25,7 +25,7 @@
                 <TabItem.Content>
                     <StackPanel>
                         <ComboBox x:Name="ComboBox" Text="Risk Classificated" Width="250" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"  SelectionChanged="ComboBox_SelectionChanged"/>
-                        <ListView x:Name="lvwrisk" Margin="0,0">
+                        <ListView x:Name="lvwrisk" Margin="0,0" ScrollViewer.CanContentScroll="True">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Width="200" >
@@ -50,8 +50,7 @@
                                     <GridViewColumn Width="50">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <CheckBox Height="20" Width="50" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="{Binding Selected, Mode TwoWay, UpdateSourceTrigger PropertyChanged}" />
-                                            </DataTemplate> }" />
+                                                <CheckBox Height="20" Width="50" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="{Binding Selected}" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -66,11 +65,11 @@
                     <TextBlock FontSize="15" Background="Beige">Selected Risks</TextBlock>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <StackPanel>
+                    <StackPanel Margin="0,0,0.4,-7.8">
                         <ListView x:Name="SelRisks" Height="400">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Width="225" >
+                                    <GridViewColumn Width="200" >
                                         Name
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -78,21 +77,40 @@
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn DisplayMemberBinding="{Binding TypeOfProject}" Width="125" >
-                                        Type
-                                    </GridViewColumn>
-                                    <GridViewColumn Width="225">
-                                        Sourse
+                                    <GridViewColumn Width="150" >
+                                        Influence
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding SoursOfRisk}" TextWrapping="Wrap"/>
+                                                <TextBlock Text="{Binding Influence}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="150">
+                                        Probability
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Probability}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="50">
+                                        Status
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Height="20" Width="50" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="{Binding Selected}" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        
+                        <Grid Height="100">
+                            <TextBox x:Name="TBProb" Margin="150,0,0,75" />
+                            <Label x:Name="LInf" Content="Influence" Margin="0,30,400,45"/>
+                            <Label x:Name="LProb" Content="Probability" Margin="0,0,400,75"/>
+                            <Button x:Name="SetUp" Content="Set Up" Click="SetUp_Click" Margin="400,60,50,15"/>
+                            <TextBox x:Name="TBINf" Margin="150,30,0,45"/>
+                        </Grid>
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>

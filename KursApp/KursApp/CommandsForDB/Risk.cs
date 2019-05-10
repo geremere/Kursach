@@ -17,6 +17,7 @@ namespace KursApp
             Effects = effects;
             Description = description;
             TypeOfProject = typeOfProject;
+            Selected = false;
         }
 
         public Risk(double probability, double effect)
@@ -35,6 +36,7 @@ namespace KursApp
             TypeOfProject = typeOfProject;
             Probability = probability;
             Influence = influence;
+            Selected = true;
         }
 
         public int Id { get; set; }
@@ -45,7 +47,18 @@ namespace KursApp
         public string TypeOfProject { get; set; }
         double probability;
         public Point point;
-        public bool Selected = false;
+        bool selected;
+        public bool Selected
+        {
+            get
+            {
+                return selected;
+            }
+            set
+            {
+                selected = value;
+            }
+        }
         public double Probability
         {
             get

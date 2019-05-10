@@ -42,7 +42,7 @@ namespace KursApp
         {
             if (flag)
             {
-                //Drawing();
+                DrawLine();
                 DataCommands dc = new DataCommands();
                 SelectedRisks = await dc.GiveAllRisks(project.Name);
                 RisksCommand rc = new RisksCommand();
@@ -52,19 +52,50 @@ namespace KursApp
                 ComboBox.Items.Add(project.Type);
                 sourse = await rc.GiveRisksSourse();
                 Cheker();
+                ADDToSelctes();
                 for (int i = 0; i < sourse.Count; i++)
                 {
                     ComboBox.Items.Add(sourse[i]);
                 }
-                for (int i = 0; i < AllRisklst.Count; i++)
-                {
-                    if (AllRisklst[i].TypeOfProject == "default")
-                            lvwrisk.Items.Add(AllRisklst[i]);
-                }
                 flag = false;
             }
         }
+        /// <summary>
+        /// рисует гиперболу
+        /// </summary>
+        private void DrawLine()
+        {
+            cnv.Children.Clear();
+            double radius = 250;
+            const int K = 100;
+            for (int i = 0; i < K - 1; i++)
+            {
+                double old = center.X - radius + radius / K * i;
+                double nw = center.X - radius + radius / K * (i + 1);
 
+                Line l = new Line();
+                l.X1 = old;
+                l.X2 = nw;
+                l.Y1 = FindY(old, radius, center);
+                l.Y2 = FindY(nw, radius, center);
+                l.Stroke = Brushes.Black;
+                cnv.Children.Add(l);
+            }
+        }
+        /// <summary>
+        /// добавляет в вкладку выбранные риски
+        /// </summary>
+        private void ADDToSelctes()
+        {
+            for (int i = 0; i < SelectedRisks.Count; i++)
+            {
+                SelRisks.Items.Add(SelectedRisks[i]);
+            }
+        }
+
+        /// <summary>
+        /// проверяет не нахоядтся ли данные жлементы уже в проекте
+        /// </summary>
         private void Cheker()
         {
             for (int i = 0; i < AllRisklst.Count; i++)
@@ -237,6 +268,11 @@ namespace KursApp
         {
             ((Risk)((CheckBox)sender).DataContext).Selected = false;
             SelRisks.Items.Remove((Risk)((CheckBox)sender).DataContext);
+
+        }
+
+        private void SetUp_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
