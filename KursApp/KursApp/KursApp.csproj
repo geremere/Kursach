@@ -71,7 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CommandsForDB\DataCommands.cs" />
-    <Compile Include="ChoiseRisks.xaml.cs">
+    <Compile Include="ForAdmin\ChoiseRisks.xaml.cs">
       <DependentUpon>ChoiseRisks.xaml</DependentUpon>
     </Compile>
     <Compile Include="CommandsForDB\Risk.cs" />
@@ -79,7 +79,7 @@
     <Compile Include="CommandsForDB\User.cs" />
     <Compile Include="CommandsForDB\UsersCommand.cs" />
     <Compile Include="CommandsForDB\Project.cs" />
-    <Page Include="ChoiseRisks.xaml">
+    <Page Include="ForAdmin\ChoiseRisks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -110,7 +110,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProjectChoise.xaml">
+    <Page Include="ForProjectManager\ProjectChoise.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -118,7 +118,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProjectsRisks.xaml">
+    <Page Include="ForProjectManager\ProjectsRisks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -131,13 +131,13 @@
     <Compile Include="ForAdmin\ProbabilityAndEffects.xaml.cs">
       <DependentUpon>ProbabilityAndEffects.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProjectChoise.xaml.cs">
+    <Compile Include="ForProjectManager\ProjectChoise.xaml.cs">
       <DependentUpon>ProjectChoise.xaml</DependentUpon>
     </Compile>
     <Compile Include="ForAdmin\Projects.xaml.cs">
       <DependentUpon>Projects.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProjectsRisks.xaml.cs">
+    <Compile Include="ForProjectManager\ProjectsRisks.xaml.cs">
       <DependentUpon>ProjectsRisks.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -186,8 +186,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ForProjectManager\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

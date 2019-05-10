@@ -19,14 +19,17 @@ namespace KursApp
     /// </summary>
     public partial class Graphic : Window
     {
-        Point center = new Point(500, 50);
-        List<Risk> Risklst = null;
+        Point center = new Point(500, 50);//точка центра
+        List<Risk> AllRisklst = null;
+        List<string> sourse = null;//список возможных сортировок
         Point mousePos;// точка, в которой щапонимается знчени мыши
+        List<Risk> SelectedRisks = null;
         Point nowcenter;
         bool flag = true;
-        public Graphic(List<Risk> lst)
+        Project project = null;//проект
+        public Graphic(Project pr)
         {
-            Risklst = lst;
+            project = pr;
             InitializeComponent();
         }        
 
@@ -35,14 +38,48 @@ namespace KursApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Window_Activated(object sender, EventArgs e)
+        private async void Window_Activated(object sender, EventArgs e)
         {
             if (flag)
             {
-                Drawing();
+                //Drawing();
+                DataCommands dc = new DataCommands();
+                SelectedRisks = await dc.GiveAllRisks(project.Name);
+                RisksCommand rc = new RisksCommand();
+                AllRisklst = await rc.GiveAllRisks();
+                ComboBox.Items.Add("Общие риски");
+                ComboBox.Text = "Общие риски";
+                ComboBox.Items.Add(project.Type);
+                sourse = await rc.GiveRisksSourse();
+                Cheker();
+                for (int i = 0; i < sourse.Count; i++)
+                {
+                    ComboBox.Items.Add(sourse[i]);
+                }
+                for (int i = 0; i < AllRisklst.Count; i++)
+                {
+                    if (AllRisklst[i].TypeOfProject == "default")
+                            lvwrisk.Items.Add(AllRisklst[i]);
+                }
                 flag = false;
             }
         }
+
+        private void Cheker()
+        {
+            for (int i = 0; i < AllRisklst.Count; i++)
+            {
+                for (int j = 0; j < SelectedRisks.Count; j++)
+                {
+                    if (AllRisklst[i].RiskName == SelectedRisks[j].RiskName)
+                    {
+                        AllRisklst[i].Selected = true;
+                    }
+
+                }
+            }
+        }
+
         /// <summary>
         /// отрисовываем точки и геперболу
         /// </summary>
@@ -65,35 +102,30 @@ namespace KursApp
                 cnv.Children.Add(l);
             }
 
-            for (int i = 0; i < Risklst.Count; i++)
+            for (int i = 0; i < AllRisklst.Count; i++)
             {
-                Risklst[i].point.X = 425 * Risklst[i].Probability + 75;
-                Risklst[i].point.Y = -350 * Risklst[i].Influence + 400;
-                Ellipse elipse = new Ellipse();
-                elipse.Height = 5;
-                elipse.Width = 5;
-                elipse.StrokeThickness = 2;
-                if (Math.Sqrt((Risklst[i].point.X - center.X) * (Risklst[i].point.X - center.X) +
-                    (Risklst[i].point.Y - center.Y) * (Risklst[i].point.Y - center.Y)) < radius)
-                {
-                    DAngerous.Items.Remove(Risklst[i]);
-                    DAngerous.Items.Add(Risklst[i]);
-                    elipse.Stroke = Brushes.Red;
-                    elipse.Fill = Brushes.Red;
-                }
-                else
-                {
-                    if(DAngerous.HasItems)
-                    {
-                        DAngerous.Items.Remove(Risklst[i]);
-                    }
-                    elipse.Stroke = Brushes.Green;
-                    elipse.Fill = Brushes.Green;
-                }
-                elipse.VerticalAlignment = VerticalAlignment.Top;
-                elipse.HorizontalAlignment = HorizontalAlignment.Left;
-                elipse.Margin = new Thickness(Risklst[i].point.X, Risklst[i].point.Y, 0, 0);
-                cnv.Children.Add(elipse);
+                //Risklst[i].point.X = 425 * Risklst[i].Probability + 75;
+                //Risklst[i].point.Y = -350 * Risklst[i].Influence + 400;
+                //Ellipse elipse = new Ellipse();
+                //elipse.Height = 5;
+                //elipse.Width = 5;
+                //elipse.StrokeThickness = 2;
+                //if (Math.Sqrt((Risklst[i].point.X - center.X) * (Risklst[i].point.X - center.X) +
+                //    (Risklst[i].point.Y - center.Y) * (Risklst[i].point.Y - center.Y)) < radius)
+                //{
+
+                //    elipse.Stroke = Brushes.Red;
+                //    elipse.Fill = Brushes.Red;
+                //}
+                //else
+                //{
+                //    elipse.Stroke = Brushes.Green;
+                //    elipse.Fill = Brushes.Green;
+                //}
+                //elipse.VerticalAlignment = VerticalAlignment.Top;
+                //elipse.HorizontalAlignment = HorizontalAlignment.Left;
+                //elipse.Margin = new Thickness(Risklst[i].point.X, Risklst[i].point.Y, 0, 0);
+                //cnv.Children.Add(elipse);
             }
         }
 
@@ -140,7 +172,7 @@ namespace KursApp
                 center.Y = 230;
                 center.X = 250;
             }
-            Drawing();
+            //Drawing();
         }
 
         /// <summary>
@@ -150,6 +182,61 @@ namespace KursApp
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lvwrisk.Items.Clear();
+            if (ComboBox.SelectedItem.ToString() == "Общие риски")
+            {
+                for (int i = 0; i < AllRisklst.Count; i++)
+                {
+                    if(AllRisklst[i].TypeOfProject=="default")
+                        lvwrisk.Items.Add(AllRisklst[i]);
+                }
+            }
+            else
+            {
+                if (ComboBox.SelectedItem.ToString() == project.Type)
+                {
+                    for (int i = 0; i < AllRisklst.Count; i++)
+                    {
+                        if (AllRisklst[i].TypeOfProject == project.Type)
+                            lvwrisk.Items.Add(AllRisklst[i]);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < sourse.Count; i++)
+                    {
+                        if (ComboBox.SelectedItem.ToString() == sourse[i])
+                        {
+                            for (int j = 0; j < AllRisklst.Count; j++)
+                            {
+                                if ((AllRisklst[j].TypeOfProject == project.Type || AllRisklst[j].TypeOfProject == "default") && AllRisklst[j].SoursOfRisk == sourse[i])
+                                {
+                                    lvwrisk.Items.Add(AllRisklst[j]);
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            
+            ((Risk)((CheckBox)sender).DataContext).Selected = true;
+            SelRisks.Items.Add((Risk)((CheckBox)sender).DataContext);
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ((Risk)((CheckBox)sender).DataContext).Selected = false;
+            SelRisks.Items.Remove((Risk)((CheckBox)sender).DataContext);
 
         }
     }

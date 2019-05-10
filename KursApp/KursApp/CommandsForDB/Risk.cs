@@ -10,9 +10,8 @@ namespace KursApp
 {
     public class Risk
     {
-        public Risk(int id, string riskName, string soursOfRisk, string effects, string description, string typeOfProject)
+        public Risk(string riskName, string soursOfRisk, string effects, string description, string typeOfProject)
         {
-            Id = id;
             RiskName = riskName;
             SoursOfRisk = soursOfRisk;
             Effects = effects;
@@ -46,6 +45,7 @@ namespace KursApp
         public string TypeOfProject { get; set; }
         double probability;
         public Point point;
+        public bool Selected = false;
         public double Probability
         {
             get

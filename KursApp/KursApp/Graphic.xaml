@@ -5,17 +5,103 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="Graphic" Height="500" Width="900" Activated="Window_Activated" MouseDown="Cnv_MouseDown" MouseUp="Cnv_MouseUp">
+        Title="Graphic" Height="700" Width="1200" Activated="Window_Activated" MouseDown="Cnv_MouseDown" MouseUp="Cnv_MouseUp">
     <Grid x:Name="grid">
-        <Polyline Stroke="Black" Points="70, 60, 75, 50, 80, 60" />
-        <Label x:Name="Impact" Content="Impact" Margin="20,40,720,350"/>
-        <Line x:Name="X" X1="75"  Y1="50" X2="75" Y2="400" Stroke="Black" />
-        <Polyline Stroke="Black" Points="490, 395, 500, 400, 490, 405" />
-        <Line x:Name="Y" X1="75"  Y1="400" X2="500" Y2="400" Stroke="Black"/>
-        <Label x:Name="Probability" Content="Probability" Margin="430,395,290,0"/>
-        <Canvas x:Name="cnv" MouseDown="Cnv_MouseDown" MouseUp="Cnv_MouseUp"/>
-        <Label Content="Dangerous Risks:" Margin="590,35,60,375" FontSize="20"/>
-        <ListBox x:Name="DAngerous" Margin="580,80,25,70"/>
-        <Button Content="Continue" Margin="600,410,25,15" Click="Button_Click"/>
+        <Canvas x:Name="cnv" MouseDown="Cnv_MouseDown" MouseUp="Cnv_MouseUp" Margin="5,5,635,240">
+            <Canvas.Children>
+                <Polyline Stroke="Black" Points="70, 60, 75, 50, 80, 60" />
+                <Label x:Name="Impact" Content="Impact" Margin="20,40,720,350"/>
+                <Line x:Name="X" X1="75"  Y1="50" X2="75" Y2="400" Stroke="Black" />
+                <Polyline Stroke="Black" Points="490, 395, 500, 400, 490, 405" />
+                <Line x:Name="Y" X1="75"  Y1="400" X2="500" Y2="400" Stroke="Black"/>
+                <Label x:Name="Probability" Content="Probability" Margin="430,395,290,0"/>
+            </Canvas.Children>
+        </Canvas>
+        <TabControl x:Name="TabRisks" Margin="600,50,25,100">
+            <TabItem x:Name="RiskData">
+                <TabItem.Header>
+                    <TextBlock FontSize="15" Background="Beige">Risk Data</TextBlock>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <ComboBox x:Name="ComboBox" Text="Risk Classificated" Width="250" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"  SelectionChanged="ComboBox_SelectionChanged"/>
+                        <ListView x:Name="lvwrisk" Margin="0,0">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="200" >
+                                        Name
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding RiskName}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding TypeOfProject}" Width="100" >
+                                        Type
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="200">
+                                        Sourse
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding SoursOfRisk}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="50">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Height="20" Width="50" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="{Binding Selected, Mode TwoWay, UpdateSourceTrigger PropertyChanged}" />
+                                            </DataTemplate> }" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontSize="15" Background="Beige">Selected Risks</TextBlock>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <ListView x:Name="SelRisks" Height="400">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="225" >
+                                        Name
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding RiskName}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding TypeOfProject}" Width="125" >
+                                        Type
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="225">
+                                        Sourse
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding SoursOfRisk}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontSize="15" Background="Beige">Dangerouge Risks</TextBlock>
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
+        <Button Content="Continue" Margin="600,600,25,15" Click="Button_Click"/>
     </Grid>
 </Window>

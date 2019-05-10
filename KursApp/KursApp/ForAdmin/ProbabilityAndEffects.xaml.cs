@@ -96,9 +96,9 @@ namespace KursApp
             {
                 DataCommands dc = new DataCommands();
                 await dc.IsertNewRisks(lst, project.Name);
-                Graphic gr = new Graphic(lst);
-                Close();
-                gr.Show();
+                //Graphic gr = new Graphic(lst);
+                //Close();
+                //gr.Show();
             }
         }
 

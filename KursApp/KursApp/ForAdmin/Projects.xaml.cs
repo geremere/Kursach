@@ -48,10 +48,10 @@ namespace KursApp
             newpr.Show();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Project project = (Project)listBox.SelectedItem;
-            ProjectsRisks pr = new ProjectsRisks(project);
+            Graphic pr = new Graphic(project);
             Close();
             pr.Show();
         }

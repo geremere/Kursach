@@ -18,6 +18,12 @@ namespace KursApp
             sqlConnect = new SqlConnection(key);
         }
 
+        /// <summary>
+        /// записывает новые риски в проект
+        /// </summary>
+        /// <param name="risklst"></param>
+        /// <param name="ProjectName"></param>
+        /// <returns></returns>
         public async Task IsertNewRisks(List<Risk> risklst, string ProjectName)
         {
             for (int i = 0; i < risklst.Count; i++)
@@ -43,6 +49,11 @@ namespace KursApp
 
         }
 
+         /// <summary>
+         /// выдает все риски проекта
+         /// </summary>
+         /// <param name="ProjectName"></param>
+         /// <returns></returns>
         public async Task<List<Risk>> GiveAllRisks(string ProjectName)
         {
             List<Risk> lst = new List<Risk>();
