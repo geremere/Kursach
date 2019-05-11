@@ -20,6 +20,8 @@ namespace KursApp
     public partial class Graphic : Window
     {
         Point center = new Point(500, 50);//точка центра
+        const double radius = 250;
+        const int K = 100;
         List<Risk> AllRisklst = null;
         List<string> sourse = null;//список возможных сортировок
         Point mousePos;// точка, в которой щапонимается знчени мыши
@@ -44,7 +46,6 @@ namespace KursApp
         {
             if (flag)
             {
-                Drawing();
                 DataCommands dc = new DataCommands();
                 SelectedRisks = await dc.GiveAllRisks(project.Name);
                 RisksCommand rc = new RisksCommand();
@@ -59,6 +60,7 @@ namespace KursApp
                 {
                     ComboBox.Items.Add(sourse[i]);
                 }
+                Drawing();
                 flag = false;
             }
         }
@@ -97,8 +99,6 @@ namespace KursApp
         private void Drawing()
         {
             cnv.Children.Clear();
-            double radius = 250;
-            const int K = 100;
             for (int i = 0; i < K - 1; i++)
             {
                 double old = center.X - radius + radius / K * i;
@@ -163,30 +163,11 @@ namespace KursApp
         /// <param name="e"></param>
         private void Cnv_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            mousePos = e.GetPosition(null);
-            nowcenter = center;
-        }
-
-        /// <summary>
-        /// mouseup двигаем гиперболу
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Cnv_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            center.X = nowcenter.X - mousePos.X + e.GetPosition(null).X;
-            center.Y = nowcenter.Y - mousePos.Y + e.GetPosition(null).Y;
-            if(center.X>750 || center.Y<-200)
+            if (e.GetPosition(null).X < 540 && e.GetPosition(null).Y < 450)
             {
-                center.Y = -150;
-                center.X = 750;
+                mousePos = e.GetPosition(null);
+                nowcenter = center;
             }
-            if(center.Y>230||center.X<250)
-            {
-                center.Y = 230;
-                center.X = 250;
-            }
-            Drawing();
         }
 
         /// <summary>
@@ -257,6 +238,11 @@ namespace KursApp
 
         }
 
+        /// <summary>
+        /// кнопка установления риску вероятности и эффекта и также в бивани его в бд
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void SetUp_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -308,6 +294,62 @@ namespace KursApp
                 TBINf.Text = ((Risk)SelRisks.SelectedItem).Influence.ToString();
                 TBProb.Text = ((Risk)SelRisks.SelectedItem).Probability.ToString();
             }
+        }
+        /// <summary>
+        /// перемещие гиперболы во время движения мыши
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Cnv_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.GetPosition(null).X < 540 && e.GetPosition(null).Y < 450 && e.LeftButton == MouseButtonState.Pressed)
+            {
+                center.X = nowcenter.X - mousePos.X + e.GetPosition(null).X;
+                center.Y = nowcenter.Y  + (mousePos.X - e.GetPosition(null).X)/1.2;
+                if (center.X > 650 || center.Y < -100)
+                {
+                    center.Y = -100;
+                    center.X = 650;
+                }
+                if (center.Y > 230 || center.X < 250)
+                {
+                    center.Y = 230;
+                    center.X = 250;
+                }
+                Drawing();
+            }
+        }
+        /// <summary>
+        /// находим опасные риски
+        /// </summary>
+        private void FindDangerousRisks()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DanRisks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        /// <summary>
+        /// находим опасные риски
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            DanRisks.Items.Clear();
+            for (int i = 0; i < SelRisks.Items.Count; i++)
+            {
+                if (Math.Sqrt((((Risk)SelRisks.Items[i]).point.X - center.X) * (((Risk)SelRisks.Items[i]).point.X - center.X) +
+                    (((Risk)SelRisks.Items[i]).point.Y - center.Y) * (((Risk)SelRisks.Items[i]).point.Y - center.Y)) < radius)
+                {
+                    DanRisks.Items.Add((Risk)SelRisks.Items[i]);
+                }
+
+            }
+
+
         }
     }
 }

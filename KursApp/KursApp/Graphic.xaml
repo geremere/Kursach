@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="Graphic" Height="700" Width="1200" Activated="Window_Activated" MouseDown="Cnv_MouseDown" MouseUp="Cnv_MouseUp">
+        Title="Graphic" Height="700" Width="1200" Activated="Window_Activated" MouseDown="Cnv_MouseDown" MouseMove="Cnv_MouseMove" MouseUp="Window_MouseUp">
     <Grid x:Name="grid">
         <Line X1="75" X2="75" Y1="50" Y2="400" Stroke="Black"/>
         <Line X1="75" X2="500" Y1="400" Y2="400" Stroke="Black"/>
-        <Label x:Name="Im" Content="Impact" Margin="20,40,665.6,215.4"/>
-        <Label x:Name="Probability" Content="Probability" Margin="430,395,290,0"/>
+        <Label x:Name="Im" Content="Impact" Margin="20,40,1100,590"/>
+        <Label x:Name="Probability" Content="Probability" Margin="430,395,685,230"/>
         <Polyline Stroke="Black" Points="70, 60, 75, 50, 80, 60" />
         <Polyline Stroke="Black" Points="490, 395, 500, 400, 490, 405" />
-        <Canvas x:Name="cnv" MouseDown="Cnv_MouseDown" MouseUp="Cnv_MouseUp" Margin="5,5,635,240">
+        <Canvas x:Name="cnv" Margin="0,0,640,250" >
         </Canvas>
         <TabControl x:Name="TabRisks" Margin="600,50,25,90">
             <TabItem x:Name="RiskData">
@@ -116,6 +116,40 @@
                 <TabItem.Header>
                     <TextBlock FontSize="15" Background="Beige">Dangerouge Risks</TextBlock>
                 </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <ListView x:Name="DanRisks" Height="400" SelectionChanged="DanRisks_SelectionChanged">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="200" >
+                                        Name
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding RiskName}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="175" >
+                                        Influence
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding SoursOfRisk}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="175">
+                                        Probability
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Effects}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </TabItem.Content>
             </TabItem>
         </TabControl>
         <Button Content="Continue" Margin="600,600,25,15" Click="Button_Click"/>
