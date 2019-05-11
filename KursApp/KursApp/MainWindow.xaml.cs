@@ -39,10 +39,7 @@ namespace KursApp
             UsersCommand uc = new UsersCommand();
             if (await uc.InLogin(textBox.Text.Trim(),passwordBox.Password.Trim())==3)
             {
-                UsersCommand uc3 = new UsersCommand();
-
-                User Admin = await uc3.GiveUser(textBox.Text.Trim(), passwordBox.Password.Trim());
-                Projects np = new Projects(Admin);
+                Projects np = new Projects();
                 Close();
                 np.Show();
             }
@@ -50,22 +47,13 @@ namespace KursApp
             {
                 if (await uc.InLogin(textBox.Text.Trim(), passwordBox.Password.Trim()) == 2)
                 {
-                    UsersCommand uc2 = new UsersCommand();
-
-                    User ProjectManager = await uc2.GiveUser(textBox.Text.Trim(), passwordBox.Password.Trim());
-
-                    //Graphic pc = new ProjectChoise(ProjectManager);
                     Close();
-                    //pc.Show();
                 }
                 else
                 {
                     if(await uc.InLogin(textBox.Text.Trim(), passwordBox.Password.Trim()) == 1)
                     {
-                        UsersCommand uc1 = new UsersCommand();
-
-                        User RiskManager = await uc1.GiveUser(textBox.Text.Trim(), passwordBox.Password.Trim());
-
+                        Close();
                     }
                     else
                         MessageBox.Show("Ошибка при вводе логина или пороля");

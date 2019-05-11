@@ -128,5 +128,39 @@ namespace KursApp
             }
             return null;
         }
+
+        public async Task<User> GiveOwner(string login)
+        {
+            SqlDataReader sqlReader = null;
+            SqlCommand command = new SqlCommand("SELECT * FROM[Users]", sqlConnect);
+            await sqlConnect.OpenAsync();
+
+            try
+            {
+                sqlReader = await command.ExecuteReaderAsync();
+                while (await sqlReader.ReadAsync())
+                {
+                    //string login = Convert.ToString(sqlReader["Password"]);
+
+                    if (login == Convert.ToString(sqlReader["Login"]))
+                    {
+                        return (new User(Convert.ToInt32(sqlReader["id"]), Convert.ToString(sqlReader["Name"]),
+                            Convert.ToString(sqlReader["Login"]), Convert.ToString(sqlReader["Password"]), Convert.ToString(sqlReader["Position"])));
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                if (sqlReader != null)
+                    sqlReader.Close();
+                sqlConnect.Close();
+            }
+            return null;
+        }
     }
 }

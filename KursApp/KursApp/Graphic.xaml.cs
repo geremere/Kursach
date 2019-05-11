@@ -29,10 +29,8 @@ namespace KursApp
         Point nowcenter;
         bool flag = true;
         Project project = null;//проект
-        User user = null;
-        public Graphic(Project pr,User us)
+        public Graphic(Project pr)
         {
-            user = us;
             project = pr;
             InitializeComponent();
         }        
@@ -61,11 +59,24 @@ namespace KursApp
                 }
                 Drawing();
                 FindDangerougeRisks();
+                await WriteOwners();
                 flag = false;
             }
         }
+
+        private async Task WriteOwners()
+        {
+            List<User> userslst = await new UsersCommand().GiveAllUsers();
+            Owner.Text = "Choise Owner";
+            for (int i = 0; i < userslst.Count; i++)
+            {
+                Owner.Items.Add(userslst[i]);
+            }
+        }
+
         /// <summary>
         /// добавляет в вкладку выбранные риски
+        /// также убирает их из выбора
         /// </summary>
         private void ADDToSelctes()
         {
@@ -87,6 +98,7 @@ namespace KursApp
                     if (AllRisklst[i].RiskName == SelectedRisks[j].RiskName)
                     {
                         AllRisklst[i].Selected = true;
+                        AllRisklst.RemoveAt(i);
                     }
 
                 }
@@ -179,11 +191,13 @@ namespace KursApp
         {
 
         }
-
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lvwrisk.Items.Clear();
             Cheker();
+            if(flag)
+            {
+            }
             if (ComboBox.SelectedItem.ToString() == "Общие риски")
             {
                 for (int i = 0; i < AllRisklst.Count; i++)
@@ -222,53 +236,26 @@ namespace KursApp
             }
         }
 
-        /// <summary>
-        /// добавляет элементы в выбранные
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            if (CheckIsSelected(((Risk)((CheckBox)sender).DataContext)))
-            {
-                ((Risk)((CheckBox)sender).DataContext).Selected = true;
-                SelectedRisks.Add((Risk)((CheckBox)sender).DataContext);
-                SelRisks.Items.Add((Risk)((CheckBox)sender).DataContext);
-            }
-        }
+    
 
         /// <summary>
-        /// 
+        /// проверяет нет ли в выбранных уже такого элемента
         /// </summary>
         /// <param name="checkrisk"></param>
         /// <returns></returns>
         private bool CheckIsSelected(Risk checkrisk)
         {
-            if (SelRisks != null)
+            if (SelRisks.Items.Count != 0)
             {
                 for (int i = 0; i < SelRisks.Items.Count; i++)
                 {
-                    if (checkrisk.RiskName == ((Risk)SelRisks.Items[i]).RiskName)
+                    if (checkrisk.Id == ((Risk)SelRisks.Items[i]).Id)
                         return false;
                 }
                 return true;
             }
             return true;
-        }
-        
-        /// <summary>
-        /// убираенм жлменты из выбранных
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-
-            ((Risk)((CheckBox)sender).DataContext).Selected = false;
-            SelectedRisks.Remove((Risk)((CheckBox)sender).DataContext);
-            SelRisks.Items.Remove((Risk)((CheckBox)sender).DataContext);
-
-        }
+        }       
 
         /// <summary>
         /// кнопка установления риску вероятности и эффекта и также в бивани его в бд
@@ -279,29 +266,31 @@ namespace KursApp
         {
             try
             {
-                if (SelRisks.SelectedItem != null && Double.Parse(Parsing(TBINf.Text)) != default(Double) && Double.Parse(Parsing(TBProb.Text)) != default(Double))
+                if (SelRisks.SelectedItems != null && 
+                    Double.Parse(Parsing(TBINf.Text)) != default(Double) && 
+                    Double.Parse(Parsing(TBProb.Text)) != default(Double)
+                    && Owner.SelectedItem != null)
                 {
                     ((Risk)SelRisks.SelectedItem).Influence = double.Parse(Parsing(TBINf.Text));
                     ((Risk)SelRisks.SelectedItem).Probability = double.Parse(Parsing(TBProb.Text));
                     DataCommands dc = new DataCommands();
-                    await dc.IsertNewRisks((Risk)SelRisks.SelectedItem, project.Name, user);
-
+                    await dc.UpdateRisks((Risk)SelRisks.SelectedItem, project.Name,(User)Owner.SelectedItem);
                     SelRisks.Items.Clear();
+                    SelectedRisks = await dc.GiveAllRisks(project.Name);
                     for (int i = 0; i < SelectedRisks.Count; i++)
                     {
                         SelRisks.Items.Add(SelectedRisks[i]);
-
                     }
                     Drawing();
                 }
                 else
                 {
-                    MessageBox.Show("Wrong in enpty");
+                    MessageBox.Show("Wrong in enpty1");
                 }
             }
             catch(Exception)
             {
-                MessageBox.Show("Wrong in enpty");
+                MessageBox.Show("Wrong in enpty2");
 
             }
         }
@@ -385,7 +374,8 @@ namespace KursApp
         }
 
         /// <summary>
-        /// находим опасные риски
+        /// Это не работать
+        /// не общай внимания моешьпотом удалить
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -438,6 +428,61 @@ namespace KursApp
                 line += $"RiskName: {click[i].RiskName}\nSourse: {click[i].SoursOfRisk}";
             }
             return line;
-        }        
+        }
+        /// <summary>
+        /// прописать удаление 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void Delite_Click(object sender, RoutedEventArgs e)
+        {
+                
+            DataCommands dc = new DataCommands();
+            await dc.DeliteRisk((Risk)((Button)sender).DataContext);
+            AllRisklst.Add(((Risk)(((Button)sender).DataContext)));
+            SelectedRisks.Remove((Risk)((Button)sender).DataContext);
+            SelRisks.Items.Remove((Risk)((Button)sender).DataContext);
+            Drawing();
+        }
+
+        private async void Add_Click(object sender, RoutedEventArgs e)
+        {
+            if (CheckIsSelected(((Risk)((Button)sender).DataContext)))
+            {
+                ProbabilityInfluenceOwner piow = new ProbabilityInfluenceOwner();
+                if(piow.ShowDialog() == true)
+                {
+                    try
+                    {
+                        ((Risk)((Button)sender).DataContext).Influence = piow.Influence;
+                        ((Risk)((Button)sender).DataContext).Probability = piow.Probability;
+                        DataCommands dc = new DataCommands();
+                        await dc.IsertNewRisks((Risk)((Button)sender).DataContext, project.Name, piow.Owner);
+                        
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Wrong in enpty");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+                SelectedRisks.Add((Risk)((Button)sender).DataContext);
+                //((Risk)((Button)sender).DataContext).Selected = true;
+                SelRisks.Items.Clear();
+                for (int i = 0; i < SelectedRisks.Count; i++)
+                {
+                    SelRisks.Items.Add(SelectedRisks[i]);
+                }
+                Drawing();
+                AllRisklst.Remove((Risk)((Button)sender).DataContext);
+            }
+            else
+            {
+                MessageBox.Show("Данный элемент уже выбран");
+            }
+        }
     }
 }

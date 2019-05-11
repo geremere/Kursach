@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="Graphic" Height="700" Width="1200" Activated="Window_Activated" MouseDown="Cnv_MouseDown" MouseMove="Cnv_MouseMove" MouseUp="Window_MouseUp">
+        Title="Graphic" Height="700" Width="1200" Activated="Window_Activated" WindowStartupLocation="CenterScreen" MouseDown="Cnv_MouseDown" MouseMove="Cnv_MouseMove" MouseUp="Window_MouseUp">
     <Grid x:Name="grid">
         <ToolBar VerticalAlignment="Top" HorizontalAlignment="Left">
             <ToolBar.Header>
@@ -47,7 +47,7 @@
                                     <GridViewColumn DisplayMemberBinding="{Binding TypeOfProject}" Width="100" >
                                         Type
                                     </GridViewColumn>
-                                    <GridViewColumn Width="200">
+                                    <GridViewColumn Width="100">
                                         Sourse
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -55,10 +55,11 @@
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn Width="50">
+                                    <GridViewColumn Width="100">
+                                         To Selected
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <CheckBox Height="20" Width="50" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="{Binding Selected}" />
+                                                <Button x:Name="Add" Content="Add to Selected" Click="Add_Click"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -74,10 +75,10 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <StackPanel Margin="0,0,0,0">
-                        <ListView x:Name="SelRisks" Height="400" SelectionChanged="SelRisks_SelectionChanged">
+                        <ListView x:Name="SelRisks" Height="370" SelectionChanged="SelRisks_SelectionChanged">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Width="200" >
+                                    <GridViewColumn Width="150" >
                                         Name
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -85,19 +86,27 @@
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn Width="175" >
+                                    <GridViewColumn Width="125" >
                                         Influence
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Influence}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Influence}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="125">
+                                        Probability
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Probability}" TextWrapping="Wrap"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Width="175">
-                                        Probability
+                                        Delite
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Probability}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                <Button x:Name="Delete" Content="Delete" Click="Delite_Click"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -106,9 +115,10 @@
                         </ListView>
                         <Grid Height="100">
                             <TextBox x:Name="TBProb" Margin="150,5,300,70" />
-                            <Label x:Name="LInf" Content="Influence" Margin="0,35,400,40"/>
+                            <Label x:Name="LInf" Content="Influence" Margin="0,35,400,35"/>
                             <Label x:Name="LProb" Content="Probability" Margin="0,5,400,70"/>
-                            <Button x:Name="SetUp" Content="Set Up" Click="SetUp_Click" Margin="5,65,450,10"/>
+                            <ComboBox x:Name="Owner" Text="Owner" Margin="300,15,50,25"/>
+                            <Button x:Name="SetUp" Content="Set Up" Click="SetUp_Click" Margin="5,70,450,10"/>
                             <TextBox x:Name="TBINf" Margin="150,35,300,40"/>
                         </Grid>
                     </StackPanel>

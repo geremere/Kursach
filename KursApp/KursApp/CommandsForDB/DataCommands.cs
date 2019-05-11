@@ -28,7 +28,7 @@ namespace KursApp
         {
             await sqlConnect.OpenAsync();
             SqlCommand command =
-                new SqlCommand("INSERT INTO [RiskData] (RiskName,Probability,Influence,Project,SourseOfRisk,Effects,Descriprion,TypeOfProject) VALUES(@riskName,@probability,@influence,@project,@sourseOfRisk,@effects,@descriprion,@typeOfProject)", sqlConnect);
+                new SqlCommand("INSERT INTO [RiskData] (RiskName,Probability,Influence,Project,SourseOfRisk,Effects,Descriprion,TypeOfProject,OwnerLogin,OwnerId) VALUES(@riskName,@probability,@influence,@project,@sourseOfRisk,@effects,@descriprion,@typeOfProject,@OwnerLogin,@OwnerId)", sqlConnect);
 
             command.Parameters.AddWithValue("RiskName", risk.RiskName);
             command.Parameters.AddWithValue("Probability", risk.Probability);
@@ -46,11 +46,48 @@ namespace KursApp
 
         }
 
-         /// <summary>
-         /// выдает все риски проекта
-         /// </summary>
-         /// <param name="ProjectName"></param>
-         /// <returns></returns>
+        public async Task UpdateRisks(Risk risk, string ProjectName, User Owner)
+        {
+            await sqlConnect.OpenAsync();
+            SqlCommand command =
+                new SqlCommand("UPDATE [RiskData] SET [Probability]= @Probability, [Influence]= @Influence, [OwnerLogin]= @OwnerLogin, [OwnerId]= @OwnerId WHERE id=@id", sqlConnect);
+
+            command.Parameters.AddWithValue("Id", risk.Id);
+            command.Parameters.AddWithValue("Probability", risk.Probability);
+            command.Parameters.AddWithValue("Influence", risk.Influence);
+            command.Parameters.AddWithValue("OwnerLogin", Owner.Login);
+            command.Parameters.AddWithValue("OwnerId", Owner.Id);
+
+            await command.ExecuteNonQueryAsync();
+            sqlConnect.Close();
+
+        }
+
+        public async Task DeliteRisk(Risk risk)
+        {
+            try
+            {
+                await sqlConnect.OpenAsync();
+                SqlCommand command = new SqlCommand("DELETE FROM [RiskData] WHERE [Id]=@Id", sqlConnect);
+
+                command.Parameters.AddWithValue("Id", risk.Id);
+                await command.ExecuteNonQueryAsync();
+            }
+            catch (Exception)
+            {
+            }
+            finally
+            {
+                sqlConnect.Close();
+            }
+
+        }
+
+        /// <summary>
+        /// выдает все риски проекта
+        /// </summary>
+        /// <param name="ProjectName"></param>
+        /// <returns></returns>
         public async Task<List<Risk>> GiveAllRisks(string ProjectName)
         {
             List<Risk> lst = new List<Risk>();
@@ -65,7 +102,7 @@ namespace KursApp
                 {     
                     if(ProjectName== Convert.ToString(sqlReader["Project"]))
                     {
-                        lst.Add(new Risk(Convert.ToString(sqlReader["RiskName"]),Convert.ToString(sqlReader["SourseOfRisk"]),
+                        lst.Add(new Risk(Convert.ToInt32(sqlReader["Id"]),Convert.ToString(sqlReader["RiskName"]),Convert.ToString(sqlReader["SourseOfRisk"]),
                         Convert.ToString(sqlReader["Effects"]),Convert.ToString(sqlReader["Descriprion"]), 
                         Convert.ToString(sqlReader["TypeOfProject"]), 
                         Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Probability"]))),

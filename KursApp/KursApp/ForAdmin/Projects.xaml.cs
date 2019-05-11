@@ -20,13 +20,10 @@ namespace KursApp
     public partial class Projects : Window
     {
         bool flagApearing = true;
-        public Projects(User us)
+        public Projects()
         {
-            user = us;
-            InitializeComponent();
-            
+            InitializeComponent();            
         }
-        User user = null;
         private async void Window_Activated(object sender, EventArgs e)
         {
             if (flagApearing)
@@ -44,7 +41,7 @@ namespace KursApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NewProject newpr = new NewProject(user);
+            NewProject newpr = new NewProject();
             Close();
             newpr.Show();
         }
@@ -52,7 +49,7 @@ namespace KursApp
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Project project = (Project)listBox.SelectedItem;
-            Graphic pr = new Graphic(project,user);
+            Graphic pr = new Graphic(project);
             Close();
             pr.Show();
         }

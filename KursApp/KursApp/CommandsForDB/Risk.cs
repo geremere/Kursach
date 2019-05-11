@@ -10,8 +10,9 @@ namespace KursApp
 {
     public class Risk
     {
-        public Risk(string riskName, string soursOfRisk, string effects, string description, string typeOfProject)
+        public Risk(int id,string riskName, string soursOfRisk, string effects, string description, string typeOfProject)
         {
+            Id = id;
             RiskName = riskName;
             SoursOfRisk = soursOfRisk;
             Effects = effects;
@@ -26,9 +27,10 @@ namespace KursApp
             Influence = effect;
         }
 
-        public Risk(string riskName, string soursOfRisk, string effects, string description,
+        public Risk(int id, string riskName, string soursOfRisk, string effects, string description,
             string typeOfProject, double probability, double influence) 
         {
+            Id = id;
             RiskName = riskName;
             SoursOfRisk = soursOfRisk;
             Effects = effects;

@@ -39,7 +39,8 @@ namespace KursApp
                 {
                     if (type==Convert.ToString(sqlReader["Type of project"]))
                     {
-                        lst.Add(new Risk(Convert.ToString(sqlReader["Risk Name"]),
+                        lst.Add(new Risk(Convert.ToInt32(sqlReader["Id"]),
+                            Convert.ToString(sqlReader["Risk Name"]),
                             Convert.ToString(sqlReader["Sourse Of Risk"]), Convert.ToString(sqlReader["Effects"]), 
                             Convert.ToString(sqlReader["Descriprion"]), Convert.ToString(sqlReader["Type of project"])));
                     }
@@ -58,6 +59,19 @@ namespace KursApp
 
             }
         }
+        private string Parsing(string l)
+        {
+            string ret = "";
+            for (int i = 0; i < l.Length; i++)
+            {
+                if (l[i] == '.') ret += ',';
+                else
+                {
+                    ret += l[i];
+                }
+            }
+            return ret;
+        }
 
         /// <summary>
         /// выдает все риски проекта
@@ -75,7 +89,8 @@ namespace KursApp
                 sqlReader = await command.ExecuteReaderAsync();
                 while (await sqlReader.ReadAsync())
                 {
-                        lst.Add(new Risk(Convert.ToString(sqlReader["Risk Name"]), Convert.ToString(sqlReader["Sourse of Risk"]),
+                        lst.Add(new Risk(Convert.ToInt32(sqlReader["Id"]),
+                            Convert.ToString(sqlReader["Risk Name"]), Convert.ToString(sqlReader["Sourse of Risk"]),
                         Convert.ToString(sqlReader["Effects"]), Convert.ToString(sqlReader["Descriprion"]),
                         Convert.ToString(sqlReader["Type of Project"])));
                 }
@@ -148,7 +163,7 @@ namespace KursApp
                     if (sourse == Convert.ToString(sqlReader["Sourse of Risk"]) && 
                         (type == Convert.ToString(sqlReader["Type of project"]) || "default" == Convert.ToString(sqlReader["Type of project"])))
                     {
-                        lst.Add(new Risk(Convert.ToString(sqlReader["Risk Name"]),
+                        lst.Add(new Risk(Convert.ToInt32(sqlReader["Id"]),Convert.ToString(sqlReader["Risk Name"]),
                             Convert.ToString(sqlReader["Sourse Of Risk"]), Convert.ToString(sqlReader["Effects"]),
                             Convert.ToString(sqlReader["Descriprion"]), Convert.ToString(sqlReader["Type of project"])));
                     }

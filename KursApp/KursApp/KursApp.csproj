@@ -107,6 +107,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ProbabilityInfluenceOwner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandsForDB\ProjectCommands.cs" />
@@ -118,6 +122,9 @@
     </Compile>
     <Compile Include="ForAdmin\Projects.xaml.cs">
       <DependentUpon>Projects.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProbabilityInfluenceOwner.xaml.cs">
+      <DependentUpon>ProbabilityInfluenceOwner.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

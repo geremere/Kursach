@@ -68,3 +68,5 @@ C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\NewProject.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\Projects.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForProjectManager\ProjectChoise.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForProjectManager\ProjectChoise.baml
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ProbabilityInfluenceOwner.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ProbabilityInfluenceOwner.baml
