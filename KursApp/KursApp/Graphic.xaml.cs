@@ -27,8 +27,10 @@ namespace KursApp
         Point nowcenter;
         bool flag = true;
         Project project = null;//проект
-        public Graphic(Project pr)
+        User user = null;
+        public Graphic(Project pr,User us)
         {
+            user = us;
             project = pr;
             InitializeComponent();
         }        
@@ -42,7 +44,7 @@ namespace KursApp
         {
             if (flag)
             {
-                DrawLine();
+                Drawing();
                 DataCommands dc = new DataCommands();
                 SelectedRisks = await dc.GiveAllRisks(project.Name);
                 RisksCommand rc = new RisksCommand();
@@ -58,28 +60,6 @@ namespace KursApp
                     ComboBox.Items.Add(sourse[i]);
                 }
                 flag = false;
-            }
-        }
-        /// <summary>
-        /// рисует гиперболу
-        /// </summary>
-        private void DrawLine()
-        {
-            cnv.Children.Clear();
-            double radius = 250;
-            const int K = 100;
-            for (int i = 0; i < K - 1; i++)
-            {
-                double old = center.X - radius + radius / K * i;
-                double nw = center.X - radius + radius / K * (i + 1);
-
-                Line l = new Line();
-                l.X1 = old;
-                l.X2 = nw;
-                l.Y1 = FindY(old, radius, center);
-                l.Y2 = FindY(nw, radius, center);
-                l.Stroke = Brushes.Black;
-                cnv.Children.Add(l);
             }
         }
         /// <summary>
@@ -133,30 +113,33 @@ namespace KursApp
                 cnv.Children.Add(l);
             }
 
-            for (int i = 0; i < AllRisklst.Count; i++)
+            for (int i = 0; i < SelRisks.Items.Count; i++)
             {
-                //Risklst[i].point.X = 425 * Risklst[i].Probability + 75;
-                //Risklst[i].point.Y = -350 * Risklst[i].Influence + 400;
-                //Ellipse elipse = new Ellipse();
-                //elipse.Height = 5;
-                //elipse.Width = 5;
-                //elipse.StrokeThickness = 2;
-                //if (Math.Sqrt((Risklst[i].point.X - center.X) * (Risklst[i].point.X - center.X) +
-                //    (Risklst[i].point.Y - center.Y) * (Risklst[i].point.Y - center.Y)) < radius)
-                //{
+                if(SelectedRisks[i].Probability!=default(Double)&& SelectedRisks[i].Influence!=default(Double))
+                {
+                    ((Risk)SelRisks.Items[i]).point.X = 425 * ((Risk)SelRisks.Items[i]).Probability + 75;
+                    ((Risk)SelRisks.Items[i]).point.Y = -350 * ((Risk)SelRisks.Items[i]).Influence + 400;
+                    Ellipse elipse = new Ellipse();
+                    elipse.Height = 5;
+                    elipse.Width = 5;
+                    elipse.StrokeThickness = 2;
+                    if (Math.Sqrt((((Risk)SelRisks.Items[i]).point.X - center.X) * (((Risk)SelRisks.Items[i]).point.X - center.X) +
+                        (((Risk)SelRisks.Items[i]).point.Y - center.Y) * (((Risk)SelRisks.Items[i]).point.Y - center.Y)) < radius)
+                    {
 
-                //    elipse.Stroke = Brushes.Red;
-                //    elipse.Fill = Brushes.Red;
-                //}
-                //else
-                //{
-                //    elipse.Stroke = Brushes.Green;
-                //    elipse.Fill = Brushes.Green;
-                //}
-                //elipse.VerticalAlignment = VerticalAlignment.Top;
-                //elipse.HorizontalAlignment = HorizontalAlignment.Left;
-                //elipse.Margin = new Thickness(Risklst[i].point.X, Risklst[i].point.Y, 0, 0);
-                //cnv.Children.Add(elipse);
+                        elipse.Stroke = Brushes.Red;
+                        elipse.Fill = Brushes.Red;
+                    }
+                    else
+                    {
+                        elipse.Stroke = Brushes.Green;
+                        elipse.Fill = Brushes.Green;
+                    }
+                    elipse.VerticalAlignment = VerticalAlignment.Top;
+                    elipse.HorizontalAlignment = HorizontalAlignment.Left;
+                    elipse.Margin = new Thickness(((Risk)SelRisks.Items[i]).point.X, ((Risk)SelRisks.Items[i]).point.Y, 0, 0);
+                    cnv.Children.Add(elipse);
+                }               
             }
         }
 
@@ -203,7 +186,7 @@ namespace KursApp
                 center.Y = 230;
                 center.X = 250;
             }
-            //Drawing();
+            Drawing();
         }
 
         /// <summary>
@@ -261,19 +244,70 @@ namespace KursApp
         {
             
             ((Risk)((CheckBox)sender).DataContext).Selected = true;
+            SelectedRisks.Add((Risk)((CheckBox)sender).DataContext);
             SelRisks.Items.Add((Risk)((CheckBox)sender).DataContext);
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
+
             ((Risk)((CheckBox)sender).DataContext).Selected = false;
+            SelectedRisks.Remove((Risk)((CheckBox)sender).DataContext);
             SelRisks.Items.Remove((Risk)((CheckBox)sender).DataContext);
 
         }
 
-        private void SetUp_Click(object sender, RoutedEventArgs e)
+        private async void SetUp_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (SelRisks.SelectedItem != null && Double.Parse(Parsing(TBINf.Text)) != default(Double) && Double.Parse(Parsing(TBProb.Text)) != default(Double))
+                {
+                    ((Risk)SelRisks.SelectedItem).Influence = double.Parse(Parsing(TBINf.Text));
+                    ((Risk)SelRisks.SelectedItem).Probability = double.Parse(Parsing(TBProb.Text));
+                    DataCommands dc = new DataCommands();
+                    await dc.IsertNewRisks((Risk)SelRisks.SelectedItem, project.Name, user);
 
+                    SelRisks.Items.Clear();
+                    for (int i = 0; i < SelectedRisks.Count; i++)
+                    {
+                        SelRisks.Items.Add(SelectedRisks[i]);
+
+                    }
+                    Drawing();
+                }
+                else
+                {
+                    MessageBox.Show("Wrong in enpty");
+                }
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("Wrong in enpty");
+
+            }
+        }
+        private string Parsing(string l)
+        {
+            string ret = "";
+            for (int i = 0; i < l.Length; i++)
+            {
+                if (l[i] == '.') ret += ',';
+                else
+                {
+                    ret += l[i];
+                }
+            }
+            return ret;
+        }
+
+        private void SelRisks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SelRisks.SelectedItem != null)
+            {
+                TBINf.Text = ((Risk)SelRisks.SelectedItem).Influence.ToString();
+                TBProb.Text = ((Risk)SelRisks.SelectedItem).Probability.ToString();
+            }
         }
     }
 }

@@ -39,9 +39,9 @@ namespace KursApp
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Project project = (Project)listBox.SelectedItem;
-            ProjectsRisks pr = new ProjectsRisks(project);
+            //ProjectsRisks pr = new ProjectsRisks(project);
             Close();
-            pr.Show();
+            //pr.Show();
         }
     }
 }

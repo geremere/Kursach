@@ -19,8 +19,10 @@ namespace KursApp
     /// </summary>
     public partial class NewProject : Window
     {
-        public NewProject()
+        User user = null;
+        public NewProject(User us)
         {
+            user = us;
             InitializeComponent();
         }
 
@@ -30,7 +32,7 @@ namespace KursApp
             {
                 ProjectCommands pc = new ProjectCommands();
                 await pc.IsertNewProject(Name.Text, ((User)(Owners.SelectedItem)).Login, TypeOfProject.Text);
-                ChoiseRisks cr = new ChoiseRisks(new Project(Name.Text, ((User)(Owners.SelectedItem)).Login, TypeOfProject.Text));
+                Graphic cr = new Graphic(new Project(Name.Text, ((User)(Owners.SelectedItem)).Login, TypeOfProject.Text),user);
                 Close();
                 cr.Show();
             }

@@ -63,14 +63,8 @@ C:\Users\радмир\source\repos\KursApp\obj\Debug\KursApp.pdb
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\Graphic.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\Graphic.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\NewProject.g.cs
-C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\ProbabilityAndEffects.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\Projects.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\NewProject.baml
-C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\ProbabilityAndEffects.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\Projects.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForProjectManager\ProjectChoise.g.cs
-C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForProjectManager\ProjectsRisks.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForProjectManager\ProjectChoise.baml
-C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForProjectManager\ProjectsRisks.baml
-C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\ChoiseRisks.g.cs
-C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\ChoiseRisks.baml

@@ -7,15 +7,13 @@
         mc:Ignorable="d"
         Title="Graphic" Height="700" Width="1200" Activated="Window_Activated" MouseDown="Cnv_MouseDown" MouseUp="Cnv_MouseUp">
     <Grid x:Name="grid">
+        <Line X1="75" X2="75" Y1="50" Y2="400" Stroke="Black"/>
+        <Line X1="75" X2="500" Y1="400" Y2="400" Stroke="Black"/>
+        <Label x:Name="Im" Content="Impact" Margin="20,40,665.6,215.4"/>
+        <Label x:Name="Probability" Content="Probability" Margin="430,395,290,0"/>
+        <Polyline Stroke="Black" Points="70, 60, 75, 50, 80, 60" />
+        <Polyline Stroke="Black" Points="490, 395, 500, 400, 490, 405" />
         <Canvas x:Name="cnv" MouseDown="Cnv_MouseDown" MouseUp="Cnv_MouseUp" Margin="5,5,635,240">
-            <Canvas.Children>
-                <Polyline Stroke="Black" Points="70, 60, 75, 50, 80, 60" />
-                <Label x:Name="Impact" Content="Impact" Margin="20,40,720,350"/>
-                <Line x:Name="X" X1="75"  Y1="50" X2="75" Y2="400" Stroke="Black" />
-                <Polyline Stroke="Black" Points="490, 395, 500, 400, 490, 405" />
-                <Line x:Name="Y" X1="75"  Y1="400" X2="500" Y2="400" Stroke="Black"/>
-                <Label x:Name="Probability" Content="Probability" Margin="430,395,290,0"/>
-            </Canvas.Children>
         </Canvas>
         <TabControl x:Name="TabRisks" Margin="600,50,25,90">
             <TabItem x:Name="RiskData">
@@ -66,7 +64,7 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <StackPanel Margin="0,0,0.4,-7.8">
-                        <ListView x:Name="SelRisks" Height="400">
+                        <ListView x:Name="SelRisks" Height="400" SelectionChanged="SelRisks_SelectionChanged">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Width="200" >
@@ -105,11 +103,11 @@
                             </ListView.View>
                         </ListView>
                         <Grid Height="100">
-                            <TextBox x:Name="TBProb" Margin="150,0,0,75" />
-                            <Label x:Name="LInf" Content="Influence" Margin="0,30,400,45"/>
-                            <Label x:Name="LProb" Content="Probability" Margin="0,0,400,75"/>
-                            <Button x:Name="SetUp" Content="Set Up" Click="SetUp_Click" Margin="400,60,50,15"/>
-                            <TextBox x:Name="TBINf" Margin="150,30,0,45"/>
+                            <TextBox x:Name="TBProb" Margin="150,5,300,70" />
+                            <Label x:Name="LInf" Content="Influence" Margin="0,35,400,40"/>
+                            <Label x:Name="LProb" Content="Probability" Margin="0,5,400,70"/>
+                            <Button x:Name="SetUp" Content="Set Up" Click="SetUp_Click" Margin="5,65,450,10"/>
+                            <TextBox x:Name="TBINf" Margin="150,35,300,40"/>
                         </Grid>
                     </StackPanel>
                 </TabItem.Content>

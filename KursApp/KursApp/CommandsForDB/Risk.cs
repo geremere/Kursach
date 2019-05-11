@@ -47,6 +47,21 @@ namespace KursApp
         public string TypeOfProject { get; set; }
         double probability;
         public Point point;
+        public string OwnerLogin { get; set; }
+        int ownerid;
+        public int OwnerId
+        {
+            get
+            {
+                return ownerid;
+            }
+            set
+            {
+                if (value <= 0) throw new ArgumentException("id >0");
+                ownerid = value;
+            }
+        }
+
         bool selected;
         public bool Selected
         {

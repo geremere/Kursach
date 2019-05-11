@@ -24,28 +24,25 @@ namespace KursApp
         /// <param name="risklst"></param>
         /// <param name="ProjectName"></param>
         /// <returns></returns>
-        public async Task IsertNewRisks(List<Risk> risklst, string ProjectName)
+        public async Task IsertNewRisks(Risk risk, string ProjectName, User Owner)
         {
-            for (int i = 0; i < risklst.Count; i++)
-            {
-                await sqlConnect.OpenAsync();
-                SqlCommand command =
-                    new SqlCommand("INSERT INTO [RiskData] (RiskName,Probability,Influence,Project,SourseOfRisk,Effects,Descriprion,TypeOfProject) VALUES(@riskName,@probability,@influence,@project,@sourseOfRisk,@effects,@descriprion,@typeOfProject)", sqlConnect);
+            await sqlConnect.OpenAsync();
+            SqlCommand command =
+                new SqlCommand("INSERT INTO [RiskData] (RiskName,Probability,Influence,Project,SourseOfRisk,Effects,Descriprion,TypeOfProject) VALUES(@riskName,@probability,@influence,@project,@sourseOfRisk,@effects,@descriprion,@typeOfProject)", sqlConnect);
 
-                command.Parameters.AddWithValue("RiskName", risklst[i].RiskName);
-                command.Parameters.AddWithValue("Probability", risklst[i].Probability);
-                command.Parameters.AddWithValue("Influence", risklst[i].Influence);
-                command.Parameters.AddWithValue("Project", ProjectName);
-                command.Parameters.AddWithValue("SourseOfRisk", risklst[i].SoursOfRisk);
-                command.Parameters.AddWithValue("Effects", risklst[i].Effects);
-                command.Parameters.AddWithValue("Descriprion", risklst[i].Description);
-                command.Parameters.AddWithValue("TypeOfProject", risklst[i].TypeOfProject);
+            command.Parameters.AddWithValue("RiskName", risk.RiskName);
+            command.Parameters.AddWithValue("Probability", risk.Probability);
+            command.Parameters.AddWithValue("Influence", risk.Influence);
+            command.Parameters.AddWithValue("Project", ProjectName);
+            command.Parameters.AddWithValue("SourseOfRisk", risk.SoursOfRisk);
+            command.Parameters.AddWithValue("Effects", risk.Effects);
+            command.Parameters.AddWithValue("Descriprion", risk.Description);
+            command.Parameters.AddWithValue("TypeOfProject", risk.TypeOfProject);
+            command.Parameters.AddWithValue("OwnerLogin", Owner.Login);
+            command.Parameters.AddWithValue("OwnerId", Owner.Id);
 
-
-                await command.ExecuteNonQueryAsync();
+            await command.ExecuteNonQueryAsync();
                 sqlConnect.Close();
-
-            }
 
         }
 
