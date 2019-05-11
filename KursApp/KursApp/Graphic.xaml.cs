@@ -54,13 +54,13 @@ namespace KursApp
                 ComboBox.Text = "Общие риски";
                 ComboBox.Items.Add(project.Type);
                 sourse = await rc.GiveRisksSourse();
-                Cheker();
                 ADDToSelctes();
                 for (int i = 0; i < sourse.Count; i++)
                 {
                     ComboBox.Items.Add(sourse[i]);
                 }
                 Drawing();
+                FindDangerougeRisks();
                 flag = false;
             }
         }
@@ -120,8 +120,8 @@ namespace KursApp
                     ((Risk)SelRisks.Items[i]).point.X = 425 * ((Risk)SelRisks.Items[i]).Probability + 75;
                     ((Risk)SelRisks.Items[i]).point.Y = -350 * ((Risk)SelRisks.Items[i]).Influence + 400;
                     Ellipse elipse = new Ellipse();
-                    elipse.Height = 5;
-                    elipse.Width = 5;
+                    elipse.Height = 10;
+                    elipse.Width = 10;
                     elipse.StrokeThickness = 2;
                     if (Math.Sqrt((((Risk)SelRisks.Items[i]).point.X - center.X) * (((Risk)SelRisks.Items[i]).point.X - center.X) +
                         (((Risk)SelRisks.Items[i]).point.Y - center.Y) * (((Risk)SelRisks.Items[i]).point.Y - center.Y)) < radius)
@@ -183,6 +183,7 @@ namespace KursApp
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lvwrisk.Items.Clear();
+            Cheker();
             if (ComboBox.SelectedItem.ToString() == "Общие риски")
             {
                 for (int i = 0; i < AllRisklst.Count; i++)
@@ -221,14 +222,45 @@ namespace KursApp
             }
         }
 
+        /// <summary>
+        /// добавляет элементы в выбранные
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            
-            ((Risk)((CheckBox)sender).DataContext).Selected = true;
-            SelectedRisks.Add((Risk)((CheckBox)sender).DataContext);
-            SelRisks.Items.Add((Risk)((CheckBox)sender).DataContext);
+            if (CheckIsSelected(((Risk)((CheckBox)sender).DataContext)))
+            {
+                ((Risk)((CheckBox)sender).DataContext).Selected = true;
+                SelectedRisks.Add((Risk)((CheckBox)sender).DataContext);
+                SelRisks.Items.Add((Risk)((CheckBox)sender).DataContext);
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="checkrisk"></param>
+        /// <returns></returns>
+        private bool CheckIsSelected(Risk checkrisk)
+        {
+            if (SelRisks != null)
+            {
+                for (int i = 0; i < SelRisks.Items.Count; i++)
+                {
+                    if (checkrisk.RiskName == ((Risk)SelRisks.Items[i]).RiskName)
+                        return false;
+                }
+                return true;
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// убираенм жлменты из выбранных
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
 
@@ -287,14 +319,20 @@ namespace KursApp
             return ret;
         }
 
+        /// <summary>
+        /// вводим значение рисков в текстбоксы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelRisks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (SelRisks.SelectedItem != null)
+            if (SelRisks.Items.Count != 0)
             {
                 TBINf.Text = ((Risk)SelRisks.SelectedItem).Influence.ToString();
                 TBProb.Text = ((Risk)SelRisks.SelectedItem).Probability.ToString();
             }
         }
+
         /// <summary>
         /// перемещие гиперболы во время движения мыши
         /// </summary>
@@ -305,7 +343,7 @@ namespace KursApp
             if (e.GetPosition(null).X < 540 && e.GetPosition(null).Y < 450 && e.LeftButton == MouseButtonState.Pressed)
             {
                 center.X = nowcenter.X - mousePos.X + e.GetPosition(null).X;
-                center.Y = nowcenter.Y  + (mousePos.X - e.GetPosition(null).X)/1.2;
+                center.Y = nowcenter.Y + (mousePos.X - e.GetPosition(null).X) / 1.2;
                 if (center.X > 650 || center.Y < -100)
                 {
                     center.Y = -100;
@@ -317,20 +355,35 @@ namespace KursApp
                     center.X = 250;
                 }
                 Drawing();
+                FindDangerougeRisks();
             }
         }
+
+        private void FindDangerougeRisks()
+        {
+            DanRisks.Items.Clear();
+            if (SelRisks.Items.Count != 0)
+            {
+                for (int i = 0; i < SelRisks.Items.Count; i++)
+                {
+                    if (Math.Sqrt((((Risk)SelRisks.Items[i]).point.X - center.X) * (((Risk)SelRisks.Items[i]).point.X - center.X) +
+                        (((Risk)SelRisks.Items[i]).point.Y - center.Y) * (((Risk)SelRisks.Items[i]).point.Y - center.Y)) < radius)
+                    {
+                        DanRisks.Items.Add((Risk)SelRisks.Items[i]);
+                    }
+
+                }
+            }
+        }
+
         /// <summary>
         /// находим опасные риски
         /// </summary>
-        private void FindDangerousRisks()
-        {
-            throw new NotImplementedException();
-        }
-
         private void DanRisks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
+
         /// <summary>
         /// находим опасные риски
         /// </summary>
@@ -338,18 +391,53 @@ namespace KursApp
         /// <param name="e"></param>
         private void Window_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            DanRisks.Items.Clear();
-            for (int i = 0; i < SelRisks.Items.Count; i++)
-            {
-                if (Math.Sqrt((((Risk)SelRisks.Items[i]).point.X - center.X) * (((Risk)SelRisks.Items[i]).point.X - center.X) +
-                    (((Risk)SelRisks.Items[i]).point.Y - center.Y) * (((Risk)SelRisks.Items[i]).point.Y - center.Y)) < radius)
-                {
-                    DanRisks.Items.Add((Risk)SelRisks.Items[i]);
-                }
+            //DanRisks.Items.Clear();
+            //for (int i = 0; i < SelRisks.Items.Count; i++)
+            //{
+            //    if (Math.Sqrt((((Risk)SelRisks.Items[i]).point.X - center.X) * (((Risk)SelRisks.Items[i]).point.X - center.X) +
+            //        (((Risk)SelRisks.Items[i]).point.Y - center.Y) * (((Risk)SelRisks.Items[i]).point.Y - center.Y)) < radius)
+            //    {
+            //        DanRisks.Items.Add((Risk)SelRisks.Items[i]);
+            //    }
 
-            }
+            //}
 
 
         }
+
+        private void Cnv_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (SelRisks.Items.Count != 0)
+            {
+                List<Risk> click = new List<Risk>();
+                for (int i = 0; i < SelRisks.Items.Count; i++)
+                {
+                    if (Math.Abs(((Risk)SelRisks.Items[i]).point.X - e.GetPosition(null).X) <= 10 
+                        && Math.Abs(((Risk)SelRisks.Items[i]).point.Y - e.GetPosition(null).Y) <= 10)
+                    {
+                        click.Add((Risk)SelRisks.Items[i]);
+                    }
+                }
+                if(click.Count!=0)
+                {
+                    MessageBox.Show(CReateLine(click), "INformation about Selected Risks");
+                }
+            }
+        }
+
+        /// <summary>
+        /// строка для вывода информации при нажатии праой кнопки мыши
+        /// </summary>
+        /// <param name="click"></param>
+        /// <returns></returns>
+        private string CReateLine(List<Risk> click)
+        {
+            string line = "";
+            for (int i = 0; i < click.Count; i++)
+            {
+                line += $"RiskName: {click[i].RiskName}\nSourse: {click[i].SoursOfRisk}";
+            }
+            return line;
+        }        
     }
 }
