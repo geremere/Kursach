@@ -60,8 +60,6 @@ C:\Users\радмир\source\repos\KursApp\obj\Debug\KursApp.csproj.GenerateReso
 C:\Users\радмир\source\repos\KursApp\obj\Debug\KursApp.csproj.CoreCompileInputs.cache
 C:\Users\радмир\source\repos\KursApp\obj\Debug\KursApp.exe
 C:\Users\радмир\source\repos\KursApp\obj\Debug\KursApp.pdb
-C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\Graphic.g.cs
-C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\Graphic.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\NewProject.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\Projects.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\NewProject.baml
@@ -70,3 +68,11 @@ C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForProjectManager\ProjectCho
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForProjectManager\ProjectChoise.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ProbabilityInfluenceOwner.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ProbabilityInfluenceOwner.baml
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\Graphic.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForProjectManager\GraphicForProjectManager.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForAdmin\Graphic.baml
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForProjectManager\GraphicForProjectManager.baml
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForRiskManager\Gra[hicForRiskManager.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForRiskManager\SelectProject.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForRiskManager\Gra[hicForRiskManager.baml
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForRiskManager\SelectProject.baml

@@ -19,29 +19,29 @@ namespace KursApp
     /// </summary>
     public partial class ProjectChoise : Window
     {
-        string Login = null;
-        public ProjectChoise(string login)
+        User user = null;
+        public ProjectChoise(User user)
         {
-            Login = login;
+            this.user = user;
             InitializeComponent();
         }
 
         private async void Window_Activated(object sender, EventArgs e)
         {
             ProjectCommands pc = new ProjectCommands();
-            List<Project> prlst = await pc.GiveProjectsForOwner(Login);
+            List<Project> prlst = await pc.GiveProjectsForOwner(user.Login);
             for (int i = 0; i < prlst.Count; i++)
             {
                 listBox.Items.Add(prlst[i]);
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Project project = (Project)listBox.SelectedItem;
-            //ProjectsRisks pr = new ProjectsRisks(project);
-            Close();
-            //pr.Show();
+                Project project = (Project)listBox.SelectedItem;
+                GraphicForProjectManager pfpm = new GraphicForProjectManager(project);
+                Close();
+                pfpm.Show();
         }
     }
 }

@@ -76,7 +76,18 @@
     <Compile Include="CommandsForDB\User.cs" />
     <Compile Include="CommandsForDB\UsersCommand.cs" />
     <Compile Include="CommandsForDB\Project.cs" />
-    <Page Include="Graphic.xaml">
+    <Compile Include="ForRiskManager\SelectProject.xaml.cs">
+      <DependentUpon>SelectProject.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ForAdmin\Graphic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ForProjectManager\GraphicForProjectManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ForRiskManager\Gra[hicForRiskManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -88,8 +99,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Graphic.xaml.cs">
+    <Compile Include="ForAdmin\Graphic.xaml.cs">
       <DependentUpon>Graphic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ForProjectManager\GraphicForProjectManager.xaml.cs">
+      <DependentUpon>GraphicForProjectManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ForRiskManager\Gra[hicForRiskManager.xaml.cs">
+      <DependentUpon>Gra[hicForRiskManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -108,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ProbabilityInfluenceOwner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ForRiskManager\SelectProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

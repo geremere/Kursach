@@ -34,7 +34,6 @@ namespace KursApp
                 sqlReader = await command.ExecuteReaderAsync();
                 while (await sqlReader.ReadAsync())
                 {
-                    //string login = Convert.ToString(sqlReader["Password"]);
 
                     if (login == Convert.ToString(sqlReader["Login"])
                         && password == Convert.ToString(sqlReader["Password"]))

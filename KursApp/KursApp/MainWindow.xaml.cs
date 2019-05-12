@@ -47,12 +47,20 @@ namespace KursApp
             {
                 if (await uc.InLogin(textBox.Text.Trim(), passwordBox.Password.Trim()) == 2)
                 {
+                    UsersCommand uc2 = new UsersCommand();
+                    User user2 = await uc2.GiveUser(textBox.Text.Trim(), passwordBox.Password.Trim());
+                    ProjectChoise pc = new ProjectChoise(user2);
                     Close();
+                    pc.Show();
                 }
                 else
                 {
                     if(await uc.InLogin(textBox.Text.Trim(), passwordBox.Password.Trim()) == 1)
                     {
+                        UsersCommand uc1 = new UsersCommand();
+                        User user1 = await uc1.GiveUser(textBox.Text.Trim(), passwordBox.Password.Trim());
+                        SelectProject sp = new SelectProject(user1);
+                        sp.Show();
                         Close();
                     }
                     else

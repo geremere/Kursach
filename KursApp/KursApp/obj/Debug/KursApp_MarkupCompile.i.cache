@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\App.xaml
-61191611566
+9-894338914
 2-980765204
-18175168036
+211759600833
 131569487696
-Graphic.xaml;MainWindow.xaml;ForAdmin\NewProject.xaml;ForProjectManager\ProjectChoise.xaml;ForAdmin\Projects.xaml;ProbabilityInfluenceOwner.xaml;
+ForAdmin\Graphic.xaml;ForProjectManager\GraphicForProjectManager.xaml;ForRiskManager\Gra[hicForRiskManager.xaml;MainWindow.xaml;ForAdmin\NewProject.xaml;ForProjectManager\ProjectChoise.xaml;ForAdmin\Projects.xaml;ProbabilityInfluenceOwner.xaml;ForRiskManager\SelectProject.xaml;
 
 True
 

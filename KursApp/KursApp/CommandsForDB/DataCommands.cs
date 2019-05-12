@@ -63,6 +63,20 @@ namespace KursApp
 
         }
 
+        public async Task UpdateRisks(Risk risk, string ProjectName)
+        {
+            await sqlConnect.OpenAsync();
+            SqlCommand command =
+                new SqlCommand("UPDATE [RiskData] SET [Probability]= @Probability, [Influence]= @Influence WHERE id=@id", sqlConnect);
+
+            command.Parameters.AddWithValue("Id", risk.Id);
+            command.Parameters.AddWithValue("Probability", risk.Probability);
+            command.Parameters.AddWithValue("Influence", risk.Influence);
+            await command.ExecuteNonQueryAsync();
+            sqlConnect.Close();
+
+        }
+
         public async Task DeliteRisk(Risk risk)
         {
             try
@@ -88,7 +102,7 @@ namespace KursApp
         /// </summary>
         /// <param name="ProjectName"></param>
         /// <returns></returns>
-        public async Task<List<Risk>> GiveAllRisks(string ProjectName)
+        public async Task<List<Risk>> GiveAllRisks(Project project)
         {
             List<Risk> lst = new List<Risk>();
             SqlDataReader sqlReader = null;
@@ -100,7 +114,7 @@ namespace KursApp
                 sqlReader = await command.ExecuteReaderAsync();
                 while (await sqlReader.ReadAsync())
                 {     
-                    if(ProjectName== Convert.ToString(sqlReader["Project"]))
+                    if(project.Name == Convert.ToString(sqlReader["Project"]))
                     {
                         lst.Add(new Risk(Convert.ToInt32(sqlReader["Id"]),Convert.ToString(sqlReader["RiskName"]),Convert.ToString(sqlReader["SourseOfRisk"]),
                         Convert.ToString(sqlReader["Effects"]),Convert.ToString(sqlReader["Descriprion"]), 
@@ -122,6 +136,97 @@ namespace KursApp
                 sqlConnect.Close();
 
             }
+        }
+
+        /// <summary>
+        /// выдает все риски ответвенного за проект
+        /// </summary>
+        /// <param name="project"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<List<Risk>> GiveOwnersRisks(Project project,User user)
+        {
+            List<Risk> lst = new List<Risk>();
+            SqlDataReader sqlReader = null;
+            await sqlConnect.OpenAsync();
+            SqlCommand command = new SqlCommand("SELECT * FROM[RiskData]", sqlConnect);
+
+            try
+            {
+                sqlReader = await command.ExecuteReaderAsync();
+                while (await sqlReader.ReadAsync())
+                {
+                    if (project.Name == Convert.ToString(sqlReader["Project"]) && user.Id==Convert.ToInt32(sqlReader["OwnerId"]))
+                    {
+                        lst.Add(new Risk(Convert.ToInt32(sqlReader["Id"]), Convert.ToString(sqlReader["RiskName"]), Convert.ToString(sqlReader["SourseOfRisk"]),
+                        Convert.ToString(sqlReader["Effects"]), Convert.ToString(sqlReader["Descriprion"]),
+                        Convert.ToString(sqlReader["TypeOfProject"]),
+                        Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Probability"]))),
+                        Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Influence"])))));
+                    }
+                }
+                return lst;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                if (sqlReader != null)
+                    sqlReader.Close();
+                sqlConnect.Close();
+
+            }
+        }
+
+        /// <summary>
+        /// выдает названия всех проектов
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<List<string>> GiveOwnersProjects(User user)
+        {
+            List<string> lst = new List<string>();
+            SqlDataReader sqlReader = null;
+            await sqlConnect.OpenAsync();
+            SqlCommand command = new SqlCommand("SELECT * FROM[RiskData]", sqlConnect);
+
+            try
+            {
+                sqlReader = await command.ExecuteReaderAsync();
+                while (await sqlReader.ReadAsync())
+                {
+                    if (user.Login == Convert.ToString(sqlReader["OwnerLogin"]))
+                    {
+                        if(CheckIn(lst,Convert.ToString(sqlReader["Project"])))
+                        {
+                            lst.Add(Convert.ToString(sqlReader["Project"]));
+                        }
+                    }
+                }
+                return lst;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                if (sqlReader != null)
+                    sqlReader.Close();
+                sqlConnect.Close();
+
+            }
+        }
+
+        private bool CheckIn(List<string> lst,string project)
+        {
+            for (int i = 0; i < lst.Count; i++)
+            {
+                if (project == lst[i]) return false;
+            }
+            return true;
         }
 
         private string Parsing(string l)
