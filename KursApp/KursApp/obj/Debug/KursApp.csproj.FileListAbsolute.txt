@@ -78,3 +78,5 @@ C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForRiskManager\Gra[hicForRis
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForRiskManager\SelectProject.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\RiskTree.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\RiskTree.baml
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\Budget.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\Budget.baml

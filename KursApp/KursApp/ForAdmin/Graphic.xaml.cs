@@ -467,10 +467,16 @@ namespace KursApp
                 MessageBox.Show("Данный элемент уже выбран");
             }
         }
-
+        bool flag1 = true;
         private void DanRisks_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            if(flag1)
+            {
+                RiskTree rt = new RiskTree((Risk)DanRisks.SelectedItem, project);
+                Close();
+                rt.Show();
+                flag1 = false;
+            }
         }
     }
 }
