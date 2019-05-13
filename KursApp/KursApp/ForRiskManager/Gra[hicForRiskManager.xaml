@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="Gra_hicForRiskManager" Height="700" Width="1200" Activated="Window_Activated" WindowStartupLocation="CenterScreen" MouseDown="Cnv_MouseDown" MouseMove="Cnv_MouseMove">
+        Title="Gra_hicForRiskManager" Height="700" Width="1200" Activated="Window_Activated" WindowStartupLocation="CenterScreen" MouseDown="Cnv_MouseDown" MouseMove="Cnv_MouseMove" ResizeMode="NoResize">
     <Grid x:Name="grid">
         <Line X1="75" X2="75" Y1="50" Y2="400" Stroke="Black"/>
         <Line X1="75" X2="500" Y1="400" Y2="400" Stroke="Black"/>

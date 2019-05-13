@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="Create a new project" Height="466.705" Width="380" Activated="Window_Activated">
+        Title="Create a new project" Height="466.705" Width="380" Activated="Window_Activated" ResizeMode="NoResize">
     <Grid Margin="0,0,0,-3" HorizontalAlignment="Left" Width="345">
         <Label x:Name="ProjectName" Content="Enpty new Project Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,10"/>
         <TextBox x:Name="Name" Margin="163,10,-2,404.8" HorizontalAlignment="Left" Width="184"/>

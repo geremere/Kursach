@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="SelectProject" Height="530" Width="450" Activated="Window_Activated">
+        Title="SelectProject" Height="530" Width="450" Activated="Window_Activated" ResizeMode="NoResize">
     <Grid Margin="0,0,-0.4,-3.6">
         <ListBox x:Name="listBox" Margin="50,70,50,50" MouseDoubleClick="ListBox_MouseDoubleClick"/>
         <Label x:Name="label" Content="Your Projects:" HorizontalAlignment="Left" Margin="50,31,0,0"

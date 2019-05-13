@@ -37,44 +37,50 @@ namespace KursApp
         {
             try
             {
-                if (DESC.Text != "" && double.Parse(Prob.Text) < 1 && double.Parse(Prob.Text) > 0 && double.TryParse(COST.Text, out double d))
+                if (((Button)sender).DataContext == null) throw new Exception("выбрете вершину");
+                if (DESC.Text != "") throw new Exception("Заполните поле Description");
+                if (double.TryParse(COST.Text, out double d)) throw new Exception("значение Cost должно быть вещественным числом больше нуля");
+                if (double.Parse(COST.Text) <= 0) throw new Exception("значение Cost должно быть вещественным числом больше нуля");
+                if (double.TryParse(Prob.Text, out double d1)) throw new Exception("Значение Probability должно быть вещественным числом в предалам (0,1)");
+                if (double.Parse(Prob.Text) < 1) throw new Exception("Значение Probability должно быть вещественным числом в предалам (0,1)");
+                if (double.Parse(Prob.Text) > 0) throw new Exception("Значение Probability должно быть вещественным числом в предалам (0,1)");
+
+                int capacity = CountOfChildren(((Vertexcs)((Button)sender).DataContext));
+                if (capacity >= 3) MessageBox.Show("Количество детей не может превышать 3");
+                else
                 {
-                    int capacity = CountOfChildren(((Vertexcs)((Button)sender).DataContext));
-                    if (capacity >= 3) MessageBox.Show("Количество детей не может превышать 3");
+                    Vertexcs parent = ((Vertexcs)((Button)sender).DataContext);
+                    Vertexcs newver;
+                    if (capacity==0)
+                    {
+                        newver = new Vertexcs(parent.Id, DESC.Text, double.Parse(COST.Text),double.Parse(Prob.Text),parent.X, parent.Y + 50);
+
+                    }
                     else
                     {
-                        Vertexcs parent = ((Vertexcs)((Button)sender).DataContext);
-                        Vertexcs newver;
-                        if (capacity==0)
+                        if(capacity==1)
                         {
-                            newver = new Vertexcs(parent.Id, DESC.Text, double.Parse(COST.Text),double.Parse(Prob.Text),parent.X, parent.Y + 50);
+                            newver = new Vertexcs(parent.Id, DESC.Text, double.Parse(COST.Text), double.Parse(Prob.Text), parent.X/2, parent.Y + 50);
 
                         }
                         else
                         {
-                            if(capacity==1)
-                            {
-                                newver = new Vertexcs(parent.Id, DESC.Text, double.Parse(COST.Text), double.Parse(Prob.Text), parent.X/2, parent.Y + 50);
+                            newver = new Vertexcs(parent.Id, DESC.Text, double.Parse(COST.Text), double.Parse(Prob.Text), parent.X * 3 / 2, parent.Y + 50);
 
-                            }
-                            else
-                            {
-                                newver = new Vertexcs(parent.Id, DESC.Text, double.Parse(COST.Text), double.Parse(Prob.Text), parent.X * 3 / 2, parent.Y + 50);
-
-                            }
                         }
-                        TreeCommands tc = new TreeCommands();
-                        await tc.IsertNewVertex(newver, parent.Id);
-                        newver = await tc.GiveVertex(newver);
-                        DrawNewVertex(newver);
-                        DrawNewLine(newver, parent);
-                        vert.Add(newver);
                     }
+                    TreeCommands tc = new TreeCommands();
+                    await tc.IsertNewVertex(newver, parent.Id);
+                    newver = await tc.GiveVertex(newver);
+                    DrawNewVertex(newver);
+                    DrawNewLine(newver, parent);
+                    vert.Add(newver);
                 }
+                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Ошибка ввода", "Enpty Exception");
+                MessageBox.Show(ex.Message, "Enpty Exception");
             }
 
         }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="240" Width="300" Closing="Window_Closing">
+        Title="MainWindow" Height="240" Width="300" Closing="Window_Closing" ResizeMode="NoResize">
     <Grid Margin="2,2,0.6,-0.6" Height="209" VerticalAlignment="Top">
         <Label x:Name="label" Content="Enter your Login and Password" Margin="49,0,0,130" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="180"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="49.8,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125" Grid.Column="1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">

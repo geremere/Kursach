@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="Graphic" Height="700" Width="1200" Activated="Window_Activated" WindowStartupLocation="CenterScreen" MouseDown="Cnv_MouseDown" MouseMove="Cnv_MouseMove" MouseUp="Window_MouseUp">
+        Title="Graphic" Height="700" Width="1200" ResizeMode="NoResize" Activated="Window_Activated" WindowStartupLocation="CenterScreen" MouseDown="Cnv_MouseDown" MouseMove="Cnv_MouseMove" MouseUp="Window_MouseUp">
     <Grid x:Name="grid">
         <Line X1="75" X2="75" Y1="50" Y2="400" Stroke="Black"/>
         <Line X1="75" X2="500" Y1="400" Y2="400" Stroke="Black"/>

@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="ProbabilityInfluenceOwner" Height="200" Width="435" Activated="Window_Activated">
+        Title="ProbabilityInfluenceOwner" Height="200" Width="435" Activated="Window_Activated" ResizeMode="NoResize">
     <Grid>
-        <TextBox x:Name="TBProb" Margin="100,15,220,125" />
-        <Label x:Name="LInf" Content="Influence" Margin="15,60,300,80"/>
-        <Label x:Name="LProb" Content="Probability:" Margin="15,15,300,125"/>
+        <TextBox x:Name="TBProb" Margin="100,15,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="109" />
+        <Label x:Name="LInf" Content="Influence" Margin="15,60,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="114"/>
+        <Label x:Name="LProb" Content="Probability:" Margin="15,15,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="114"/>
         <ComboBox x:Name="Owners" Text="Owner" Margin="225,30,14.8,87.4"/>
-        <Button x:Name="SetUp" Content="Set Up" Click="SetUp_Click" Margin="25,100,215,40"/>
-        <TextBox x:Name="TBINf" Margin="100,60,220,80.4"/>
+        <Button x:Name="SetUp" Content="Set Up" Click="SetUp_Click" Margin="0,0,214.8,40.4" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="189"/>
+        <TextBox x:Name="TBINf" Margin="100,60,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="109"/>
     </Grid>
 </Window>
