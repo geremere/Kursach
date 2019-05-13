@@ -137,14 +137,14 @@ namespace KursApp
             {
                 FirstVer = new Vertexcs(drisk.Id, drisk.RiskName, Widht / 2, 50);
                 await tc.IsertNewVertex(FirstVer, drisk.Id);
-                but.DataContext = await tc.GiveFristVertex(drisk.Id);
                 FirstVer = await tc.GiveFristVertex(drisk.Id);
+                but.DataContext = FirstVer;
 
             }
             else
             {
-                but.DataContext = await tc.GiveFristVertex(drisk.Id);
                 FirstVer = await tc.GiveFristVertex(drisk.Id);
+                but.DataContext = FirstVer;
             }
             but.Height = 20;
             but.Width = 40;
@@ -184,12 +184,7 @@ namespace KursApp
 
         private void But_Click(object sender, RoutedEventArgs e)
         {
-            Add.DataContext = ((Button)sender).DataContext;
-        }
-
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {
-
+            Add.DataContext = (Vertexcs)((Button)sender).DataContext;
         }
     }
 }

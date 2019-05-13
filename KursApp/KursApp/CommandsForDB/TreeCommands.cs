@@ -14,16 +14,17 @@ namespace KursApp
 
         public TreeCommands()
         {
-            string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\GitHub\Kursach\Kursach\KursApp\KursApp\Database.mdf;Integrated Security=True";
+            string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True";
             sqlConnect = new SqlConnection(key);
         }
         public async Task IsertNewVertex(Vertexcs current, int Id)
         {
             await sqlConnect.OpenAsync();
             SqlCommand command =
-                new SqlCommand("INSERT INTO [RiskTree] (ParentId,Cost,Probability,X,Y) VALUES(@ParentId,@Cost,@Probability,@X,@Y)", sqlConnect);
+                new SqlCommand("INSERT INTO [RiskTree] (ParentId,Description,Cost,Probability,X,Y) VALUES(@ParentId,@Description,@Cost,@Probability,@X,@Y)", sqlConnect);
 
             command.Parameters.AddWithValue("ParentId", Id);
+            command.Parameters.AddWithValue("Description", current.Description);
             command.Parameters.AddWithValue("Cost", current.Cost);
             command.Parameters.AddWithValue("Probability", current.Probability);
             command.Parameters.AddWithValue("X", current.X);
@@ -157,7 +158,7 @@ namespace KursApp
                 sqlReader = await command.ExecuteReaderAsync();
                 while (await sqlReader.ReadAsync())
                 {
-                    lstv.Add(new Vertexcs(Convert.ToInt32(sqlReader["ParentId"]), Convert.ToString(sqlReader["Description"]), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Cost"]))), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Probability"]))), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["X"]))), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Y"])))));
+                    lstv.Add(new Vertexcs(Convert.ToInt32(sqlReader["Id"]),Convert.ToInt32(sqlReader["ParentId"]), Convert.ToString(sqlReader["Description"]), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Cost"]))), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Probability"]))), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["X"]))), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Y"])))));
                 }
                 return lstv;
             }

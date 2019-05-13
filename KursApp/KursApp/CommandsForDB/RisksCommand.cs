@@ -16,7 +16,7 @@ namespace KursApp
 
         public RisksCommand()
         {
-            string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\GitHub\Kursach\Kursach\KursApp\KursApp\Database.mdf;Integrated Security=True";
+            string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True";
             sqlConnect = new SqlConnection(key);
         }
         /// <summary>

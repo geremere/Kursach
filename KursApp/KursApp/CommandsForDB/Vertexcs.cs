@@ -34,8 +34,13 @@ namespace KursApp
             Y = y;
         }
 
-        public Vertexcs(int id, int parentId, string description, double cost, double probability, double x, double y) : this(id, parentId, description, cost, probability)
+        public Vertexcs(int id, int parentId, string description, double cost, double probability, double x, double y)
         {
+            Id = id;
+            ParentId = parentId;
+            Description = description;
+            Cost = cost;
+            Probability = probability;
             X = x;
             Y = y;
         }
@@ -45,7 +50,15 @@ namespace KursApp
         public string Description { get; set; }
         public double Cost { get; set; }
         public double Probability { get; set; }
-        public double X { get; set; }
+        double x;
+        public double X
+        {
+            get => x;
+            set
+            {
+                x=Double.Parse($"{value:f3}");
+            }
+        }
         public double Y { get; set; }
 
 
