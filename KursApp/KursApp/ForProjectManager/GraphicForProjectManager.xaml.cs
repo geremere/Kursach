@@ -442,7 +442,7 @@ namespace KursApp
                         ((Risk)((Button)sender).DataContext).Probability = piow.Probability;
                         DataCommands dc = new DataCommands();
                         await dc.IsertNewRisks((Risk)((Button)sender).DataContext, project.Name, piow.Owner);
-
+                        SelectedRisks.Add((Risk)((Button)sender).DataContext);
                     }
                     catch
                     {
@@ -453,8 +453,6 @@ namespace KursApp
                 {
                     MessageBox.Show("Something went wrong");
                 }
-                SelectedRisks.Add((Risk)((Button)sender).DataContext);
-                //((Risk)((Button)sender).DataContext).Selected = true;
                 SelRisks.Items.Clear();
                 for (int i = 0; i < SelectedRisks.Count; i++)
                 {

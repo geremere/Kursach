@@ -70,9 +70,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Budget.xaml.cs">
-      <DependentUpon>Budget.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CommandsForDB\DataCommands.cs" />
     <Compile Include="CommandsForDB\Risk.cs" />
     <Compile Include="CommandsForDB\RisksCommand.cs" />
@@ -87,10 +84,6 @@
     </Compile>
     <Compile Include="CommandsForDB\Vertexcs.cs" />
     <Compile Include="CommandsForDB\TreeCommands.cs" />
-    <Page Include="Budget.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ForAdmin\Graphic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
