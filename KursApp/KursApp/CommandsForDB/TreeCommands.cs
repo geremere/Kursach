@@ -177,6 +177,24 @@ namespace KursApp
                 sqlConnect.Close();
             }
         }
+        public async Task DeliteVerTex(Vertexcs vertex)
+        {
+            try
+            {
+                await sqlConnect.OpenAsync();
+                SqlCommand command = new SqlCommand("DELETE FROM [RiskTree] WHERE [Id]=@Id", sqlConnect);
+                command.Parameters.AddWithValue("Id", vertex.Id);
+                await command.ExecuteNonQueryAsync();
+            }
+            catch (Exception)
+            {
+            }
+            finally
+            {
+                sqlConnect.Close();
+            }
+
+        }
 
 
         private string Parsing(string l)

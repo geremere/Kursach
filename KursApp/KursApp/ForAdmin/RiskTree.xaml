@@ -8,7 +8,7 @@
         Title="RiskTree" Activated="Window_Activated" ResizeMode="NoResize" WindowState="Maximized">
     <Grid x:Name="grid" Margin="0,-8,-0.4,0.6" >
         <Button x:Name="Back" Height="40" Width="40"  Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="23,26,0,0" ></Button>
-        <Canvas x:Name="cnv" Margin="0,0,0,200"/>
+        <Grid x:Name="cnv" Margin="0,0,0,200"/>
 
 
         <TextBlock x:Name="RiskName" Margin="30,180,800,200" TextWrapping="Wrap"/>

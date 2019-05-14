@@ -146,7 +146,7 @@ namespace KursApp
             l.X2 = newver.X;
             l.Y2 = newver.Y;
             l.Stroke = Brushes.Black;
-            grid.Children.Add(l);
+            cnv.Children.Add(l);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace KursApp
             but.Width = 20;
             but.Background = new ImageBrush(new BitmapImage(new Uri(pathplus)));
             but.Click += But_Click;
-            grid.Children.Add(but);
+            cnv.Children.Add(but);
 
 
         }
@@ -223,7 +223,7 @@ namespace KursApp
                     but.Height = 20;
                     but.Width = 20;
                     but.Click += But_Click;
-                    grid.Children.Add(but);
+                    cnv.Children.Add(but);
                     vert = await tc.GiveALlVertex();
                     DrawRootVertexes(FirstVer);
                     flag = false;
@@ -285,9 +285,41 @@ namespace KursApp
             p.Show();
         }
 
-        private void Delite_Click(object sender, RoutedEventArgs e)
+        private async void Delite_Click(object sender, RoutedEventArgs e)
         {
+            cnv.Children.Clear();
+            TreeCommands tc = new TreeCommands();
+            if (((Vertexcs)Add.DataContext).Probability != 0)
+            {
+                DeliteVertexes((Vertexcs)Add.DataContext, tc);
+                await tc.DeliteVerTex((Vertexcs)Add.DataContext);
+                Button but = new Button();
+                but.HorizontalAlignment = HorizontalAlignment.Left;
+                but.VerticalAlignment = VerticalAlignment.Top;
+                but.Margin = new Thickness(Widht / 2 - 10, 50, Widht / 2 - 10, Height - 70);
+                but.Background = new ImageBrush(new BitmapImage(new Uri(pathplus)));
+                Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
+                but.DataContext = FirstVer;
+                but.Height = 20;
+                but.Width = 20;
+                but.Click += But_Click;
+                cnv.Children.Add(but);
+                TreeCommands tc1 = new TreeCommands();
+                vert = await tc1.GiveALlVertex();
+                DrawRootVertexes(FirstVer);
+            }
+        }
 
+        private async void DeliteVertexes(Vertexcs currentvertex, TreeCommands tc)
+        {
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if (vert[i].Probability != 0 && vert[i].ParentId==currentvertex.Id)
+                {
+                    await tc.DeliteVerTex(vert[i]);
+                    DeliteVertexes(vert[i], tc);
+                }
+            }
         }
     }
 }
