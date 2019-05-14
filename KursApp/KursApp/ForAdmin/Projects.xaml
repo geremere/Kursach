@@ -11,6 +11,6 @@
         <Label x:Name="label" Content="Select Projects:" HorizontalAlignment="Left" Margin="109,0,0,409" VerticalAlignment="Bottom" Height="40" Width="125"/>
         <Button x:Name="Button" Content="Create New Project" Margin="80,405,80,15" Click="Button_Click">
         </Button>
-        <Button x:Name="Back" Content="Back" Height="20" Width="40"  Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,9,0,0"></Button>
+        <Button x:Name="Back"  Height="40" Width="40"  Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,9,0,0"></Button>
     </Grid>
 </Window>

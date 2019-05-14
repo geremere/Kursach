@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Create a new project" Height="466.705" Width="380" Activated="Window_Activated" ResizeMode="NoResize">
     <Grid Margin="0,0,0,-3" HorizontalAlignment="Left" Width="345">
-        <Button x:Name="Back" Content="Back" Height="24" Width="48"  Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,17,0,0" RenderTransformOrigin="0.54,1.047"></Button>
+        <Button x:Name="Back"  Height="40" Width="40"  Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="33,17,0,0" RenderTransformOrigin="0.54,1.047"></Button>
         <Label x:Name="ProjectName" Content="Enpty new Project Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,53,0,0" RenderTransformOrigin="0.47,2.061"/>
         <TextBox x:Name="Name" Margin="177,58,-16,356.8" HorizontalAlignment="Left" Width="184"/>
         <ComboBox Name="TypeOfProject" Text="sdgsdgs" Margin="26,96,-12,306.8" HorizontalAlignment="Left" Width="331">

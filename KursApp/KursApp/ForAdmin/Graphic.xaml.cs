@@ -29,6 +29,9 @@ namespace KursApp
         Point nowcenter;
         bool flag = true;
         Project project = null;//проект
+        string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
+
+
         public Graphic(Project pr)
         {
             project = pr;
@@ -44,6 +47,7 @@ namespace KursApp
         {
             if (flag)
             {
+                Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
                 DataCommands dc = new DataCommands();
                 SelectedRisks = await dc.GiveAllRisks(project);
                 RisksCommand rc = new RisksCommand();
@@ -306,7 +310,7 @@ namespace KursApp
         /// <param name="e"></param>
         private void SelRisks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (SelRisks.Items.Count != 0)
+            if (SelRisks.SelectedItem!=null)
             {
                 TBINf.Text = ((Risk)SelRisks.SelectedItem).Influence.ToString();
                 TBProb.Text = ((Risk)SelRisks.SelectedItem).Probability.ToString();

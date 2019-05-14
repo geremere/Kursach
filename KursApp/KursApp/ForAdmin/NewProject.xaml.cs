@@ -19,6 +19,8 @@ namespace KursApp
     /// </summary>
     public partial class NewProject : Window
     {
+        string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
+        bool flag =true;
         public NewProject()
         {
             InitializeComponent();
@@ -46,12 +48,18 @@ namespace KursApp
 
         private async void Window_Activated(object sender, EventArgs e)
         {
-            TypeOfProject.Text = "Select Type Of Project";
-            List<User> userslst = await new UsersCommand().GiveAllUsers();
-            for (int i = 0; i < userslst.Count; i++)
+            if (flag)
             {
-                Owners.Items.Add(userslst[i]);
+                Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
+                TypeOfProject.Text = "Select Type Of Project";
+                List<User> userslst = await new UsersCommand().GiveAllUsers();
+                for (int i = 0; i < userslst.Count; i++)
+                {
+                    Owners.Items.Add(userslst[i]);
+                }
+                flag = false;
             }
+
         }
         private void Back_Click(object sender, RoutedEventArgs e)
         {

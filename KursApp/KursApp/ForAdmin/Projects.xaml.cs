@@ -20,6 +20,8 @@ namespace KursApp
     public partial class Projects : Window
     {
         bool flagApearing = true;
+        string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
+
         public Projects()
         {
             InitializeComponent();            
@@ -28,6 +30,7 @@ namespace KursApp
         {
             if (flagApearing)
             {
+                Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
                 ProjectCommands pc = new ProjectCommands();
                 List<Project> list = await pc.GiveAllProjects();
                 for (int i = 0; i < list.Count; i++)

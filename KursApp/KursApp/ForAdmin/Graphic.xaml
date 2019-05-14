@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Graphic" Height="700" Width="1200" ResizeMode="NoResize" Activated="Window_Activated" WindowStartupLocation="CenterScreen" MouseDown="Cnv_MouseDown" MouseMove="Cnv_MouseMove" MouseUp="Window_MouseUp">
     <Grid x:Name="grid">
-        <Button x:Name="Back" Content="Back" Height="56" Width="76"  Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="49,570,0,0" RenderTransformOrigin="0.54,1.047"></Button>
+        <Button x:Name="Back" Height="40" Width="40"  Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="1119,17,0,0" RenderTransformOrigin="0.54,1.047"></Button>
         <Line X1="75" X2="75" Y1="50" Y2="400" Stroke="Black"/>
         <Line X1="75" X2="500" Y1="400" Y2="400" Stroke="Black"/>
         <Label x:Name="Im" Content="Impact" Margin="20,40,1100,590"/>
