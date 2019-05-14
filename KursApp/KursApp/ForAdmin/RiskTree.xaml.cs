@@ -51,34 +51,45 @@ namespace KursApp
                 if (double.Parse(Prob.Text) < 0) throw new Exception("Значение Probability должно быть вещественным числом в предалам (0,1)");
                 Vertexcs parent = ((Vertexcs)((Button)sender).DataContext);
 
-                int capacity = CountOfChildren(parent);
+                //int capacity = CountOfChildren(parent);
                 int row = 1;
                 CurrenRow(parent,ref row);
                 if (parent.Probability != 0) row++;
-                if (capacity > 4) throw new ArgumentException("Количество детей не может превышать 4");
+                //if (capacity > 4) throw new ArgumentException("Количество детей не может превышать 4");
                 if (row > 4) throw new ArgumentException("Dетвь дерева не может превышать 4");
                 Vertexcs newver;
-                if (capacity==0)
+                string line = $"{(parent.X - Widht / (2 * Math.Pow(4, row))):f3}";
+                if (Cheker(double.Parse(line)))
                 {
                     newver = new Vertexcs(parent.Id, DESC.Text, double.Parse(COST.Text), double.Parse(Prob.Text), parent.X - Widht / (2 * Math.Pow(4, row)), parent.Y + 50);
 
                 }
                 else
                 {
-                    if(capacity==1)
+                    line = $"{(parent.X + Widht / (2 * Math.Pow(4, row))):f3}";
+                    if (Cheker(double.Parse(line)))
                     {
                         newver = new Vertexcs(parent.Id, DESC.Text, double.Parse(COST.Text), double.Parse(Prob.Text), parent.X + Widht / (2 * Math.Pow(4, row)), parent.Y + 50);
 
                     }
                     else
                     {
-                        if (capacity == 2)
+                        line = $"{(parent.X - 3* Widht / (2 * Math.Pow(4, row))):f3}";
+                        if (Cheker(double.Parse(line)))
                         {
                             newver = new Vertexcs(parent.Id, DESC.Text, double.Parse(COST.Text), double.Parse(Prob.Text), parent.X - 3 * Widht / (2 * Math.Pow(4, row)), parent.Y + 50);
                         }
                         else
                         {
-                            newver = new Vertexcs(parent.Id, DESC.Text, double.Parse(COST.Text), double.Parse(Prob.Text), parent.X + 3 * Widht / (2 * Math.Pow(4, row)), parent.Y + 50);
+                            line = $"{(parent.X + 3 * Widht / (2 * Math.Pow(4, row))):f3}";
+                            if (Cheker(double.Parse(line)))
+                            {
+                                newver = new Vertexcs(parent.Id, DESC.Text, double.Parse(COST.Text), double.Parse(Prob.Text), parent.X + 3 * Widht / (2 * Math.Pow(4, row)), parent.Y + 50);
+                            }
+                            else
+                            {
+                                throw new Exception("Количество детей не может превышать 4");
+                            }
                         }
                     }
                 }
@@ -102,6 +113,15 @@ namespace KursApp
 
         }
 
+        private bool Cheker(double x)
+        {
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if (x == vert[i].X)
+                    return false;
+            }
+            return true;
+        }
         private void CostCurrentBranch(Vertexcs current, ref double k)
         {
             for (int i = 0; i < vert.Count; i++)
@@ -291,7 +311,7 @@ namespace KursApp
             TreeCommands tc = new TreeCommands();
             if (((Vertexcs)Add.DataContext).Probability != 0)
             {
-                DeliteVertexes((Vertexcs)Add.DataContext, tc);
+                DeliteVertexes((Vertexcs)Add.DataContext);
                 await tc.DeliteVerTex((Vertexcs)Add.DataContext);
                 Button but = new Button();
                 but.HorizontalAlignment = HorizontalAlignment.Left;
@@ -308,16 +328,17 @@ namespace KursApp
                 vert = await tc1.GiveALlVertex();
                 DrawRootVertexes(FirstVer);
             }
-        }
+        }      
 
-        private async void DeliteVertexes(Vertexcs currentvertex, TreeCommands tc)
+        private async void DeliteVertexes(Vertexcs currentvertex)
         {
+            TreeCommands tc = new TreeCommands();
             for (int i = 0; i < vert.Count; i++)
             {
                 if (vert[i].Probability != 0 && vert[i].ParentId==currentvertex.Id)
                 {
+                    DeliteVertexes(vert[i]);
                     await tc.DeliteVerTex(vert[i]);
-                    DeliteVertexes(vert[i], tc);
                 }
             }
         }

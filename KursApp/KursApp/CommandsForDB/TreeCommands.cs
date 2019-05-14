@@ -195,8 +195,6 @@ namespace KursApp
             }
 
         }
-
-
         private string Parsing(string l)
         {
             string ret = "";
