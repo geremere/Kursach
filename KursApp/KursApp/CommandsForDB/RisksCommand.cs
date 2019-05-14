@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using System;
+using System.IO;
 
 namespace KursApp
 {
@@ -16,7 +17,9 @@ namespace KursApp
 
         public RisksCommand()
         {
-            string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True";
+            string pathToDb = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database.mdf");
+            pathToDb = pathToDb.Replace("\\bin\\Debug", "");
+            string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\GitHub\Kursach\Kursach\KursApp\KursApp\Database.mdf;Integrated Security=True";
             sqlConnect = new SqlConnection(key);
         }
         /// <summary>

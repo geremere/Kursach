@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
         Title="ProjectChoise" Height="530" Width="500" Activated="Window_Activated" ResizeMode="NoResize">
-    <Grid Margin="0,0,-0.4,-3.6">
-        <ListBox x:Name="listBox" Margin="50,70,50,50" MouseDoubleClick="ListBox_MouseDoubleClick"/>
-        <Label x:Name="label" Content="Your Projects:" HorizontalAlignment="Left" Margin="50,31,0,0"
+    <Grid Margin="0,0,0,0">
+        <ListBox x:Name="listBox" Margin="30,70,50,30" MouseDoubleClick="ListBox_MouseDoubleClick"/>
+        <Label x:Name="label" Content="Your Projects:" HorizontalAlignment="Left" Margin="131,19,0,0"
                FontSize="20" VerticalAlignment="Top" Height="41" Width="135"/>
-        
+        <Button x:Name="Back" Margin="30,25,405,426"  Click="Back_Click">
+            <Image Source="../Pictures/back.jpg"/>
+        </Button>
     </Grid>
 </Window>

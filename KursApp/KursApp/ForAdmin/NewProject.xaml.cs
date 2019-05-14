@@ -46,11 +46,19 @@ namespace KursApp
 
         private async void Window_Activated(object sender, EventArgs e)
         {
+            TypeOfProject.Text = "Select Type Of Project";
             List<User> userslst = await new UsersCommand().GiveAllUsers();
             for (int i = 0; i < userslst.Count; i++)
             {
                 Owners.Items.Add(userslst[i]);
             }
         }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Projects p = new Projects();
+            Close();
+            p.Show();
+        }
+
     }
 }

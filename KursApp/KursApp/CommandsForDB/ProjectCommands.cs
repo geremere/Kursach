@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
+using System.IO;
 
 namespace KursApp
 {
@@ -15,7 +16,7 @@ namespace KursApp
         SqlConnection sqlConnect;
         public ProjectCommands()
         {
-            string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True";
+            string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\GitHub\Kursach\Kursach\KursApp\KursApp\Database.mdf;Integrated Security=True";
             sqlConnect = new SqlConnection(key);
         }
 

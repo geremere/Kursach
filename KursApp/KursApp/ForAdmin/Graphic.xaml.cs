@@ -476,5 +476,12 @@ namespace KursApp
                 flag1 = false;
             }
         }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Projects p = new Projects();
+            Close();
+            p.Show();
+        }
     }
 }

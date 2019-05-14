@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="RiskTree" Activated="Window_Activated" ResizeMode="NoResize" WindowState="Maximized">
     <Grid x:Name="grid" Margin="0,-8,-0.4,0.4" >
+        <Button x:Name="Back" Content="Back" Height="36" Width="53"  Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="23,26,0,0" ></Button>
+
         <TextBlock x:Name="RiskName" Margin="30,180,800,200" TextWrapping="Wrap"/>
         <GroupItem Margin="5,0,0,25" Height="150" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="290">
             <Grid Height="145" Margin="0,0,0,0">

@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.IO;
 using System.Windows.Shapes;
 
 namespace KursApp
@@ -22,9 +23,10 @@ namespace KursApp
         Risk drisk = null;
         Project project;
         double Widht;
-        double Height;
+        new double Height;
         Vertexcs FirstVer;
         List<Vertexcs> vert = new List<Vertexcs>();
+        string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
 
         public RiskTree(Risk drisk, Project project)
         {
@@ -38,18 +40,20 @@ namespace KursApp
             try
             {
                 if (((Button)sender).DataContext == null) throw new Exception("выбрете вершину");
-                if (DESC.Text != "") throw new Exception("Заполните поле Description");
-                if (double.TryParse(COST.Text, out double d)) throw new Exception("значение Cost должно быть вещественным числом больше нуля");
+                if (DESC.Text == "") throw new Exception("Заполните поле Description");
+                if (!double.TryParse(COST.Text, out double d)) throw new Exception("значение Cost должно быть вещественным числом больше нуля");
                 if (double.Parse(COST.Text) <= 0) throw new Exception("значение Cost должно быть вещественным числом больше нуля");
-                if (double.TryParse(Prob.Text, out double d1)) throw new Exception("Значение Probability должно быть вещественным числом в предалам (0,1)");
-                if (double.Parse(Prob.Text) < 1) throw new Exception("Значение Probability должно быть вещественным числом в предалам (0,1)");
-                if (double.Parse(Prob.Text) > 0) throw new Exception("Значение Probability должно быть вещественным числом в предалам (0,1)");
+                if (!double.TryParse(Prob.Text, out double d1)) throw new Exception("Значение Probability должно быть вещественным числом в предалам (0,1)");
+                if (double.Parse(Prob.Text) > 1) throw new Exception("Значение Probability должно быть вещественным числом в предалам (0,1)");
+                if (double.Parse(Prob.Text) < 0) throw new Exception("Значение Probability должно быть вещественным числом в предалам (0,1)");
+                Vertexcs parent = ((Vertexcs)((Button)sender).DataContext);
 
-                int capacity = CountOfChildren(((Vertexcs)((Button)sender).DataContext));
+                int capacity = CountOfChildren(parent);
+                int row = 0;
+                CurrenRow(parent,ref row);
                 if (capacity >= 3) MessageBox.Show("Количество детей не может превышать 3");
                 else
                 {
-                    Vertexcs parent = ((Vertexcs)((Button)sender).DataContext);
                     Vertexcs newver;
                     if (capacity==0)
                     {
@@ -85,6 +89,28 @@ namespace KursApp
 
         }
 
+        private void CurrenRow(Vertexcs parent,ref  int k)
+        {
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if(parent.ParentId==vert[i].Id && vert[i].Probability==default)
+                {
+                    k++;
+                    return;
+                }
+                if (parent.ParentId == vert[i].Id && vert[i].Probability != default)
+                {
+                    k++;
+                    CurrenRow(vert[i],ref k);
+                }
+            }
+        }
+
+        /// <summary>
+        /// рисует линии соединяющие точки графа
+        /// </summary>
+        /// <param name="newver"></param>
+        /// <param name="parent"></param>
         private void DrawNewLine(Vertexcs newver, Vertexcs parent)
         {
             Line l = new Line();
@@ -96,6 +122,10 @@ namespace KursApp
             grid.Children.Add(l);
         }
 
+        /// <summary>
+        /// рисует вершины
+        /// </summary>
+        /// <param name="newver"></param>
         private void DrawNewVertex(Vertexcs newver)
         {
             Button but = new Button();
@@ -104,14 +134,19 @@ namespace KursApp
             but.VerticalAlignment = VerticalAlignment.Top;
             but.Margin = new Thickness(newver.X - 20, newver.Y, Widht - newver.X - 20,Height-newver.Y-20);
             but.Height = 20;
-            but.Width = 40;
-            but.Content = "Add Vertex";
+            but.Width = 30;
+            but.Content = "Add";
             but.Click += But_Click;
             grid.Children.Add(but);
 
 
         }
 
+        /// <summary>
+        /// узнает количесво детей
+        /// </summary>
+        /// <param name="vs"></param>
+        /// <returns></returns>
         private int CountOfChildren(Vertexcs vs)
         {
             int count = 0;
@@ -139,6 +174,7 @@ namespace KursApp
             but.HorizontalAlignment = HorizontalAlignment.Left;
             but.VerticalAlignment = VerticalAlignment.Top;
             but.Margin = new Thickness(Widht/2-20,50, Widht / 2 - 20,Height-70);
+            but.Background = new ImageBrush(new BitmapImage(new Uri(path)));
             if (!await tc.Exist(drisk.Id))
             {
                 FirstVer = new Vertexcs(drisk.Id, drisk.RiskName, Widht / 2, 50);
@@ -153,14 +189,18 @@ namespace KursApp
                 but.DataContext = FirstVer;
             }
             but.Height = 20;
-            but.Width = 40;
-            but.Content = "Add Vertex";
+            but.Width = 20;
+            but.Content = "Add";
             but.Click += But_Click;
             grid.Children.Add(but);
             vert = await tc.GiveALlVertex();
             DrawRootVertexes(FirstVer);
         }
 
+        /// <summary>
+        /// рисует дерево при начальной загрузке
+        /// </summary>
+        /// <param name="curver"></param>
         private void DrawRootVertexes(Vertexcs curver)
         {
             for (int i = 0; i < vert.Count; i++)
@@ -174,23 +214,20 @@ namespace KursApp
             }
         }
 
-        private void DrawAllVertex(Vertexcs curver)
-        {
-            for (int i = 0; i < vert.Count; i++)
-            {
-                if (vert[i].ParentId == curver.Id && vert[i].Probability != default(Double))
-                {
-                    DrawNewVertex(vert[i]);
-                    DrawNewLine(vert[i], curver);
-                    DrawAllVertex(vert[i]);
-                }
-
-            }
-        }
-
+        /// <summary>
+        /// нажатие на вершину графа
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void But_Click(object sender, RoutedEventArgs e)
         {
             Add.DataContext = (Vertexcs)((Button)sender).DataContext;
+        }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Graphic p = new Graphic(project);
+            Close();
+            p.Show();
         }
     }
 }

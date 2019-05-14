@@ -52,10 +52,25 @@ namespace KursApp
         }
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (listBox.SelectedItem != null)
+            {
                 Project project = (Project)listBox.SelectedItem;
-                Gra_hicForRiskManager pfpm = new Gra_hicForRiskManager(project,user);
+                Gra_hicForRiskManager pfpm = new Gra_hicForRiskManager(project, user);
                 Close();
                 pfpm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Select Project");
+            }
+            
         }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = new MainWindow();
+            Close();
+            mw.Show();
+        }
+
     }
 }

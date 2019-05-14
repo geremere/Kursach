@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
-        Title="Projects" Height="480.278" Width="701.427" Activated="Window_Activated" ResizeMode="NoResize">
-    <Grid Margin="0,0,7.2,3.4" Height="443" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="679">
-        <ListBox x:Name="listBox" Margin="75,83,369,44" MouseDoubleClick="ListBox_MouseDoubleClick"/>
-        <Label x:Name="label" Content="Projects:" HorizontalAlignment="Left" Margin="82,31,0,0" VerticalAlignment="Top" Height="41" Width="124"/>
-        <Button x:Name="button" Content="Create New Project" Margin="376,100,163,250" Click="Button_Click"/>
+        Title="Projects" Height="500" Width="450" Activated="Window_Activated" ResizeMode="NoResize">
+    <Grid Margin="0,0,-6.8,0.4" Height="463" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="450">
+        <ListBox x:Name="listBox" Margin="25,64,25,76" MouseDoubleClick="ListBox_MouseDoubleClick"/>
+        <Label x:Name="label" Content="Select Projects:" HorizontalAlignment="Left" Margin="109,0,0,409" VerticalAlignment="Bottom" Height="40" Width="125"/>
+        <Button x:Name="Button" Content="Create New Project" Margin="80,405,80,15" Click="Button_Click">
+        </Button>
+        <Button x:Name="Back" Content="Back" Height="20" Width="40"  Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,9,0,0"></Button>
     </Grid>
 </Window>
