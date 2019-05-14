@@ -16,9 +16,32 @@ namespace KursApp
         public DataCommands()
         {
             string pathToDb = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database.mdf");
-            pathToDb = pathToDb.Replace("\\bin\\Debug", "");
+            pathToDb = Trimer(ref pathToDb);
             string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\GitHub\Kursach\Kursach\KursApp\KursApp\Database.mdf;Integrated Security=True";
             sqlConnect = new SqlConnection(key);
+        }
+        private string Trimer(ref string pathToDb)
+        {
+            int count = 0;
+            int capacity = 0;
+            string line = "";
+            for (int i = pathToDb.Length - 1; i > 0; i--)
+            {
+                if (pathToDb[i] == '\\')
+                {
+                    count++;
+                }
+                if (count == 3)
+                {
+                    capacity = i + 1;
+                    break;
+                }
+            }
+            for (int i = 0; i < capacity; i++)
+            {
+                line += pathToDb[i];
+            }
+            return line;
         }
 
         /// <summary>
