@@ -56,7 +56,7 @@ namespace KursApp
                 CurrenRow(parent,ref row);
                 if (parent.Probability != 0) row++;
                 //if (capacity > 4) throw new ArgumentException("Количество детей не может превышать 4");
-                if (row > 4) throw new ArgumentException("Dетвь дерева не может превышать 4");
+                if (row >= 4) throw new ArgumentException("Dетвь дерева не может превышать 4");
                 Vertexcs newver;
                 string line = $"{(parent.X - Widht / (2 * Math.Pow(4, row))):f3}";
                 if (Cheker(double.Parse(line)))
@@ -326,9 +326,10 @@ namespace KursApp
                 cnv.Children.Add(but);
                 TreeCommands tc1 = new TreeCommands();
                 vert = await tc1.GiveALlVertex();
-                DrawRootVertexes(FirstVer);
             }
-        }      
+            DrawRootVertexes(FirstVer);
+
+        }
 
         private async void DeliteVertexes(Vertexcs currentvertex)
         {
