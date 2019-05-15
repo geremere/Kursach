@@ -50,6 +50,7 @@ namespace KursApp
         {
             if (flag)
             {
+                Back.Foreground = new ImageBrush(new BitmapImage(new Uri(path)));
                 Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
                 TypeOfProject.Text = "Select Type Of Project";
                 List<User> userslst = await new UsersCommand().GiveAllUsers();

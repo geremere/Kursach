@@ -31,6 +31,7 @@ namespace KursApp
             if (flagApearing)
             {
                 Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
+                Back.Foreground = new ImageBrush(new BitmapImage(new Uri(path)));
                 ProjectCommands pc = new ProjectCommands();
                 List<Project> list = await pc.GiveAllProjects();
                 for (int i = 0; i < list.Count; i++)

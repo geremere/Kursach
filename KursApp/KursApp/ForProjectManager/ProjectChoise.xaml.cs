@@ -20,6 +20,9 @@ namespace KursApp
     public partial class ProjectChoise : Window
     {
         User user = null;
+        bool flag = true;
+        string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
+
         public ProjectChoise(User user)
         {
             this.user = user;
@@ -28,11 +31,17 @@ namespace KursApp
 
         private async void Window_Activated(object sender, EventArgs e)
         {
-            ProjectCommands pc = new ProjectCommands();
-            List<Project> prlst = await pc.GiveProjectsForOwner(user.Login);
-            for (int i = 0; i < prlst.Count; i++)
+            if (flag)
             {
-                listBox.Items.Add(prlst[i]);
+                Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
+                Back.Foreground = new ImageBrush(new BitmapImage(new Uri(path)));
+
+                ProjectCommands pc = new ProjectCommands();
+                List<Project> prlst = await pc.GiveProjectsForOwner(user.Login);
+                for (int i = 0; i < prlst.Count; i++)
+                {
+                    listBox.Items.Add(prlst[i]);
+                }
             }
         }
 
@@ -41,7 +50,7 @@ namespace KursApp
             if (listBox.SelectedItem != null)
             {
                 Project project = (Project)listBox.SelectedItem;
-                GraphicForProjectManager pfpm = new GraphicForProjectManager(project);
+                GraphicForProjectManager pfpm = new GraphicForProjectManager(project,user);
                 Close();
                 pfpm.Show();
             }

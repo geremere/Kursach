@@ -10,9 +10,7 @@
         <ListBox x:Name="listBox" Margin="50,70,50,50" MouseDoubleClick="ListBox_MouseDoubleClick"/>
         <Label x:Name="label" Content="Your Projects:" HorizontalAlignment="Left" Margin="143,23,0,0"
                FontSize="20" VerticalAlignment="Top" Height="41" Width="135"/>
-        <Button x:Name="Back" Margin="25,50,380,410" VerticalAlignment="Top" Click="Back_Click">
-            <Image Source="../Pictures/back.jpg"/>
-        </Button>
+        <Button x:Name="Back" Margin="50,25" Width="40" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Click="Back_Click"/>
 
     </Grid>
 </Window>

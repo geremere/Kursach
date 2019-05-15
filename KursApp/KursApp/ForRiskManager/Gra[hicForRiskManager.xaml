@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="Gra_hicForRiskManager" Height="700" Width="1200" Activated="Window_Activated" WindowStartupLocation="CenterScreen" MouseDown="Cnv_MouseDown" MouseMove="Cnv_MouseMove" ResizeMode="NoResize">
     <Grid x:Name="grid">
+        <Button x:Name="Back" Margin="1120,20,0,0" Height="40" Width="40" VerticalAlignment="Top" HorizontalAlignment="Left"  Click="Back_Click"/>
+
         <Line X1="75" X2="75" Y1="50" Y2="400" Stroke="Black"/>
         <Line X1="75" X2="500" Y1="400" Y2="400" Stroke="Black"/>
         <Label x:Name="Im" Content="Impact" Margin="20,40,1100,590"/>
@@ -76,7 +78,7 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <StackPanel>
-                        <ListView x:Name="DanRisks" Height="400">
+                        <ListView x:Name="DanRisks" Height="400" MouseDoubleClick="DanRisks_MouseDoubleClick">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Width="200" >

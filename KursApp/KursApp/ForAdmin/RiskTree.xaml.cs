@@ -52,11 +52,9 @@ namespace KursApp
                 if (double.Parse(Prob.Text) < 0) throw new Exception("Значение Probability должно быть вещественным числом в предалам (0,1)");
                 Vertexcs parent = ((Vertexcs)((Button)sender).DataContext);
 
-                //int capacity = CountOfChildren(parent);
                 int row = 1;
                 CurrenRow(parent,ref row);
                 if (parent.Probability != 0) row++;
-                //if (capacity > 4) throw new ArgumentException("Количество детей не может превышать 4");
                 if (row >= 4) throw new ArgumentException("Ветвь дерева не может превышать 4");
                 Vertexcs newver;
                 string line = $"{(parent.X - Widht / (2 * Math.Pow(4, row))):f3}";
@@ -97,11 +95,26 @@ namespace KursApp
                 TreeCommands tc = new TreeCommands();
                 await tc.IsertNewVertex(newver, parent.Id);
                 newver = await tc.GiveVertex(newver);
-                DrawNewVertex(newver);
-                DrawNewLine(newver, parent);
                 vert.Add(newver);
-                
-                
+
+                Button but = new Button();
+                but.HorizontalAlignment = HorizontalAlignment.Left;
+                but.VerticalAlignment = VerticalAlignment.Top;
+                but.Margin = new Thickness(Widht / 2 - 10, 50, Widht / 2 - 10, Height - 70);
+                but.Background = new ImageBrush(new BitmapImage(new Uri(pathplus)));
+                Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
+                but.DataContext = FirstVer;
+                but.Height = 20;
+                but.Width = 20;
+                but.Click += But_Click;
+                cnv.Children.Add(but);
+
+
+                RefreshTree(FirstVer);
+                CostCurrentBranch(FirstVer, 0);
+                DrawMaxDangerous();
+
+
             }
             catch (ArgumentException ex)
             {
@@ -113,6 +126,19 @@ namespace KursApp
             }
 
         }
+        private void RefreshTree(Vertexcs cur)
+        {
+            cnv.Children.Clear();
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if (vert[i].ParentId == cur.Id && vert[i].Probability != default(double))
+                {
+                    DrawNewVertex(vert[i]);
+                    DrawNewLine(vert[i], cur);
+                    DrawRootVertexes(vert[i]);
+                }
+            }
+        }
 
         private bool Cheker(double x)
         {
@@ -123,27 +149,50 @@ namespace KursApp
             }
             return true;
         }
-        //private double CostCurrentBranch(Vertexcs current, double k)
-        //{
-        //    double cost = k;
-        //    for (int i = 0; i < vert.Count; i++)
-        //    {
-        //        if (current.Id == vert[i].ParentId && vert[i].Probability != default)
-        //        {
-        //            k=cost += vert[i].Probability * vert[i].Cost;
-        //            CostCurrentBranch(vert[i],cost);
-        //        }
-        //    }
-        //}
+
+        private void CostCurrentBranch(Vertexcs curver, double k)
+        {
+            double cost = k;
+            for (int i = 0; i < vert.Count; i++)
+            {                
+                if (curver.Id == vert[i].ParentId && vert[i].Probability != default)
+                {
+                    cost += vert[i].Probability * vert[i].Cost;
+                    CostCurrentBranch(vert[i], cost);
+                    cost -= vert[i].Probability * vert[i].Cost;
+                }
+            }
+            if(ExistChild(curver))
+                curver.Value = cost;
+        }
+
+        private bool ExistChild(Vertexcs curver)
+        {
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if (curver.Id == vert[i].ParentId && vert[i].Probability != default)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// выдает ряд дерева
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="k"></param>
         private void CurrenRow(Vertexcs parent,ref  int k)
         {
             for (int i = 0; i < vert.Count; i++)
             {
-                if(parent.ParentId==vert[i].Id && vert[i].Probability==default)
+                if(parent.ParentId==vert[i].Id && vert[i].Probability==default(double))
                 {
                     return;
                 }
-                if (parent.ParentId == vert[i].Id && vert[i].Probability != default)
+                if (parent.ParentId == vert[i].Id && vert[i].Probability != default(double))
                 {
                     k++;
                     CurrenRow(vert[i],ref k);
@@ -187,24 +236,6 @@ namespace KursApp
 
         }
 
-        /// <summary>
-        /// узнает количесво детей
-        /// </summary>
-        /// <param name="vs"></param>
-        /// <returns></returns>
-        private int CountOfChildren(Vertexcs vs)
-        {
-            int count = 0;
-            for (int i = 0; i < vert.Count; i++)
-            {
-                if (vert[i].ParentId == vs.Id && vert[i].Probability != default(Double))
-                {
-                    count++;
-                }
-            }
-            return count;
-        }
-
         private async void Window_Activated(object sender, EventArgs e)
         {
             if (flag)
@@ -225,6 +256,7 @@ namespace KursApp
                     but.Margin = new Thickness(Widht / 2 - 10, 50, Widht / 2 - 10, Height - 70);
                     but.Background = new ImageBrush(new BitmapImage(new Uri(pathplus)));
                     Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
+                    Back.Foreground = new ImageBrush(new BitmapImage(new Uri(path)));
                     if (!await tc.Exist(drisk.Id))
                     {
                         FirstVer = new Vertexcs(drisk.Id, drisk.RiskName, Widht / 2, 50);
@@ -244,6 +276,8 @@ namespace KursApp
                     cnv.Children.Add(but);
                     vert = await tc.GiveALlVertex();
                     DrawRootVertexes(FirstVer);
+                    CostCurrentBranch(FirstVer, 0);
+                    DrawMaxDangerous();
                     flag = false;
                 }
                 catch(NullReferenceException ex)
@@ -255,6 +289,45 @@ namespace KursApp
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void DrawMaxDangerous()
+        {
+            Vertexcs Max = vert[0];
+            Vertexcs Min = vert[0];
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if (Min.Value == 0)
+                {
+                    Min = vert[i];
+                    if(Min.Value != 0)
+                        break;
+                }
+
+            }
+            for (int i = 1; i < vert.Count; i++)
+            {
+                if (vert[i].Value > Max.Value) Max = vert[i];
+                if (vert[i].Value < Min.Value && vert[i].Value!=0) Min = vert[i];
+
+            }
+            Label l = new Label();
+            l.Content = Max.Value;
+            l.VerticalAlignment = VerticalAlignment.Top;
+            l.HorizontalAlignment = HorizontalAlignment.Left;
+            l.Height = 40;
+            l.Foreground = Brushes.Red;
+            l.Margin = new Thickness(Max.X, Max.Y+20,0,0);
+            cnv.Children.Add(l);
+            Label l1 = new Label();
+            l1.Content = Min.Value;
+            l1.VerticalAlignment = VerticalAlignment.Top;
+            l1.HorizontalAlignment = HorizontalAlignment.Left;
+            l1.Height = 40;
+            l1.Foreground = Brushes.Green;
+            l1.Margin = new Thickness(Min.X, Min.Y + 20, 0, 0);
+            cnv.Children.Add(l1);
+
         }
 
         /// <summary>
@@ -326,6 +399,8 @@ namespace KursApp
             but.Click += But_Click;
             cnv.Children.Add(but);
             DrawRootVertexes(FirstVer);
+            CostCurrentBranch(FirstVer, 0);
+            DrawMaxDangerous();
 
         }
 

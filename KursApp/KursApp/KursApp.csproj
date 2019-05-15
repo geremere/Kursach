@@ -84,6 +84,12 @@
     </Compile>
     <Compile Include="CommandsForDB\Vertexcs.cs" />
     <Compile Include="CommandsForDB\TreeCommands.cs" />
+    <Compile Include="ForProjectManager\RiskTreeForProjectManager.xaml.cs">
+      <DependentUpon>RiskTreeForProjectManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ForRiskManager\RiskTreeForRiskManager.xaml.cs">
+      <DependentUpon>RiskTreeForRiskManager.xaml</DependentUpon>
+    </Compile>
     <Page Include="ForAdmin\Graphic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +144,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ForAdmin\RiskTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ForProjectManager\RiskTreeForProjectManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ForRiskManager\RiskTreeForRiskManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

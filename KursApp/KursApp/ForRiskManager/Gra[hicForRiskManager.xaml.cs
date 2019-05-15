@@ -28,6 +28,8 @@ namespace KursApp
         bool flag = true;
         Project project = null;
         User user = null;
+        string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
+
         public Gra_hicForRiskManager(Project project, User user)
         {
             this.user=user;
@@ -43,6 +45,8 @@ namespace KursApp
         {
             if (flag)
             {
+                Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
+                Back.Foreground = new ImageBrush(new BitmapImage(new Uri(path)));
                 DataCommands dc = new DataCommands();
                 SelectedRisks = await dc.GiveOwnersRisks(project, user);
                 ADDToSelctes();
@@ -293,5 +297,21 @@ namespace KursApp
             Drawing();
         }
 
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            ProjectChoise pc = new ProjectChoise(user);
+            Close();
+            pc.Show();
+        }
+
+        private void DanRisks_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(DanRisks.SelectedItem!=null)
+            {
+                RiskTreeForRiskManager rt = new RiskTreeForRiskManager((Risk)DanRisks.SelectedItem,project,user);
+                Close();
+                rt.Show();
+            }
+        }
     }
 }

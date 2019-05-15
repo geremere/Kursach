@@ -20,34 +20,43 @@ namespace KursApp
     public partial class SelectProject : Window
     {
         User user = null;
+        string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
+
         public SelectProject(User user)
         {
             this.user = user;
             InitializeComponent();
         }
-
+        bool flag = true;
         private async  void Window_Activated(object sender, EventArgs e)
         {
-            ProjectCommands pc = new ProjectCommands();
-            DataCommands dc = new DataCommands();
-            List<string> lst = await dc.GiveOwnersProjects(user);
-            List<Project> prlst = await pc.GiveAllProjects();
-            try
+            if (flag)
             {
-                for (int i = 0; i < prlst.Count; i++)
+                Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
+                Back.Foreground = new ImageBrush(new BitmapImage(new Uri(path)));
+
+                ProjectCommands pc = new ProjectCommands();
+                DataCommands dc = new DataCommands();
+                List<string> lst = await dc.GiveOwnersProjects(user);
+                List<Project> prlst = await pc.GiveAllProjects();
+                try
                 {
-                    for (int j = 0; j < lst.Count; j++)
+                    for (int i = 0; i < prlst.Count; i++)
                     {
-                        if (lst[j] == prlst[i].Name)
+                        for (int j = 0; j < lst.Count; j++)
                         {
-                            listBox.Items.Add(prlst[i]);
+                            if (lst[j] == prlst[i].Name)
+                            {
+                                listBox.Items.Add(prlst[i]);
+                            }
                         }
                     }
                 }
-            }
-            catch(NullReferenceException)
-            {
-                MessageBox.Show("You havent projects and risks");
+                catch (NullReferenceException)
+                {
+                    MessageBox.Show("You havent projects and risks");
+                }
+                flag = false;
             }
         }
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)

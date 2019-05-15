@@ -29,9 +29,12 @@ namespace KursApp
         Point nowcenter;
         bool flag = true;
         Project project = null;
-        public GraphicForProjectManager(Project pr)
+        string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
+        User user = null;
+        public GraphicForProjectManager(Project pr, User user)
         {
             project = pr;
+            this.user=user;
             InitializeComponent();
         }
 
@@ -44,6 +47,9 @@ namespace KursApp
         {
             if (flag)
             {
+                Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
+                Back.Foreground = new ImageBrush(new BitmapImage(new Uri(path)));
+
                 DataCommands dc = new DataCommands();
                 SelectedRisks = await dc.GiveAllRisks(project);
                 RisksCommand rc = new RisksCommand();
@@ -364,15 +370,6 @@ namespace KursApp
                 }
             }
         }
-
-        /// <summary>
-        /// находим опасные риски
-        /// </summary>
-        private void DanRisks_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void Cnv_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (SelRisks.Items.Count != 0)
@@ -464,6 +461,23 @@ namespace KursApp
             else
             {
                 MessageBox.Show("Данный элемент уже выбран");
+            }
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            ProjectChoise pc = new ProjectChoise(user);
+            Close();
+            pc.Show();
+        }
+
+        private void DanRisks_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (DanRisks.SelectedItem != null)
+            {
+                RiskTreeForProjectManager rt = new RiskTreeForProjectManager((Risk)DanRisks.SelectedItem, project, user);
+                Close();
+                rt.Show();
             }
         }
     }
