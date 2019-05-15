@@ -26,11 +26,11 @@ namespace KursApp
         private async Task WriteOwners()
         {
             List<User> userslst = await new UsersCommand().GiveAllUsers();
-            Owners.Text = "Choise Owner";
             for (int i = 0; i < userslst.Count; i++)
             {
                 Owners.Items.Add(userslst[i]);
             }
+            Owners.Text = "Choise Owner";
         }
         private void SetUp_Click(object sender, RoutedEventArgs e)
         {

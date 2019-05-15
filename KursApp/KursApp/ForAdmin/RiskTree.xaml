@@ -12,7 +12,7 @@
 
 
         <TextBlock x:Name="RiskName" Margin="30,180,800,200" TextWrapping="Wrap"/>
-        <GroupItem Margin="5,0,0,25" Height="150" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="290">
+        <GroupItem Margin="25,0,0,25" Height="150" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="290">
             <Grid Height="145" Margin="0,0,0,0">
                 <Label Content="Probability:" Margin="5,75,185,40"/>
                 <TextBox x:Name="Prob" HorizontalAlignment="Left" Margin="80,75,25,40" Width="150"/>
@@ -23,7 +23,7 @@
                 <Button x:Name="Add" Content="Add New VerTex" Margin="47,108,53.2,7" Click="AddNewVertex_Click"/>
             </Grid>
         </GroupItem>
-        <GroupItem Height="150" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="290">
+        <GroupItem Height="150" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="290" Margin="25,25">
             <Grid Height="145" Margin="0,0,0,0">
                 <Label Content="Probability:" Margin="5,75,185,40"/>
                 <TextBox x:Name="ProbabilityTB" HorizontalAlignment="Left" Margin="80,75,25,40" Width="150"/>
@@ -34,5 +34,6 @@
                 <Button x:Name="Delite" Content="Delite selected VerTex" Margin="47,108,53.2,7" Click="Delite_Click"/>
             </Grid>
         </GroupItem>
+        <Button x:Name="ToReport" Content="Create Report" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="639,0,23,454" Width="100" Height="30" Click="ToReport_Click"/>
     </Grid>
 </Window>

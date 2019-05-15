@@ -1,0 +1,19 @@
+﻿<Window x:Class="KursApp.ReportForAdmin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KursApp"
+        mc:Ignorable="d"
+        Title="ReportForAdmin" Activated="Window_Activated" ResizeMode="NoResize" WindowState="Maximized">
+    <Grid>
+        <Line X1="75" X2="75" Y1="50" Y2="400" Stroke="Black"/>
+        <Line X1="75" X2="500" Y1="400" Y2="400" Stroke="Black"/>
+        <Label x:Name="Im" Content="Impact" Margin="20,40,1100,590"/>
+        <Label x:Name="Probability" Content="Probability" Margin="430,395,685,230"/>
+        <Polyline Stroke="Black" Points="70, 60, 75, 50, 80, 60" />
+        <Polyline Stroke="Black" Points="490, 395, 500, 400, 490, 405" />
+        <Canvas x:Name="cnv" Margin="0,0,640,250">
+        </Canvas>
+    </Grid>
+</Window>

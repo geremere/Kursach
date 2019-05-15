@@ -90,6 +90,9 @@
     <Compile Include="ForRiskManager\RiskTreeForRiskManager.xaml.cs">
       <DependentUpon>RiskTreeForRiskManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReportForAdmin.xaml.cs">
+      <DependentUpon>ReportForAdmin.xaml</DependentUpon>
+    </Compile>
     <Page Include="ForAdmin\Graphic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,6 +155,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ForRiskManager\RiskTreeForRiskManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReportForAdmin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

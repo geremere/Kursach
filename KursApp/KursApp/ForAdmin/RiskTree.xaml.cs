@@ -416,5 +416,12 @@ namespace KursApp
                 }
             }
         }
+
+        private void ToReport_Click(object sender, RoutedEventArgs e)
+        {
+            ReportForAdmin per = new ReportForAdmin(drisk);
+            Close();
+            per.Show();
+        }
     }
 }
