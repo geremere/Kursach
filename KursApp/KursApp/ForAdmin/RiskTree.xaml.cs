@@ -26,6 +26,7 @@ namespace KursApp
         double Widht;
         new double Height;
         Vertexcs FirstVer;
+        List<double> value = new List<double>();
         List<Vertexcs> vert = new List<Vertexcs>();
         string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
         string pathplus = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plus.png");
@@ -56,7 +57,7 @@ namespace KursApp
                 CurrenRow(parent,ref row);
                 if (parent.Probability != 0) row++;
                 //if (capacity > 4) throw new ArgumentException("Количество детей не может превышать 4");
-                if (row >= 4) throw new ArgumentException("Dетвь дерева не может превышать 4");
+                if (row >= 4) throw new ArgumentException("Ветвь дерева не может превышать 4");
                 Vertexcs newver;
                 string line = $"{(parent.X - Widht / (2 * Math.Pow(4, row))):f3}";
                 if (Cheker(double.Parse(line)))
@@ -122,21 +123,18 @@ namespace KursApp
             }
             return true;
         }
-        private void CostCurrentBranch(Vertexcs current, ref double k)
-        {
-            for (int i = 0; i < vert.Count; i++)
-            {
-                if (current.ParentId == vert[i].Id && vert[i].Probability == default)
-                {
-                    return;
-                }
-                if (current.ParentId == vert[i].Id && vert[i].Probability != default)
-                {
-                    k += vert[i].Probability * vert[i].Cost;
-                    CostCurrentBranch(vert[i], ref k);
-                }
-            }
-        }
+        //private double CostCurrentBranch(Vertexcs current, double k)
+        //{
+        //    double cost = k;
+        //    for (int i = 0; i < vert.Count; i++)
+        //    {
+        //        if (current.Id == vert[i].ParentId && vert[i].Probability != default)
+        //        {
+        //            k=cost += vert[i].Probability * vert[i].Cost;
+        //            CostCurrentBranch(vert[i],cost);
+        //        }
+        //    }
+        //}
         private void CurrenRow(Vertexcs parent,ref  int k)
         {
             for (int i = 0; i < vert.Count; i++)
@@ -312,21 +310,21 @@ namespace KursApp
             if (((Vertexcs)Add.DataContext).Probability != 0)
             {
                 DeliteVertexes((Vertexcs)Add.DataContext);
-                await tc.DeliteVerTex((Vertexcs)Add.DataContext);
-                Button but = new Button();
-                but.HorizontalAlignment = HorizontalAlignment.Left;
-                but.VerticalAlignment = VerticalAlignment.Top;
-                but.Margin = new Thickness(Widht / 2 - 10, 50, Widht / 2 - 10, Height - 70);
-                but.Background = new ImageBrush(new BitmapImage(new Uri(pathplus)));
-                Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
-                but.DataContext = FirstVer;
-                but.Height = 20;
-                but.Width = 20;
-                but.Click += But_Click;
-                cnv.Children.Add(but);
+                await tc.DeliteVerTex((Vertexcs)Add.DataContext);               
                 TreeCommands tc1 = new TreeCommands();
                 vert = await tc1.GiveALlVertex();
             }
+            Button but = new Button();
+            but.HorizontalAlignment = HorizontalAlignment.Left;
+            but.VerticalAlignment = VerticalAlignment.Top;
+            but.Margin = new Thickness(Widht / 2 - 10, 50, Widht / 2 - 10, Height - 70);
+            but.Background = new ImageBrush(new BitmapImage(new Uri(pathplus)));
+            Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
+            but.DataContext = FirstVer;
+            but.Height = 20;
+            but.Width = 20;
+            but.Click += But_Click;
+            cnv.Children.Add(but);
             DrawRootVertexes(FirstVer);
 
         }
