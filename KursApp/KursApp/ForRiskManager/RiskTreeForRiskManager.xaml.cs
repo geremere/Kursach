@@ -381,7 +381,7 @@ namespace KursApp
             if (((Vertexcs)Add.DataContext).Probability != 0)
             {
                 DeliteVertexes((Vertexcs)Add.DataContext);
-                await tc.DeliteVerTex((Vertexcs)Add.DataContext);
+                //await tc.DeliteVerTex((Vertexcs)Add.DataContext);
                 TreeCommands tc1 = new TreeCommands();
                 vert = await tc1.GiveALlVertex();
             }
@@ -410,7 +410,7 @@ namespace KursApp
                 if (vert[i].Probability != 0 && vert[i].ParentId == currentvertex.Id)
                 {
                     DeliteVertexes(vert[i]);
-                    await tc.DeliteVerTex(vert[i]);
+                    //await tc.DeliteVerTex(vert[i]);
                 }
             }
         }

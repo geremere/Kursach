@@ -185,7 +185,10 @@ namespace KursApp
                 sqlReader = await command.ExecuteReaderAsync();
                 while (await sqlReader.ReadAsync())
                 {
-                    lstv.Add(new Vertexcs(Convert.ToInt32(sqlReader["Id"]),Convert.ToInt32(sqlReader["ParentId"]), Convert.ToString(sqlReader["Description"]), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Cost"]))), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Probability"]))), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["X"]))), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Y"])))));
+                    lstv.Add(new Vertexcs(Convert.ToInt32(sqlReader["Id"]),Convert.ToInt32(sqlReader["ParentId"]), 
+                        Convert.ToString(sqlReader["Description"]), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Cost"]))), 
+                        Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Probability"]))), Convert.ToDouble(Parsing(Convert.ToString(sqlReader["X"]))), 
+                        Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Y"])))));
                 }
                 return lstv;
             }
@@ -200,14 +203,19 @@ namespace KursApp
                 sqlConnect.Close();
             }
         }
-        public async Task DeliteVerTex(Vertexcs vertex)
+        public async Task DeliteVerTex(List<Vertexcs> vertex)
         {
             try
             {
                 await sqlConnect.OpenAsync();
-                SqlCommand command = new SqlCommand("DELETE FROM [RiskTree] WHERE [Id]=@Id", sqlConnect);
-                command.Parameters.AddWithValue("Id", vertex.Id);
-                await command.ExecuteNonQueryAsync();
+                for (int i = 0; i < vertex.Count; i++)
+                {
+                    SqlCommand command = new SqlCommand("DELETE FROM [RiskTree] WHERE [Id]=@Id", sqlConnect);
+
+                    command.Parameters.AddWithValue("Id", vertex[i].Id);
+                    await command.ExecuteNonQueryAsync();
+
+                }
             }
             catch (Exception)
             {

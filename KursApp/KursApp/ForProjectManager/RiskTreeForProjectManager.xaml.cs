@@ -376,29 +376,29 @@ namespace KursApp
 
         private async void Delite_Click(object sender, RoutedEventArgs e)
         {
-            cnv.Children.Clear();
-            TreeCommands tc = new TreeCommands();
-            if (((Vertexcs)Add.DataContext).Probability != 0)
-            {
-                DeliteVertexes((Vertexcs)Add.DataContext);
-                await tc.DeliteVerTex((Vertexcs)Add.DataContext);
-                TreeCommands tc1 = new TreeCommands();
-                vert = await tc1.GiveALlVertex();
-            }
-            Button but = new Button();
-            but.HorizontalAlignment = HorizontalAlignment.Left;
-            but.VerticalAlignment = VerticalAlignment.Top;
-            but.Margin = new Thickness(Widht / 2 - 10, 50, Widht / 2 - 10, Height - 70);
-            but.Background = new ImageBrush(new BitmapImage(new Uri(pathplus)));
-            Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
-            but.DataContext = FirstVer;
-            but.Height = 20;
-            but.Width = 20;
-            but.Click += But_Click;
-            cnv.Children.Add(but);
-            DrawRootVertexes(FirstVer);
-            CostCurrentBranch(FirstVer, 0);
-            DrawMaxDangerous();
+            //cnv.Children.Clear();
+            //TreeCommands tc = new TreeCommands();
+            //if (((Vertexcs)Add.DataContext).Probability != 0)
+            //{
+            //    DeliteVertexes((Vertexcs)Add.DataContext);
+            //    await tc.DeliteVerTex((Vertexcs)Add.DataContext);
+            //    TreeCommands tc1 = new TreeCommands();
+            //    vert = await tc1.GiveALlVertex();
+            //}
+            //Button but = new Button();
+            //but.HorizontalAlignment = HorizontalAlignment.Left;
+            //but.VerticalAlignment = VerticalAlignment.Top;
+            //but.Margin = new Thickness(Widht / 2 - 10, 50, Widht / 2 - 10, Height - 70);
+            //but.Background = new ImageBrush(new BitmapImage(new Uri(pathplus)));
+            //Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
+            //but.DataContext = FirstVer;
+            //but.Height = 20;
+            //but.Width = 20;
+            //but.Click += But_Click;
+            //cnv.Children.Add(but);
+            //DrawRootVertexes(FirstVer);
+            //CostCurrentBranch(FirstVer, 0);
+            //DrawMaxDangerous();
 
         }
 
@@ -410,7 +410,7 @@ namespace KursApp
                 if (vert[i].Probability != 0 && vert[i].ParentId == currentvertex.Id)
                 {
                     DeliteVertexes(vert[i]);
-                    await tc.DeliteVerTex(vert[i]);
+                   // await tc.DeliteVerTex(vert[i]);
                 }
             }
         }

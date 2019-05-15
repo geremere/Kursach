@@ -474,7 +474,7 @@ namespace KursApp
         {
             if(flag1)
             {
-                RiskTree rt = new RiskTree((Risk)DanRisks.SelectedItem, project);
+                RiskTree rt = new RiskTree((Risk)DanRisks.SelectedItem, project,center);
                 Close();
                 rt.Show();
                 flag1 = false;

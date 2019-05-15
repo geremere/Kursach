@@ -83,3 +83,4 @@ C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForProjectManager\RiskTreeFo
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForRiskManager\RiskTreeForRiskManager.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ForRiskManager\RiskTreeForRiskManager.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ReportForAdmin.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Debug\ReportForAdmin.baml

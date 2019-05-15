@@ -34,6 +34,6 @@
                 <Button x:Name="Delite" Content="Delite selected VerTex" Margin="47,108,53.2,7" Click="Delite_Click"/>
             </Grid>
         </GroupItem>
-        <Button x:Name="ToReport" Content="Create Report" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="639,0,23,454" Width="100" Height="30" Click="ToReport_Click"/>
+        <Button x:Name="ToReport" Content="Create Report" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,25,0" Width="100" Height="30" Click="ToReport_Click"/>
     </Grid>
 </Window>

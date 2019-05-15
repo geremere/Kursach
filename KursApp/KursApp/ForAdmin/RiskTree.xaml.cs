@@ -31,9 +31,10 @@ namespace KursApp
         string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
         string pathplus = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plus.png");
 
-
-        public RiskTree(Risk drisk, Project project)
+        Point center ;
+        public RiskTree(Risk drisk, Project project,Point center)
         {
+            this.center = center;
             this.drisk = drisk;
             this.project = project;
             InitializeComponent();
@@ -97,23 +98,13 @@ namespace KursApp
                 newver = await tc.GiveVertex(newver);
                 vert.Add(newver);
 
-                Button but = new Button();
-                but.HorizontalAlignment = HorizontalAlignment.Left;
-                but.VerticalAlignment = VerticalAlignment.Top;
-                but.Margin = new Thickness(Widht / 2 - 10, 50, Widht / 2 - 10, Height - 70);
-                but.Background = new ImageBrush(new BitmapImage(new Uri(pathplus)));
-                Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
-                but.DataContext = FirstVer;
-                but.Height = 20;
-                but.Width = 20;
-                but.Click += But_Click;
-                cnv.Children.Add(but);
+                
 
 
                 RefreshTree(FirstVer);
                 CostCurrentBranch(FirstVer, 0);
                 DrawMaxDangerous();
-
+                Clear();
 
             }
             catch (ArgumentException ex)
@@ -126,9 +117,29 @@ namespace KursApp
             }
 
         }
+
+        private void Clear()
+        {
+            for (int i = 0; i < vert.Count; i++)
+            {
+                vert[i].Value = default(double);
+            }
+        }
+
         private void RefreshTree(Vertexcs cur)
         {
             cnv.Children.Clear();
+            Button but = new Button();
+            but.HorizontalAlignment = HorizontalAlignment.Left;
+            but.VerticalAlignment = VerticalAlignment.Top;
+            but.Margin = new Thickness(Widht / 2 - 10, 50, Widht / 2 - 10, Height - 70);
+            but.Background = new ImageBrush(new BitmapImage(new Uri(pathplus)));
+            Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
+            but.DataContext = FirstVer;
+            but.Height = 20;
+            but.Width = 20;
+            but.Click += But_Click;
+            cnv.Children.Add(but);
             for (int i = 0; i < vert.Count; i++)
             {
                 if (vert[i].ParentId == cur.Id && vert[i].Probability != default(double))
@@ -294,25 +305,28 @@ namespace KursApp
         private void DrawMaxDangerous()
         {
             Vertexcs Max = vert[0];
-            Vertexcs Min = vert[0];
+            Vertexcs Min=null;
             for (int i = 0; i < vert.Count; i++)
             {
-                if (Min.Value == 0)
+                if (vert[i].Value != 0)
                 {
                     Min = vert[i];
-                    if(Min.Value != 0)
-                        break;
+                    for (int j = 0; j < vert.Count; j++)
+                    {
+                        if (vert[j].Value < Min.Value && vert[j].Value != 0) Min = vert[j];
+                    }
+                    break;
                 }
 
             }
             for (int i = 1; i < vert.Count; i++)
             {
                 if (vert[i].Value > Max.Value) Max = vert[i];
-                if (vert[i].Value < Min.Value && vert[i].Value!=0) Min = vert[i];
 
             }
             Label l = new Label();
-            l.Content = Max.Value;
+            if (Max != null)
+                l.Content = Max.Value;
             l.VerticalAlignment = VerticalAlignment.Top;
             l.HorizontalAlignment = HorizontalAlignment.Left;
             l.Height = 40;
@@ -320,14 +334,61 @@ namespace KursApp
             l.Margin = new Thickness(Max.X, Max.Y+20,0,0);
             cnv.Children.Add(l);
             Label l1 = new Label();
-            l1.Content = Min.Value;
+            if (Min != null)
+            {
+                l1.Content = Min.Value;
+            }
             l1.VerticalAlignment = VerticalAlignment.Top;
             l1.HorizontalAlignment = HorizontalAlignment.Left;
             l1.Height = 40;
             l1.Foreground = Brushes.Green;
             l1.Margin = new Thickness(Min.X, Min.Y + 20, 0, 0);
             cnv.Children.Add(l1);
+            DrawREDLine(Max);
+            DrawGRINLine(Min);
+        }
 
+        private void DrawGRINLine(Vertexcs min)
+        {
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if (min.ParentId == vert[i].Id)
+                {
+                    Line l = new Line();
+                    l.X1 = vert[i].X;
+                    l.Y1 = vert[i].Y + 20;
+                    l.X2 = min.X;
+                    l.Y2 = min.Y;
+                    l.Stroke = Brushes.Green;
+                    cnv.Children.Add(l);
+
+                    if (vert[i].Probability == default(double)) break;
+                    else DrawGRINLine(vert[i]);
+
+                }
+            }
+        }
+
+        private void DrawREDLine(Vertexcs max)
+        {
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if(max.ParentId==vert[i].Id)
+                {
+                    Line l = new Line();
+                    l.X1 = vert[i].X;
+                    l.Y1 = vert[i].Y + 20;
+                    l.X2 = max.X;
+                    l.Y2 = max.Y;
+
+                    l.Stroke = Brushes.Red;
+                    cnv.Children.Add(l);
+
+                    if (vert[i].Probability == default(double)) break;
+                    else DrawREDLine(vert[i]);
+
+                }
+            }
         }
 
         /// <summary>
@@ -382,10 +443,10 @@ namespace KursApp
             TreeCommands tc = new TreeCommands();
             if (((Vertexcs)Add.DataContext).Probability != 0)
             {
-                DeliteVertexes((Vertexcs)Add.DataContext);
-                await tc.DeliteVerTex((Vertexcs)Add.DataContext);               
-                TreeCommands tc1 = new TreeCommands();
-                vert = await tc1.GiveALlVertex();
+                List<Vertexcs> d= DeliteVertexes((Vertexcs)Add.DataContext);
+                d.Add((Vertexcs)Add.DataContext);
+                await tc.DeliteVerTex(d);               
+                vert = await tc.GiveALlVertex();
             }
             Button but = new Button();
             but.HorizontalAlignment = HorizontalAlignment.Left;
@@ -403,23 +464,37 @@ namespace KursApp
             DrawMaxDangerous();
 
         }
-
-        private async void DeliteVertexes(Vertexcs currentvertex)
+        private List<Vertexcs> DeliteVertexes(Vertexcs currentvertex)
         {
-            TreeCommands tc = new TreeCommands();
+            List<Vertexcs> delete = new List<Vertexcs>(); 
             for (int i = 0; i < vert.Count; i++)
             {
-                if (vert[i].Probability != 0 && vert[i].ParentId==currentvertex.Id)
+                if (vert[i].Probability != 0 && vert[i].ParentId == currentvertex.Id)
                 {
-                    DeliteVertexes(vert[i]);
-                    await tc.DeliteVerTex(vert[i]);
+                    //DeliteVertexes(vert[i]);
+                    delete.Add(vert[i]);
+                    //vert.Remove(vert[i]);
+                    //i--;
+                   
                 }
             }
+            for (int i = 0; i < vert.Count; i++)
+            {
+                for (int j = 0; j < delete.Count; j++)
+                {
+                    if (vert[i].Probability != 0 && vert[i].ParentId == delete[j].Id)
+                    {
+                        delete.Add(vert[i]);
+                    }
+                }
+            }
+            return delete;
+            
         }
 
         private void ToReport_Click(object sender, RoutedEventArgs e)
         {
-            ReportForAdmin per = new ReportForAdmin(drisk);
+            ReportForAdmin per = new ReportForAdmin(drisk,project,center);
             Close();
             per.Show();
         }

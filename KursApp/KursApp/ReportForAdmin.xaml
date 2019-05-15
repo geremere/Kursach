@@ -13,7 +13,7 @@
         <Label x:Name="Probability" Content="Probability" Margin="430,395,685,230"/>
         <Polyline Stroke="Black" Points="70, 60, 75, 50, 80, 60" />
         <Polyline Stroke="Black" Points="490, 395, 500, 400, 490, 405" />
-        <Canvas x:Name="cnv" Margin="0,0,640,250">
+        <Canvas x:Name="cnv">
         </Canvas>
     </Grid>
 </Window>
