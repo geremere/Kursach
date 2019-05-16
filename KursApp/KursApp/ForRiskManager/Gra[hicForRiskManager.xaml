@@ -20,7 +20,7 @@
         <TabControl x:Name="TabRisks" Margin="600,50,25,90">
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock FontSize="15">Selected Risks</TextBlock>
+                    <TextBlock FontSize="15">Active Risks</TextBlock>
                 </TabItem.Header>
                 <TabItem.Content>
                     <StackPanel Margin="0,0,0,0">
@@ -52,7 +52,7 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Width="175">
-                                        Delite
+                                        Send To InActive
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button x:Name="Delete" Content="Delete" Click="Delite_Click"/>
@@ -66,6 +66,7 @@
                             <TextBox x:Name="TBProb" Margin="150,5,300,70" />
                             <Label x:Name="LInf" Content="Influence" Margin="0,35,400,35"/>
                             <Label x:Name="LProb" Content="Probability" Margin="0,5,400,70"/>
+                            <ComboBox x:Name="Owner" Text="Owner" Margin="300,15,50.2,38"  IsEditable="True" IsReadOnly="True"/>
                             <Button x:Name="SetUp" Content="Set Up" Click="SetUp_Click" Margin="5,70,450,10"/>
                             <TextBox x:Name="TBINf" Margin="150,35,300,40"/>
                         </Grid>
@@ -74,7 +75,7 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock FontSize="15">Dangerouge Risks</TextBlock>
+                    <TextBlock FontSize="15">Dangerous Risks</TextBlock>
                 </TabItem.Header>
                 <TabItem.Content>
                     <StackPanel>
@@ -98,10 +99,104 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Width="175">
-                                        Effects
+                                        Rank
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Effects}" TextWrapping="Wrap"/>
+                                                <TextBlock Text="{Binding Rank}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontSize="15">New Risks</TextBlock>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel Margin="0,0,0,0">
+                        <ListView x:Name="NewRisks" Height="370" SelectionChanged="NewRisks_SelectionChanged">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="200" >
+                                        Name
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding RiskName}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="150" >
+                                        Influence
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Influence}" TextWrapping="Wrap" TextAlignment="Center"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="150">
+                                        Probability
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Probability}" TextWrapping="Wrap" TextAlignment="Center"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Grid Height="100">
+                            <TextBox x:Name="TBProbNew" Margin="150,5,300,70" />
+                            <Label x:Name="LInfNew" Content="Influence" Margin="0,35,400,35"/>
+                            <Label x:Name="LProbNew" Content="Probability" Margin="0,5,400,70"/>
+                            <ComboBox x:Name="OwnerNew" Text="Owner" Margin="300,15,50.2,38"  IsEditable="True" IsReadOnly="True"/>
+                            <Button x:Name="SetUpNew" Content="Set Up" Click="SetUpNew_Click" Margin="5,70,450,10"/>
+                            <TextBox x:Name="TBINfNew" Margin="150,35,300,40"/>
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontSize="15"> Inactive Risks</TextBlock>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel Margin="0,0,0,0">
+                        <ListView x:Name="UnSelRisks" Height="370" SelectionChanged="SelRisks_SelectionChanged">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="150" >
+                                        Name
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding RiskName}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="125" >
+                                        Influence
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Influence}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="125">
+                                        Probability
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Probability}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="175">
+                                        Add to Active
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button x:Name="AddToActive" Content="Add To Active" Click="AddToActive_Click"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>

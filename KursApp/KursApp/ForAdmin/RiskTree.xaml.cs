@@ -30,7 +30,6 @@ namespace KursApp
         List<Vertexcs> vert = new List<Vertexcs>();
         string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
         string pathplus = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plus.png");
-
         Point center ;
         public RiskTree(Risk drisk, Project project,Point center)
         {

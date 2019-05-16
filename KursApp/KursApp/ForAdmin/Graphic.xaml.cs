@@ -405,7 +405,7 @@ namespace KursApp
             string line = "";
             for (int i = 0; i < click.Count; i++)
             {
-                line += $"RiskName: {click[i].RiskName}\nSourse: {click[i].SoursOfRisk}";
+                line += $"RiskName: {click[i].RiskName}\nSourse: {click[i].SoursOfRisk}\n";
             }
             return line;
         }
