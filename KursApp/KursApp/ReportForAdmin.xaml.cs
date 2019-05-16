@@ -23,11 +23,16 @@ namespace KursApp
         Risk drisk = null;
         Project project = null;
         List<Risk> SelectedRisks = null;
+        List<Vertexcs> vert = null;
+        Vertexcs FirstVerTex;
         Point center;//точка центра
         const double radius = 250;
         const int K = 100;
+        double Widht;
+        new double Height;
 
-        
+
+
         public ReportForAdmin(Risk drisk,Project project,Point center)
         {
             this.center = center;
@@ -40,12 +45,185 @@ namespace KursApp
         {
             if(flag)
             {
+                Widht = cnv.ActualWidth;
+                Height = cnv.ActualHeight;
+
                 DataCommands dc = new DataCommands();
                 SelectedRisks = await dc.GiveAllRisks(project);
                 Drawing();
+                TreeCommands tc = new TreeCommands();
+                vert = await tc.GiveALlVertex();
+                FirstVerTex = await tc.GiveFristVertex(drisk.Id);
+                CreateFirstVertex();
+                CostCurrentBranch(FirstVerTex, 0);
+                DrawMaxDangerous();
+                await WriteInListView();
                 flag = false;
             }
         }
+
+        private async Task WriteInListView()
+        {
+            for (int i = 0; i < SelectedRisks.Count; i++)
+            {
+                Dangerous.Items.Add(SelectedRisks[i]);
+            }
+        }
+
+        private void CreateFirstVertex()
+        {
+            Point point = new Point(FirstVerTex.X*3/2, FirstVerTex.Y);
+            Ellipse elipse = new Ellipse();
+
+            elipse.Width = 4;
+            elipse.Height = 4;
+            elipse.HorizontalAlignment = HorizontalAlignment.Left;
+            elipse.VerticalAlignment = VerticalAlignment.Top;
+            elipse.StrokeThickness = 2;
+            elipse.Stroke = Brushes.Black;
+            elipse.Margin = new Thickness(point.X - 2, point.Y - 2, 0, 0);
+            cnv.Children.Add(elipse);
+            DrawRootVertexes(FirstVerTex);
+        }
+        private void DrawRootVertexes(Vertexcs curver)
+        {
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if (vert[i].ParentId == curver.Id && vert[i].Probability != default(double))
+                {
+                    DrawNewVertex(vert[i]);
+                    DrawNewLine(vert[i], curver);
+                    DrawRootVertexes(vert[i]);
+                }
+            }
+        }
+
+        private void DrawNewVertex(Vertexcs newver)
+        {
+            Point point = new Point(newver.X, newver.Y);
+            Ellipse elipse = new Ellipse();
+
+            elipse.Width = 6;
+            elipse.Height = 6;
+            elipse.HorizontalAlignment = HorizontalAlignment.Left;
+            elipse.VerticalAlignment = VerticalAlignment.Top;
+            elipse.StrokeThickness = 2;
+            elipse.Stroke = Brushes.Black;
+            elipse.Margin = new Thickness(newver.X / 2 + Widht / 2 - 3, newver.Y -3, 0, 0);
+            cnv.Children.Add(elipse);
+
+
+        }
+
+        private void DrawNewLine(Vertexcs newver, Vertexcs parent)
+        {
+            Line l = new Line();
+            l.X1 = parent.X / 2 + Widht / 2;
+            l.Y1 = parent.Y;
+            l.X2 = newver.X / 2 + Widht / 2;
+            l.Y2 = newver.Y ;
+            l.Stroke = Brushes.Black;
+            cnv.Children.Add(l);
+        }
+        private void CostCurrentBranch(Vertexcs curver, double k)
+        {
+            double cost = k;
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if (curver.Id == vert[i].ParentId && vert[i].Probability != default)
+                {
+                    cost += vert[i].Probability * vert[i].Cost;
+                    CostCurrentBranch(vert[i], cost);
+                    cost -= vert[i].Probability * vert[i].Cost;
+                }
+            }
+            if (ExistChild(curver))
+                curver.Value = cost;
+        }
+
+        private bool ExistChild(Vertexcs curver)
+        {
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if (curver.Id == vert[i].ParentId && vert[i].Probability != default)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        private void DrawMaxDangerous()
+        {
+            Vertexcs Max = vert[0];
+            Vertexcs Min = null;
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if (vert[i].Value != 0)
+                {
+                    Min = vert[i];
+                    for (int j = 0; j < vert.Count; j++)
+                    {
+                        if (vert[j].Value < Min.Value && vert[j].Value != 0) Min = vert[j];
+                    }
+                    break;
+                }
+
+            }
+            for (int i = 1; i < vert.Count; i++)
+            {
+                if (vert[i].Value > Max.Value) Max = vert[i];
+
+            }
+            DrawREDLine(Max);
+            DrawGRINLine(Min);
+        }
+
+        private void DrawGRINLine(Vertexcs min)
+        {
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if (min.ParentId == vert[i].Id)
+                {
+                    Line l = new Line();
+                    l.X1 = vert[i].X/ 2 + Widht / 2;
+                    l.Y1 = vert[i].Y;
+                    l.X2 = min.X / 2 + Widht / 2;
+                    l.Y2 = min.Y;
+                    l.Stroke = Brushes.Green;
+                    l.Width = 10;
+                    cnv.Children.Add(l);
+
+                    if (vert[i].Probability == default(double)) break;
+                    else DrawGRINLine(vert[i]);
+
+                }
+            }
+        }
+
+        private void DrawREDLine(Vertexcs max)
+        {
+            for (int i = 0; i < vert.Count; i++)
+            {
+                if (max.ParentId == vert[i].Id)
+                {
+                    Line l = new Line();
+                    l.X1 = vert[i].X / 2 + Widht / 2;
+                    l.Y1 = vert[i].Y;
+                    l.X2 = max.X / 2 + Widht / 2;
+                    l.Y2 = max.Y;
+
+                    l.Stroke = Brushes.Red;
+                    cnv.Children.Add(l);
+
+                    if (vert[i].Probability == default(double)) break;
+                    else DrawREDLine(vert[i]);
+
+                }
+            }
+        }
+
+
+
         static public double FindY(double x, double radius, Point center)
         {
             double c = -radius * radius + (x - center.X) * (x - center.X) + center.Y * center.Y;

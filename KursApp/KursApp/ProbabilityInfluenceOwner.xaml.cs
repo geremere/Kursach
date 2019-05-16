@@ -30,8 +30,8 @@ namespace KursApp
             {
                 Owners.Items.Add(userslst[i]);
             }
-            Owners.Text = "Choise Owner";
         }
+
         private void SetUp_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -68,6 +68,7 @@ namespace KursApp
 
         private async void Window_Activated(object sender, EventArgs e)
         {
+            Owners.Text = "Choise Owner";
             await WriteOwners();
 
         }
@@ -83,6 +84,13 @@ namespace KursApp
                 }
             }
             return ret;
+        }
+
+        private void CrateCleanRisk_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+            TBINf.Text = default(double).ToString();
+            TBProb.Text = default(double).ToString();
         }
     }
 }

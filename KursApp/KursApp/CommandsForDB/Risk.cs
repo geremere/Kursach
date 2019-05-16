@@ -41,6 +41,18 @@ namespace KursApp
             Selected = true;
         }
 
+        int status;
+        public int Status
+        {
+            get
+            {
+                return status;
+            }
+            set
+            {
+                status = value;
+            }
+        }
         public int Id { get; set; }
         public string RiskName { get; set; }
         public string SoursOfRisk { get; set; }
@@ -51,6 +63,11 @@ namespace KursApp
         public Point point;
         public string OwnerLogin { get; set; }
         int ownerid;
+        public double rank;
+        public double Rank
+        {
+            get => Influence * Probability;
+        }
         public int OwnerId
         {
             get

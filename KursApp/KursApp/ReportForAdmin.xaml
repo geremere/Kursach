@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:KursApp"
         mc:Ignorable="d"
         Title="ReportForAdmin" Activated="Window_Activated" ResizeMode="NoResize" WindowState="Maximized">
-    <Grid>
+    <Grid x:Name="grid">
         <Line X1="75" X2="75" Y1="50" Y2="400" Stroke="Black"/>
         <Line X1="75" X2="500" Y1="400" Y2="400" Stroke="Black"/>
         <Label x:Name="Im" Content="Impact" Margin="20,40,1100,590"/>
@@ -15,5 +15,60 @@
         <Polyline Stroke="Black" Points="490, 395, 500, 400, 490, 405" />
         <Canvas x:Name="cnv">
         </Canvas>
+        <Label Content="Top 10 Dangerous Risks:" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,300"/>
+        <ListView x:Name="Dangerous" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="305" Margin="0,0,0,25">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="200" >
+                        Name
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding RiskName}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="200" >
+                        SoursOfRisk
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding SoursOfRisk}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="200" >
+                        Description
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="200" >
+                        Effects
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Effects}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" >
+                        Owner
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OwnerLogin}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="175">
+                        Rank
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Rank}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

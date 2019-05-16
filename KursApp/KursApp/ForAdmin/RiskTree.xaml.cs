@@ -102,9 +102,9 @@ namespace KursApp
 
 
                 RefreshTree(FirstVer);
+                Clear();
                 CostCurrentBranch(FirstVer, 0);
                 DrawMaxDangerous();
-                Clear();
 
             }
             catch (ArgumentException ex)
@@ -324,28 +324,31 @@ namespace KursApp
                 if (vert[i].Value > Max.Value) Max = vert[i];
 
             }
-            Label l = new Label();
             if (Max != null)
+            {
+                Label l = new Label();
                 l.Content = Max.Value;
-            l.VerticalAlignment = VerticalAlignment.Top;
-            l.HorizontalAlignment = HorizontalAlignment.Left;
-            l.Height = 40;
-            l.Foreground = Brushes.Red;
-            l.Margin = new Thickness(Max.X, Max.Y+20,0,0);
-            cnv.Children.Add(l);
-            Label l1 = new Label();
+                l.Margin = new Thickness(Max.X, Max.Y + 20, 0, 0);
+                l.VerticalAlignment = VerticalAlignment.Top;
+                l.HorizontalAlignment = HorizontalAlignment.Left;
+                l.Height = 40;
+                l.Foreground = Brushes.Red;
+                cnv.Children.Add(l);
+                DrawREDLine(Max);
+            }
+
             if (Min != null)
             {
+                Label l1 = new Label();
                 l1.Content = Min.Value;
+                l1.Margin = new Thickness(Min.X, Min.Y + 20, 0, 0);
+                l1.VerticalAlignment = VerticalAlignment.Top;
+                l1.HorizontalAlignment = HorizontalAlignment.Left;
+                l1.Height = 40;
+                l1.Foreground = Brushes.Green;
+                cnv.Children.Add(l1);
+                DrawGRINLine(Min);
             }
-            l1.VerticalAlignment = VerticalAlignment.Top;
-            l1.HorizontalAlignment = HorizontalAlignment.Left;
-            l1.Height = 40;
-            l1.Foreground = Brushes.Green;
-            l1.Margin = new Thickness(Min.X, Min.Y + 20, 0, 0);
-            cnv.Children.Add(l1);
-            DrawREDLine(Max);
-            DrawGRINLine(Min);
         }
 
         private void DrawGRINLine(Vertexcs min)

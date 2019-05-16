@@ -64,6 +64,7 @@ namespace KursApp
                 Drawing();
                 FindDangerougeRisks();
                 await WriteOwners();
+                Owner.Text = "Choise Owner";
                 flag = false;
             }
         }
@@ -71,7 +72,6 @@ namespace KursApp
         private async Task WriteOwners()
         {
             List<User> userslst = await new UsersCommand().GiveAllUsers();
-            Owner.Text = "Choise Owner";
             for (int i = 0; i < userslst.Count; i++)
             {
                 Owner.Items.Add(userslst[i]);
@@ -353,33 +353,14 @@ namespace KursApp
                     if (Math.Sqrt((((Risk)SelRisks.Items[i]).point.X - center.X) * (((Risk)SelRisks.Items[i]).point.X - center.X) +
                         (((Risk)SelRisks.Items[i]).point.Y - center.Y) * (((Risk)SelRisks.Items[i]).point.Y - center.Y)) < radius)
                     {
+                        ((Risk)SelRisks.Items[i]).Status = 2;
                         DanRisks.Items.Add((Risk)SelRisks.Items[i]);
                     }
+                    ((Risk)SelRisks.Items[i]).Status = 1;
+
 
                 }
             }
-        }
-
-        /// <summary>
-        /// Это не работать
-        /// не общай внимания моешьпотом удалить
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            //DanRisks.Items.Clear();
-            //for (int i = 0; i < SelRisks.Items.Count; i++)
-            //{
-            //    if (Math.Sqrt((((Risk)SelRisks.Items[i]).point.X - center.X) * (((Risk)SelRisks.Items[i]).point.X - center.X) +
-            //        (((Risk)SelRisks.Items[i]).point.Y - center.Y) * (((Risk)SelRisks.Items[i]).point.Y - center.Y)) < radius)
-            //    {
-            //        DanRisks.Items.Add((Risk)SelRisks.Items[i]);
-            //    }
-
-            //}
-
-
         }
 
         private void Cnv_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -421,14 +402,16 @@ namespace KursApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void Delite_Click(object sender, RoutedEventArgs e)
+        private void Delite_Click(object sender, RoutedEventArgs e)
         {
                 
-            DataCommands dc = new DataCommands();
-            await dc.DeliteRisk((Risk)((Button)sender).DataContext);
-            AllRisklst.Add(((Risk)(((Button)sender).DataContext)));
+            //DataCommands dc = new DataCommands();
+            //await dc.DeliteRisk((Risk)((Button)sender).DataContext);
+            //AllRisklst.Add(((Risk)(((Button)sender).DataContext)));
             SelectedRisks.Remove((Risk)((Button)sender).DataContext);
             SelRisks.Items.Remove((Risk)((Button)sender).DataContext);
+            ((Risk)((Button)sender).DataContext).Status = 3;
+            UnSelRisks.Items.Add((Risk)((Button)sender).DataContext);
             Drawing();
         }
 
@@ -443,6 +426,12 @@ namespace KursApp
                     {
                         ((Risk)((Button)sender).DataContext).Influence = piow.Influence;
                         ((Risk)((Button)sender).DataContext).Probability = piow.Probability;
+                        
+                        if (piow.Influence == default(double))
+                            ((Risk)((Button)sender).DataContext).Status = 0;
+                        else
+                            ((Risk)((Button)sender).DataContext).Status = 1;
+
                         DataCommands dc = new DataCommands();
                         await dc.IsertNewRisks((Risk)((Button)sender).DataContext, project.Name, piow.Owner);
                         SelectedRisks.Add((Risk)((Button)sender).DataContext);
@@ -472,7 +461,7 @@ namespace KursApp
         bool flag1 = true;
         private void DanRisks_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if(flag1)
+            if(flag1 && DanRisks.SelectedItem!=null)
             {
                 RiskTree rt = new RiskTree((Risk)DanRisks.SelectedItem, project,center);
                 Close();
@@ -486,6 +475,15 @@ namespace KursApp
             Projects p = new Projects();
             Close();
             p.Show();
+        }
+
+        private void AddToActive_Click(object sender, RoutedEventArgs e)
+        {
+            UnSelRisks.Items.Remove((Risk)((Button)sender).DataContext);
+            SelectedRisks.Add((Risk)((Button)sender).DataContext);
+            SelRisks.Items.Add((Risk)((Button)sender).DataContext);
+            ((Risk)((Button)sender).DataContext).Status = 1;
+            Drawing();
         }
     }
 }
