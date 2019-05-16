@@ -103,7 +103,6 @@ namespace KursApp
                 {
                     if (AllRisklst[i].RiskName == SelectedRisks[j].RiskName)
                     {
-                        AllRisklst[i].Selected = true;
                         AllRisklst.RemoveAt(i);
                     }
 
@@ -280,7 +279,7 @@ namespace KursApp
                     ((Risk)SelRisks.SelectedItem).Influence = double.Parse(Parsing(TBINf.Text));
                     ((Risk)SelRisks.SelectedItem).Probability = double.Parse(Parsing(TBProb.Text));
                     DataCommands dc = new DataCommands();
-                    await dc.UpdateRisks((Risk)SelRisks.SelectedItem, project.Name, (User)Owner.SelectedItem);
+                    await dc.UpdateRisks((Risk)SelRisks.SelectedItem, (User)Owner.SelectedItem);
                     SelRisks.Items.Clear();
                     SelectedRisks = await dc.GiveAllRisks(project);
                     for (int i = 0; i < SelectedRisks.Count; i++)
@@ -438,7 +437,7 @@ namespace KursApp
                         ((Risk)((Button)sender).DataContext).Influence = piow.Influence;
                         ((Risk)((Button)sender).DataContext).Probability = piow.Probability;
                         DataCommands dc = new DataCommands();
-                        await dc.IsertNewRisks((Risk)((Button)sender).DataContext, project.Name, piow.Owner);
+                        await dc.IsertRisks((Risk)((Button)sender).DataContext, project.Name, piow.Owner);
                         SelectedRisks.Add((Risk)((Button)sender).DataContext);
                     }
                     catch

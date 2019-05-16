@@ -50,11 +50,12 @@ namespace KursApp
         /// <param name="risklst"></param>
         /// <param name="ProjectName"></param>
         /// <returns></returns>
-        public async Task IsertNewRisks(Risk risk, string ProjectName, User Owner)
+        public async Task IsertRisks(Risk risk, string ProjectName, User Owner)
         {
             await sqlConnect.OpenAsync();
             SqlCommand command =
-                new SqlCommand("INSERT INTO [RiskData] (RiskName,Probability,Influence,Project,SourseOfRisk,Effects,Descriprion,TypeOfProject,OwnerLogin,OwnerId) VALUES(@riskName,@probability,@influence,@project,@sourseOfRisk,@effects,@descriprion,@typeOfProject,@OwnerLogin,@OwnerId)", sqlConnect);
+                new SqlCommand("INSERT INTO [RiskData] (RiskName,Probability,Influence,Project,SourseOfRisk,Effects,Descriprion,TypeOfProject,OwnerLogin,OwnerId,Status) " +
+                "VALUES(@riskName,@probability,@influence,@project,@sourseOfRisk,@effects,@descriprion,@typeOfProject,@OwnerLogin,@OwnerId,@Status)", sqlConnect);
 
             command.Parameters.AddWithValue("RiskName", risk.RiskName);
             command.Parameters.AddWithValue("Probability", risk.Probability);
@@ -66,38 +67,65 @@ namespace KursApp
             command.Parameters.AddWithValue("TypeOfProject", risk.TypeOfProject);
             command.Parameters.AddWithValue("OwnerLogin", Owner.Login);
             command.Parameters.AddWithValue("OwnerId", Owner.Id);
+            command.Parameters.AddWithValue("Status", risk.Status);
+
 
             await command.ExecuteNonQueryAsync();
                 sqlConnect.Close();
 
         }
-
-        public async Task UpdateRisks(Risk risk, string ProjectName, User Owner)
+        public async Task IsertNewRisks(Risk risk, string ProjectName)
         {
             await sqlConnect.OpenAsync();
             SqlCommand command =
-                new SqlCommand("UPDATE [RiskData] SET [Probability]= @Probability, [Influence]= @Influence, [OwnerLogin]= @OwnerLogin, [OwnerId]= @OwnerId WHERE id=@id", sqlConnect);
+                new SqlCommand("INSERT INTO [RiskData] (RiskName,Probability,Influence,Project,SourseOfRisk,Effects,Descriprion,TypeOfProject,Status) " +
+                "VALUES(@riskName,@probability,@influence,@project,@sourseOfRisk,@effects,@descriprion,@typeOfProject,@Status)", sqlConnect);
 
-            command.Parameters.AddWithValue("Id", risk.Id);
+            command.Parameters.AddWithValue("RiskName", risk.RiskName);
             command.Parameters.AddWithValue("Probability", risk.Probability);
             command.Parameters.AddWithValue("Influence", risk.Influence);
-            command.Parameters.AddWithValue("OwnerLogin", Owner.Login);
-            command.Parameters.AddWithValue("OwnerId", Owner.Id);
+            command.Parameters.AddWithValue("Project", ProjectName);
+            command.Parameters.AddWithValue("SourseOfRisk", risk.SoursOfRisk);
+            command.Parameters.AddWithValue("Effects", risk.Effects);
+            command.Parameters.AddWithValue("Descriprion", risk.Description);
+            command.Parameters.AddWithValue("TypeOfProject", risk.TypeOfProject);
+            command.Parameters.AddWithValue("Status", risk.Status);
+
 
             await command.ExecuteNonQueryAsync();
             sqlConnect.Close();
 
         }
 
-        public async Task UpdateRisks(Risk risk, string ProjectName)
+        public async Task UpdateRisks(Risk risk, User Owner)
         {
             await sqlConnect.OpenAsync();
             SqlCommand command =
-                new SqlCommand("UPDATE [RiskData] SET [Probability]= @Probability, [Influence]= @Influence WHERE id=@id", sqlConnect);
+                new SqlCommand("UPDATE [RiskData] SET [Probability]= @Probability, [Influence]= @Influence, [OwnerLogin]= @OwnerLogin, [Status]= @Status, [OwnerId]= @OwnerId WHERE id=@id", sqlConnect);
 
             command.Parameters.AddWithValue("Id", risk.Id);
             command.Parameters.AddWithValue("Probability", risk.Probability);
             command.Parameters.AddWithValue("Influence", risk.Influence);
+            command.Parameters.AddWithValue("OwnerLogin", Owner.Login);
+            command.Parameters.AddWithValue("OwnerId", Owner.Id);
+            command.Parameters.AddWithValue("Status", risk.Status);
+
+
+            await command.ExecuteNonQueryAsync();
+            sqlConnect.Close();
+
+        }
+
+        public async Task UpdateRisks(Risk risk)
+        {
+            await sqlConnect.OpenAsync();
+            SqlCommand command =
+                new SqlCommand("UPDATE [RiskData] SET [Probability]= @Probability, [Influence]= @Influence, [Status]= @Status WHERE id=@id", sqlConnect);
+
+            command.Parameters.AddWithValue("Id", risk.Id);
+            command.Parameters.AddWithValue("Probability", risk.Probability);
+            command.Parameters.AddWithValue("Influence", risk.Influence);
+            command.Parameters.AddWithValue("Status", risk.Status);
             await command.ExecuteNonQueryAsync();
             sqlConnect.Close();
 
@@ -146,7 +174,7 @@ namespace KursApp
                         Convert.ToString(sqlReader["Effects"]),Convert.ToString(sqlReader["Descriprion"]), 
                         Convert.ToString(sqlReader["TypeOfProject"]), 
                         Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Probability"]))),
-                        Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Influence"])))));
+                        Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Influence"]))), Convert.ToInt32(sqlReader["Status"])));
                     }
                 }
                 return lst;
@@ -188,7 +216,7 @@ namespace KursApp
                         Convert.ToString(sqlReader["Effects"]), Convert.ToString(sqlReader["Descriprion"]),
                         Convert.ToString(sqlReader["TypeOfProject"]),
                         Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Probability"]))),
-                        Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Influence"])))));
+                        Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Influence"]))), Convert.ToInt32(sqlReader["Status"])));
                     }
                 }
                 return lst;

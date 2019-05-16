@@ -155,7 +155,7 @@ namespace KursApp
                     ((Risk)SelRisks.SelectedItem).Influence = double.Parse(Parsing(TBINf.Text));
                     ((Risk)SelRisks.SelectedItem).Probability = double.Parse(Parsing(TBProb.Text));
                     DataCommands dc = new DataCommands();
-                    await dc.UpdateRisks((Risk)SelRisks.SelectedItem, project.Name);
+                    await dc.UpdateRisks((Risk)SelRisks.SelectedItem);
                     SelRisks.Items.Clear();
                     SelectedRisks = await dc.GiveAllRisks(project);
                     for (int i = 0; i < SelectedRisks.Count; i++)

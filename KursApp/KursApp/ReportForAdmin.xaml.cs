@@ -57,16 +57,18 @@ namespace KursApp
                 CreateFirstVertex();
                 CostCurrentBranch(FirstVerTex, 0);
                 DrawMaxDangerous();
-                await WriteInListView();
+                WriteInListView();
                 flag = false;
             }
         }
 
-        private async Task WriteInListView()
+        private void WriteInListView()
         {
             for (int i = 0; i < SelectedRisks.Count; i++)
             {
-                Dangerous.Items.Add(SelectedRisks[i]);
+                if (Math.Sqrt((SelectedRisks[i].point.X - center.X) * (SelectedRisks[i].point.X - center.X) +
+                        (SelectedRisks[i].point.Y - center.Y) * (SelectedRisks[i].point.Y - center.Y)) < radius)
+                    Dangerous.Items.Add(SelectedRisks[i]);
             }
         }
 

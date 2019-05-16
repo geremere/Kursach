@@ -18,17 +18,17 @@ namespace KursApp
             Effects = effects;
             Description = description;
             TypeOfProject = typeOfProject;
-            Selected = false;
         }
 
-        public Risk(double probability, double effect)
+        public Risk(double probability, double effect, int status)
         {
             Probability = probability;
             Influence = effect;
+            Status = status;
         }
 
         public Risk(int id, string riskName, string soursOfRisk, string effects, string description,
-            string typeOfProject, double probability, double influence) 
+            string typeOfProject, double probability, double influence,int status) 
         {
             Id = id;
             RiskName = riskName;
@@ -38,8 +38,9 @@ namespace KursApp
             TypeOfProject = typeOfProject;
             Probability = probability;
             Influence = influence;
-            Selected = true;
+            Status = status;
         }
+
 
         int status;
         public int Status
@@ -78,19 +79,6 @@ namespace KursApp
             {
                 if (value <= 0) throw new ArgumentException("id >0");
                 ownerid = value;
-            }
-        }
-
-        bool selected;
-        public bool Selected
-        {
-            get
-            {
-                return selected;
-            }
-            set
-            {
-                selected = value;
             }
         }
         public double Probability

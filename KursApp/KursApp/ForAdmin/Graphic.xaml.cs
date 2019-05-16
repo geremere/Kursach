@@ -50,6 +50,10 @@ namespace KursApp
                 Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
                 DataCommands dc = new DataCommands();
                 SelectedRisks = await dc.GiveAllRisks(project);
+                if(SelectedRisks==null)
+                {
+                    SelectedRisks = new List<Risk>();
+                }
                 RisksCommand rc = new RisksCommand();
                 AllRisklst = await rc.GiveAllRisks();
                 ComboBox.Items.Add("Общие риски");
@@ -64,7 +68,6 @@ namespace KursApp
                 Drawing();
                 FindDangerougeRisks();
                 await WriteOwners();
-                Owner.Text = "Choise Owner";
                 flag = false;
             }
         }
@@ -75,6 +78,7 @@ namespace KursApp
             for (int i = 0; i < userslst.Count; i++)
             {
                 Owner.Items.Add(userslst[i]);
+                OwnerNew.Items.Add(userslst[i]);
             }
         }
 
@@ -84,9 +88,20 @@ namespace KursApp
         /// </summary>
         private void ADDToSelctes()
         {
-            for (int i = 0; i < SelectedRisks.Count; i++)
+            if (SelectedRisks != null)
             {
-                SelRisks.Items.Add(SelectedRisks[i]);
+                for (int i = 0; i < SelectedRisks.Count; i++)
+                {
+                    if (SelectedRisks[i].Status == 1)
+                        SelRisks.Items.Add(SelectedRisks[i]);
+                    else
+                    {
+                        if (SelectedRisks[i].Status == 0)
+                            NewRisks.Items.Add(SelectedRisks[i]);
+                        else
+                            UnSelRisks.Items.Add(SelectedRisks[i]);
+                    }
+                }
             }
         }
 
@@ -95,16 +110,18 @@ namespace KursApp
         /// </summary>
         private void Cheker()
         {
-            for (int i = 0; i < AllRisklst.Count; i++)
+            if (SelectedRisks != null)
             {
-                for (int j = 0; j < SelectedRisks.Count; j++)
+                for (int i = 0; i < AllRisklst.Count; i++)
                 {
-                    if (AllRisklst[i].RiskName == SelectedRisks[j].RiskName)
+                    for (int j = 0; j < SelectedRisks.Count; j++)
                     {
-                        AllRisklst[i].Selected = true;
-                        AllRisklst.RemoveAt(i);
-                    }
+                        if (AllRisklst[i].RiskName == SelectedRisks[j].RiskName)
+                        {
+                            AllRisklst.RemoveAt(i);
+                        }
 
+                    }
                 }
             }
         }
@@ -131,7 +148,7 @@ namespace KursApp
 
             for (int i = 0; i < SelRisks.Items.Count; i++)
             {
-                if(SelectedRisks[i].Probability!=default(Double)&& SelectedRisks[i].Influence!=default(Double))
+                if(((Risk)SelRisks.Items[i]).Probability!=default(Double)&& ((Risk)SelRisks.Items[i]).Influence!=default(Double) && ((Risk)SelRisks.Items[i]).Status==1)
                 {
                     ((Risk)SelRisks.Items[i]).point.X = 425 * ((Risk)SelRisks.Items[i]).Probability + 75;
                     ((Risk)SelRisks.Items[i]).point.Y = -350 * ((Risk)SelRisks.Items[i]).Influence + 400;
@@ -231,8 +248,6 @@ namespace KursApp
             }
         }
 
-    
-
         /// <summary>
         /// проверяет нет ли в выбранных уже такого элемента
         /// </summary>
@@ -269,12 +284,13 @@ namespace KursApp
                     ((Risk)SelRisks.SelectedItem).Influence = double.Parse(Parsing(TBINf.Text));
                     ((Risk)SelRisks.SelectedItem).Probability = double.Parse(Parsing(TBProb.Text));
                     DataCommands dc = new DataCommands();
-                    await dc.UpdateRisks((Risk)SelRisks.SelectedItem, project.Name,(User)Owner.SelectedItem);
+                    await dc.UpdateRisks((Risk)SelRisks.SelectedItem, (User)Owner.SelectedItem);
                     SelRisks.Items.Clear();
                     SelectedRisks = await dc.GiveAllRisks(project);
                     for (int i = 0; i < SelectedRisks.Count; i++)
                     {
-                        SelRisks.Items.Add(SelectedRisks[i]);
+                        if(SelectedRisks[i].Status==1)
+                            SelRisks.Items.Add(SelectedRisks[i]);
                     }
                     Drawing();
                 }
@@ -353,12 +369,8 @@ namespace KursApp
                     if (Math.Sqrt((((Risk)SelRisks.Items[i]).point.X - center.X) * (((Risk)SelRisks.Items[i]).point.X - center.X) +
                         (((Risk)SelRisks.Items[i]).point.Y - center.Y) * (((Risk)SelRisks.Items[i]).point.Y - center.Y)) < radius)
                     {
-                        ((Risk)SelRisks.Items[i]).Status = 2;
                         DanRisks.Items.Add((Risk)SelRisks.Items[i]);
                     }
-                    ((Risk)SelRisks.Items[i]).Status = 1;
-
-
                 }
             }
         }
@@ -402,16 +414,19 @@ namespace KursApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Delite_Click(object sender, RoutedEventArgs e)
+        private async void Delite_Click(object sender, RoutedEventArgs e)
         {
                 
-            //DataCommands dc = new DataCommands();
+            DataCommands dc = new DataCommands();
+            Risk r = (Risk)((Button)sender).DataContext;
             //await dc.DeliteRisk((Risk)((Button)sender).DataContext);
             //AllRisklst.Add(((Risk)(((Button)sender).DataContext)));
-            SelectedRisks.Remove((Risk)((Button)sender).DataContext);
-            SelRisks.Items.Remove((Risk)((Button)sender).DataContext);
-            ((Risk)((Button)sender).DataContext).Status = 3;
-            UnSelRisks.Items.Add((Risk)((Button)sender).DataContext);
+            SelectedRisks.Remove(r);
+            if (SelectedRisks == null) SelectedRisks = new List<Risk>();
+            SelRisks.Items.Remove(r);
+            r.Status = 2;
+            await dc.UpdateRisks(r);
+            UnSelRisks.Items.Add(r);
             Drawing();
         }
 
@@ -426,14 +441,18 @@ namespace KursApp
                     {
                         ((Risk)((Button)sender).DataContext).Influence = piow.Influence;
                         ((Risk)((Button)sender).DataContext).Probability = piow.Probability;
-                        
                         if (piow.Influence == default(double))
                             ((Risk)((Button)sender).DataContext).Status = 0;
                         else
                             ((Risk)((Button)sender).DataContext).Status = 1;
 
                         DataCommands dc = new DataCommands();
-                        await dc.IsertNewRisks((Risk)((Button)sender).DataContext, project.Name, piow.Owner);
+                        if (piow.Owner == null)
+                        {
+                            await dc.IsertNewRisks((Risk)((Button)sender).DataContext, project.Name);
+                        }
+                        else
+                            await dc.IsertRisks((Risk)((Button)sender).DataContext, project.Name, piow.Owner);
                         SelectedRisks.Add((Risk)((Button)sender).DataContext);
                     }
                     catch
@@ -443,15 +462,20 @@ namespace KursApp
                 }
                 else
                 {
-                    MessageBox.Show("Something went wrong");
                 }
                 SelRisks.Items.Clear();
+                NewRisks.Items.Clear();
                 for (int i = 0; i < SelectedRisks.Count; i++)
                 {
-                    SelRisks.Items.Add(SelectedRisks[i]);
+                    if(SelectedRisks[i].Status==1)
+                        SelRisks.Items.Add(SelectedRisks[i]);
+                    if(SelectedRisks[i].Status==0)
+                        NewRisks.Items.Add(SelectedRisks[i]);
+
                 }
                 Drawing();
                 AllRisklst.Remove((Risk)((Button)sender).DataContext);
+                ComboBox.SelectedItem = ComboBox.SelectedItem;
             }
             else
             {
@@ -477,13 +501,63 @@ namespace KursApp
             p.Show();
         }
 
-        private void AddToActive_Click(object sender, RoutedEventArgs e)
+        private async void AddToActive_Click(object sender, RoutedEventArgs e)
         {
-            UnSelRisks.Items.Remove((Risk)((Button)sender).DataContext);
-            SelectedRisks.Add((Risk)((Button)sender).DataContext);
-            SelRisks.Items.Add((Risk)((Button)sender).DataContext);
-            ((Risk)((Button)sender).DataContext).Status = 1;
+            Risk r = (Risk)((Button)sender).DataContext;
+            UnSelRisks.Items.Remove(r);
+            SelectedRisks.Add(r);
+            SelRisks.Items.Add(r);
+            r.Status = 1;
+            DataCommands dc = new DataCommands();
+            await dc.UpdateRisks(r);
             Drawing();
+        }
+
+        private async void SetUpNew_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (NewRisks.SelectedItems != null &&
+                    Double.Parse(Parsing(TBINfNew.Text)) != default(Double) &&
+                    Double.Parse(Parsing(TBProbNew.Text)) != default(Double)
+                    && OwnerNew.SelectedItem != null)
+                {
+                    ((Risk)NewRisks.SelectedItem).Influence = double.Parse(Parsing(TBINfNew.Text));
+                    ((Risk)NewRisks.SelectedItem).Probability = double.Parse(Parsing(TBProbNew.Text));
+                    ((Risk)NewRisks.SelectedItem).Status = 1;
+                    DataCommands dc = new DataCommands();
+                    await dc.UpdateRisks((Risk)NewRisks.SelectedItem,(User)OwnerNew.SelectedItem);
+                    NewRisks.Items.Clear();
+                    SelRisks.Items.Clear();
+                    SelectedRisks = await dc.GiveAllRisks(project);
+                    for (int i = 0; i < SelectedRisks.Count; i++)
+                    {
+                        if(SelectedRisks[i].Status==0)
+                            NewRisks.Items.Add(SelectedRisks[i]);
+                        if (SelectedRisks[i].Status == 1)
+                            SelRisks.Items.Add(SelectedRisks[i]);
+                    }
+                    Drawing();
+                }
+                else
+                {
+                    MessageBox.Show("Wrong in enpty1");
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Wrong in enpty2");
+
+            }
+        }
+
+        private void NewRisks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (NewRisks.SelectedItem != null)
+            {
+                TBINfNew.Text = "0";
+                TBProbNew.Text = "0";
+            }
         }
     }
 }
