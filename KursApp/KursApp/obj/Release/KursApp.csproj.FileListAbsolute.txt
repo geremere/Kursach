@@ -13,7 +13,6 @@ C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ForProjectManager\ProjectC
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ForAdmin\Projects.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ProbabilityInfluenceOwner.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ForRiskManager\SelectProject.g.cs
-C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\RiskTree.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\App.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\KursApp_Content.g.cs
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\KursApp_MarkupCompile.cache
@@ -27,10 +26,17 @@ C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ForProjectManager\ProjectC
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ForAdmin\Projects.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ProbabilityInfluenceOwner.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ForRiskManager\SelectProject.baml
-C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\RiskTree.baml
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\KursApp.g.resources
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\KursApp.Properties.Resources.resources
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\KursApp.csproj.GenerateResource.cache
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\KursApp.csproj.CoreCompileInputs.cache
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\KursApp.exe
 C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\KursApp.pdb
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ForAdmin\RiskTree.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ForProjectManager\RiskTreeForProjectManager.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ForRiskManager\RiskTreeForRiskManager.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ReportForAdmin.g.cs
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ForAdmin\RiskTree.baml
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ForProjectManager\RiskTreeForProjectManager.baml
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ForRiskManager\RiskTreeForRiskManager.baml
+C:\GitHub\Kursach\Kursach\KursApp\KursApp\obj\Release\ReportForAdmin.baml
