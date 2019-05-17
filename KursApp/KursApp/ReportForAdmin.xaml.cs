@@ -74,7 +74,17 @@ namespace KursApp
 
         private void CreateFirstVertex()
         {
+            
+
             Point point = new Point(FirstVerTex.X*3/2, FirstVerTex.Y);
+            Label lab = new Label();
+            lab.HorizontalAlignment = HorizontalAlignment.Center;
+            lab.VerticalAlignment = VerticalAlignment.Top;
+            lab.Margin = new Thickness(point.X - 2, point.Y + 200, 0, 0);
+
+            lab.Content = drisk.RiskName;
+            cnv.Children.Add(lab);
+
             Ellipse elipse = new Ellipse();
 
             elipse.Width = 4;
@@ -180,7 +190,7 @@ namespace KursApp
             {
                 Label l = new Label();
                 l.Content = Max.Value;
-                l.Margin = new Thickness(Max.X, Max.Y + 20, 0, 0);
+                l.Margin = new Thickness(Max.X/2 + Widht / 2, Max.Y + 20, 0, 0);
                 l.VerticalAlignment = VerticalAlignment.Top;
                 l.HorizontalAlignment = HorizontalAlignment.Left;
                 l.Height = 40;
@@ -193,7 +203,7 @@ namespace KursApp
             {
                 Label l1 = new Label();
                 l1.Content = Min.Value;
-                l1.Margin = new Thickness(Min.X, Min.Y + 20, 0, 0);
+                l1.Margin = new Thickness(Min.X/2 + Widht / 2, Min.Y + 20, 0, 0);
                 l1.VerticalAlignment = VerticalAlignment.Top;
                 l1.HorizontalAlignment = HorizontalAlignment.Left;
                 l1.Height = 40;
@@ -307,6 +317,11 @@ namespace KursApp
                     cnv.Children.Add(elipse);
                 }
             }
+        }
+
+        private void End_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

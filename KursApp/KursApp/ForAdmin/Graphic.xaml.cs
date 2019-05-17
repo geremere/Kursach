@@ -31,7 +31,6 @@ namespace KursApp
         Project project = null;//проект
         string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
 
-
         public Graphic(Project pr)
         {
             project = pr;
@@ -207,14 +206,60 @@ namespace KursApp
         {
             lvwrisk.Items.Clear();
             Cheker();
-            if(flag)
+            if (flag)
             {
             }
             if (ComboBox.SelectedItem.ToString() == "Общие риски")
             {
                 for (int i = 0; i < AllRisklst.Count; i++)
                 {
-                    if(AllRisklst[i].TypeOfProject=="default")
+                    if (AllRisklst[i].TypeOfProject == "default")
+                        lvwrisk.Items.Add(AllRisklst[i]);
+                }
+            }
+            else
+            {
+                if (ComboBox.SelectedItem.ToString() == project.Type)
+                {
+                    for (int i = 0; i < AllRisklst.Count; i++)
+                    {
+                        if (AllRisklst[i].TypeOfProject == project.Type)
+                            lvwrisk.Items.Add(AllRisklst[i]);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < sourse.Count; i++)
+                    {
+                        if (ComboBox.SelectedItem.ToString() == sourse[i])
+                        {
+                            for (int j = 0; j < AllRisklst.Count; j++)
+                            {
+                                if ((AllRisklst[j].TypeOfProject == project.Type || AllRisklst[j].TypeOfProject == "default") && AllRisklst[j].SoursOfRisk == sourse[i])
+                                {
+                                    lvwrisk.Items.Add(AllRisklst[j]);
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SelectedChanged()
+        {
+            if (ComboBox.SelectedItem != null) ComboBox.SelectedItem = "Общие риски";
+            lvwrisk.Items.Clear();
+            Cheker();
+            if (flag)
+            {
+            }
+            if (ComboBox.SelectedItem.ToString() == "Общие риски")
+            {
+                for (int i = 0; i < AllRisklst.Count; i++)
+                {
+                    if (AllRisklst[i].TypeOfProject == "default")
                         lvwrisk.Items.Add(AllRisklst[i]);
                 }
             }
@@ -419,8 +464,6 @@ namespace KursApp
                 
             DataCommands dc = new DataCommands();
             Risk r = (Risk)((Button)sender).DataContext;
-            //await dc.DeliteRisk((Risk)((Button)sender).DataContext);
-            //AllRisklst.Add(((Risk)(((Button)sender).DataContext)));
             SelectedRisks.Remove(r);
             if (SelectedRisks == null) SelectedRisks = new List<Risk>();
             SelRisks.Items.Remove(r);
@@ -435,7 +478,9 @@ namespace KursApp
             if (CheckIsSelected(((Risk)((Button)sender).DataContext)))
             {
                 ProbabilityInfluenceOwner piow = new ProbabilityInfluenceOwner();
-                if(piow.ShowDialog() == true)
+                Risk r = (Risk)(((Button)sender).DataContext);
+
+                if (piow.ShowDialog() == true)
                 {
                     try
                     {
@@ -454,6 +499,7 @@ namespace KursApp
                         else
                             await dc.IsertRisks((Risk)((Button)sender).DataContext, project.Name, piow.Owner);
                         SelectedRisks.Add((Risk)((Button)sender).DataContext);
+                        SelectedChanged();
                     }
                     catch
                     {
@@ -474,7 +520,7 @@ namespace KursApp
 
                 }
                 Drawing();
-                AllRisklst.Remove((Risk)((Button)sender).DataContext);
+                AllRisklst.Remove(r);
                 ComboBox.SelectedItem = ComboBox.SelectedItem;
             }
             else

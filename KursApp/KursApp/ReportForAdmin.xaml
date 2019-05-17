@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="ReportForAdmin" Activated="Window_Activated" ResizeMode="NoResize" WindowState="Maximized">
     <Grid x:Name="grid">
+        <Button x:Name="End" Content="End" Click="End_Click" Height="20" Width="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,25,0"/>
         <Line X1="75" X2="75" Y1="50" Y2="400" Stroke="Black"/>
         <Line X1="75" X2="500" Y1="400" Y2="400" Stroke="Black"/>
         <Label x:Name="Im" Content="Impact" Margin="20,40,1100,590"/>

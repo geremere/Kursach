@@ -252,7 +252,7 @@ namespace KursApp
             {
                 try
                 {
-                    Widht = cnv.ActualWidth;
+                    Widht = (int)cnv.ActualWidth;
                     Height = cnv.ActualHeight;
                     Label lab = new Label();
                     lab.HorizontalAlignment = HorizontalAlignment.Center;
@@ -269,7 +269,7 @@ namespace KursApp
                     Back.Foreground = new ImageBrush(new BitmapImage(new Uri(path)));
                     if (!await tc.Exist(drisk.Id))
                     {
-                        FirstVer = new Vertexcs(drisk.Id, drisk.RiskName, Widht / 2, 50);
+                        FirstVer = new Vertexcs(drisk.Id, drisk.RiskName, cnv.ActualWidth / 2, 50);
                         await tc.IsertNewVertex(FirstVer, drisk.Id);
                         FirstVer = await tc.GiveFristVertex(drisk.Id);
                         but.DataContext = FirstVer;
