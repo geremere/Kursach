@@ -17,7 +17,7 @@ namespace KursApp
         {
             string pathToDb = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database.mdf");
             pathToDb = Trimer(ref pathToDb);
-            string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + pathToDb + "Database.mdf;Integrated Security=False;Trusted_Connection=True";
+            string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='|DataDirectory|\Database.mdf';Integrated Security=False;Trusted_Connection=True";
             sqlConnect = new SqlConnection(key);
         }
         private string Trimer(ref string pathToDb)

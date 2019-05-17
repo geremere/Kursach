@@ -65,11 +65,14 @@ namespace KursApp
         {
             get => Double.Parse(Parsing(TBINf.Text));
         }
-
+        bool flag = true;
         private async void Window_Activated(object sender, EventArgs e)
         {
-            Owners.Text = "Choise Owner";
-            await WriteOwners();
+            if (flag)
+            {
+                Owners.Text = "Choise Owner";
+                await WriteOwners();
+            }
 
         }
         private string Parsing(string l)
