@@ -36,20 +36,24 @@ namespace KursApp
         {
             try
             {
-                if (Double.Parse(Parsing(TBINf.Text)) != default(Double) &&
-                    Double.Parse(Parsing(TBProb.Text)) != default(Double)
-                    && Owners.SelectedItem != null)
-                {
+                if (Double.Parse(Parsing(TBINf.Text)) >= 1 || Double.Parse(Parsing(TBINf.Text)) <= 0)
+                    throw new ArgumentException("Значение Influence лежит в области (0,1)");
+                if (Double.Parse(Parsing(TBProb.Text)) >= 1 || Double.Parse(Parsing(TBProb.Text)) <= 0)
+                    throw new ArgumentException("Значение Influence лежит в области (0,1)");
+                if (Owners.SelectedItem == null) throw new NullReferenceException("Выберете ответсвенного за риск");
                     this.DialogResult = true;
-                }
-                else
-                {
-                    MessageBox.Show("Wrong in enpty");
-                }
+            }
+            catch(ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Exception");
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show(ex.Message, "Exception");
             }
             catch (Exception)
             {
-                MessageBox.Show("Wrong in enpty");
+                MessageBox.Show("Что-то пошло не так");
 
             }
         }
