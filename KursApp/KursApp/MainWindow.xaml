@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="240" Width="300" Closing="Window_Closing" ResizeMode="NoResize">
     <Grid Margin="2,2,0.6,-0.6" Height="209" VerticalAlignment="Top">
-        <Label x:Name="label" Content="Enter your Login and Password" Margin="49,0,0,130" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="180"/>
+        <Label x:Name="label" Content="Введите логин и пороль" Margin="49,0,0,130" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="180"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="49.8,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125" Grid.Column="1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
         </TextBox>
         <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="49.8,125,0,0" VerticalAlignment="Top" Width="125" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <Button x:Name="button" Content="Sign up" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="Button_Click"/>
+        <Button x:Name="button" Content="Войти" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="Button_Click"/>
     </Grid>
 </Window>

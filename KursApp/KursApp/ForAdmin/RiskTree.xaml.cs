@@ -26,7 +26,7 @@ namespace KursApp
         double Widht;
         new double Height;
         Vertexcs FirstVer;
-        List<double> value = new List<double>();
+        List<double> val = new List<double>();
         List<Vertexcs> vert = new List<Vertexcs>();
         string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "back.jpg");
         string pathplus = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plus.png");

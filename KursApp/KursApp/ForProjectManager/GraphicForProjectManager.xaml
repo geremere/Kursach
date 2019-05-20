@@ -39,7 +39,7 @@
                                         Type
                                     </GridViewColumn>
                                     <GridViewColumn Width="100">
-                                        Sourse
+                                        Source
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding SoursOfRisk}" TextWrapping="Wrap"/>
@@ -47,10 +47,10 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Width="100">
-                                        To Selected
+                                        Add To Project
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button x:Name="Add" Content="Add to Selected" Click="Add_Click"/>
+                                                <Button x:Name="Add" Content="Add To Project" Click="Add_Click"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -69,7 +69,7 @@
                         <ListView x:Name="SelRisks" Height="370" SelectionChanged="SelRisks_SelectionChanged">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Width="150" >
+                                    <GridViewColumn Width="156" >
                                         Name
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -77,7 +77,15 @@
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn Width="125" >
+                                    <GridViewColumn Width="100" >
+                                        Owner
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding OwnerLogin}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="75" >
                                         Influence
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -85,7 +93,7 @@
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn Width="125">
+                                    <GridViewColumn Width="75">
                                         Probability
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -93,7 +101,7 @@
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn Width="175">
+                                    <GridViewColumn Width="150">
                                         Send To InActive
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -133,7 +141,7 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Width="175" >
-                                        SoursOfRisk
+                                        Source Of Risk
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding SoursOfRisk}" TextWrapping="Wrap"/>

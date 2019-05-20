@@ -54,12 +54,24 @@ namespace KursApp
                 TreeCommands tc = new TreeCommands();
                 vert = await tc.GiveALlVertex();
                 FirstVerTex = await tc.GiveFristVertex(drisk.Id);
+                GiveTitle();
                 CreateFirstVertex();
                 CostCurrentBranch(FirstVerTex, 0);
                 DrawMaxDangerous();
                 WriteInListView();
                 flag = false;
             }
+        }
+
+        private void GiveTitle()
+        {
+            Label lab = new Label();
+            lab.HorizontalAlignment = HorizontalAlignment.Left;
+            lab.VerticalAlignment = VerticalAlignment.Top;
+            lab.Margin = new Thickness(Widht/2-100, 0, 0, 0);
+            lab.FontSize = 15;
+            lab.Content = $"Отчет для проекта {project.Name}";
+            cnv.Children.Add(lab);
         }
 
         private void WriteInListView()
@@ -74,13 +86,12 @@ namespace KursApp
 
         private void CreateFirstVertex()
         {
-            
-
             Point point = new Point(FirstVerTex.X*3/2, FirstVerTex.Y);
             Label lab = new Label();
             lab.HorizontalAlignment = HorizontalAlignment.Center;
             lab.VerticalAlignment = VerticalAlignment.Top;
-            lab.Margin = new Thickness(point.X - 2, point.Y + 200, 0, 0);
+            lab.FontSize = 15;
+            lab.Margin = new Thickness(point.X - 200, point.Y + 200, 0, 0);
 
             lab.Content = drisk.RiskName;
             cnv.Children.Add(lab);
@@ -256,8 +267,6 @@ namespace KursApp
                 }
             }
         }
-
-
 
         static public double FindY(double x, double radius, Point center)
         {

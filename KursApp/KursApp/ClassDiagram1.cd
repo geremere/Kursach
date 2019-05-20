@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="KursApp.DataCommands">
+    <Position X="14.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAEAwAAAABoIAQAAAAAAABAAAAAAAEAAAAAA=</HashCode>
+      <FileName>CommandsForDB\DataCommands.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KursApp.Project">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAAAAAAAAEAAAAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>CommandsForDB\Project.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KursApp.ProjectCommands" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAAABAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>CommandsForDB\ProjectCommands.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KursApp.Risk">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIwDAACMAQAiAAAEggQAAIAAAAAAgBQAAAAAAAAAAAA=</HashCode>
+      <FileName>CommandsForDB\Risk.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KursApp.RisksCommand">
+    <Position X="6.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAACAABAAAgAABAAAAAQAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>CommandsForDB\RisksCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KursApp.TreeCommands">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAgAAgAAAAAAQAQABAAAAABAgAAAAAAAEAAAA=</HashCode>
+      <FileName>CommandsForDB\TreeCommands.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KursApp.User">
+    <Position X="11" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAkAAAAAAQAAAAAAAACAAAQAAAAAAA=</HashCode>
+      <FileName>CommandsForDB\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KursApp.UsersCommand">
+    <Position X="6.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAgAAAAAAAAAAAAAACAAAAAAQAAAAAAgAA=</HashCode>
+      <FileName>CommandsForDB\UsersCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KursApp.Vertexcs">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIAAAAAgAAAAAAAAAJAAAAAAAAAAAgBgAAAAYAA=</HashCode>
+      <FileName>CommandsForDB\Vertexcs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KursApp.Graphic" BaseTypeListCollapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQkAAAAAGAAQQAGQQICCcSAACRwAAAAICECAAIEEAEA=</HashCode>
+      <FileName>ForAdmin\Graphic.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KursApp.NewProject" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIACAAAACAAAAAAIAQAAAAAAAAA=</HashCode>
+      <FileName>ForAdmin\NewProject.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KursApp.Projects" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAACAAEACAAAAAAIAAAAAAAIAAA=</HashCode>
+      <FileName>ForAdmin\Projects.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KursApp.RiskTree" BaseTypeListCollapsed="true">
+    <Position X="4.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAIAAFoAACABAAKAGAkAADAgIAAAIAIAEgABBBEI=</HashCode>
+      <FileName>ForAdmin\RiskTree.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KursApp.GraphicForProjectManager" BaseTypeListCollapsed="true">
+    <Position X="16" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQgAAAAAGAAQQAGQQICCcSAACRwAAAAICECAAIEEAUA=</HashCode>
+      <FileName>ForProjectManager\GraphicForProjectManager.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KursApp.ProjectChoise" BaseTypeListCollapsed="true">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAIACAAAACAAAAAAIAAAAAAAAAQA=</HashCode>
+      <FileName>ForProjectManager\ProjectChoise.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KursApp.RiskTreeForProjectManager" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAFoAACABAAKAGAkAADAgIACAIAIAEgABBBUI=</HashCode>
+      <FileName>ForProjectManager\RiskTreeForProjectManager.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KursApp.Gra_hicForRiskManager" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQgAAAAAGAAQAAEQQIACcSAACQwAAAAICEAAAIEEAUA=</HashCode>
+      <FileName>ForRiskManager\Gra[hicForRiskManager.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KursApp.RiskTreeForRiskManager" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAFoAACABAAKAGAkAADAgIACAIAIAEgABBBUI=</HashCode>
+      <FileName>ForRiskManager\RiskTreeForRiskManager.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KursApp.SelectProject" BaseTypeListCollapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAIACAAAACAAAAAAIAAAAAAAAAQA=</HashCode>
+      <FileName>ForRiskManager\SelectProject.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KursApp.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KursApp.ProbabilityInfluenceOwner" BaseTypeListCollapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAACQAAAAIABQIAACAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>ProbabilityInfluenceOwner.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KursApp.ReportForAdmin" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAAAAADgAIAAFAAIAEAEAACQgIBAgAAIAAgIABBAI=</HashCode>
+      <FileName>ReportForAdmin.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -72,6 +72,7 @@ namespace KursApp
             {
                 Owners.Text = "Choise Owner";
                 await WriteOwners();
+                flag = false;
             }
 
         }

@@ -8,10 +8,4 @@ using System.Windows;
 
 namespace KursApp
 {
-    /// <summary>
-    /// Логика взаимодействия для App.xaml
-    /// </summary>
-    public partial class App : Application
-    {
-    }
 }

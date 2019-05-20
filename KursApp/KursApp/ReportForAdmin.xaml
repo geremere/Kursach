@@ -16,8 +16,8 @@
         <Polyline Stroke="Black" Points="490, 395, 500, 400, 490, 405" />
         <Canvas x:Name="cnv">
         </Canvas>
-        <Label Content="Top 10 Dangerous Risks:" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,300"/>
-        <ListView x:Name="Dangerous" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="305" Margin="0,0,0,25">
+        <Label Content="Toп 10 опасных рисков:" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="22"  Margin="0,0,0,300"/>
+        <ListView x:Name="Dangerous" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="250" Margin="0,0,0,50">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="200" >
@@ -52,15 +52,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="100" >
-                        Owner
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding OwnerLogin}" TextWrapping="Wrap"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="175">
+                    <GridViewColumn Width="200">
                         Rank
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
