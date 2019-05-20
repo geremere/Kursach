@@ -45,6 +45,13 @@ namespace KursApp
         {
             if (flag)
             {
+                Label l = new Label();
+                l.VerticalAlignment = VerticalAlignment.Top;
+                l.HorizontalAlignment = HorizontalAlignment.Center;
+                l.FontSize = 15;
+                l.Margin = new Thickness(0, 25, 0, 0);
+                l.Content = $"Матрица рисков для { project.Name}";
+                grid.Children.Add(l);
                 Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
                 DataCommands dc = new DataCommands();
                 SelectedRisks = await dc.GiveAllRisks(project);
@@ -66,11 +73,11 @@ namespace KursApp
             SelectedRisks.Add(r);
             SelRisks.Items.Add(r);
             r.Status = 1;
+            FindCurrentRisk(r);
             DataCommands dc = new DataCommands();
             await dc.UpdateRisks(r);
             Drawing();
         }
-
 
         private async void SetUpNew_Click(object sender, RoutedEventArgs e)
         {
@@ -84,6 +91,8 @@ namespace KursApp
                     ((Risk)NewRisks.SelectedItem).Influence = double.Parse(Parsing(TBINfNew.Text));
                     ((Risk)NewRisks.SelectedItem).Probability = double.Parse(Parsing(TBProbNew.Text));
                     ((Risk)NewRisks.SelectedItem).Status = 1;
+                    FindCurrentRisk(((Risk)NewRisks.SelectedItem));
+
                     DataCommands dc = new DataCommands();
                     await dc.UpdateRisks((Risk)NewRisks.SelectedItem, (User)OwnerNew.SelectedItem);
                     NewRisks.Items.Clear();
@@ -223,32 +232,37 @@ namespace KursApp
         {
             try
             {
-                if (SelRisks.SelectedItems != null &&
-                    Double.Parse(Parsing(TBINf.Text)) != default(Double) &&
-                    Double.Parse(Parsing(TBProb.Text)) != default(Double)
-                    && Owner.SelectedItem != null)
+                if (SelRisks.SelectedItems == null) throw new NullReferenceException("Выберете риск поля кторого вы хотите обновить");
+                if (Double.Parse(Parsing(TBINf.Text)) == default(Double) || Double.Parse(Parsing(TBProb.Text)) == default(Double))
+                    throw new ArgumentException("Значения Probability и Influence лежать в диапозоне (0,1)");
+                if (Owner.SelectedItem == null) throw new NullReferenceException("Выберете пользователя которому хотите назначить риск");
+
+                ((Risk)SelRisks.SelectedItem).Influence = double.Parse(Parsing(TBINf.Text));
+                ((Risk)SelRisks.SelectedItem).Probability = double.Parse(Parsing(TBProb.Text));
+                DataCommands dc = new DataCommands();
+                await dc.UpdateRisks((Risk)SelRisks.SelectedItem, (User)Owner.SelectedItem);
+                SelRisks.Items.Clear();
+                SelectedRisks = await dc.GiveAllRisks(project);
+                for (int i = 0; i < SelectedRisks.Count; i++)
                 {
-                    ((Risk)SelRisks.SelectedItem).Influence = double.Parse(Parsing(TBINf.Text));
-                    ((Risk)SelRisks.SelectedItem).Probability = double.Parse(Parsing(TBProb.Text));
-                    DataCommands dc = new DataCommands();
-                    await dc.UpdateRisks((Risk)SelRisks.SelectedItem, (User)Owner.SelectedItem);
-                    SelRisks.Items.Clear();
-                    SelectedRisks = await dc.GiveAllRisks(project);
-                    for (int i = 0; i < SelectedRisks.Count; i++)
-                    {
-                        if (SelectedRisks[i].Status == 1)
-                            SelRisks.Items.Add(SelectedRisks[i]);
-                    }
-                    Drawing();
+                    if (SelectedRisks[i].Status == 1)
+                        SelRisks.Items.Add(SelectedRisks[i]);
                 }
-                else
-                {
-                    MessageBox.Show("Wrong in enpty1");
-                }
+                Drawing();
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show(ex.Message, "Exception");
+
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Exception");
+
             }
             catch (Exception)
             {
-                MessageBox.Show("Wrong in enpty2");
+                MessageBox.Show("Что-то пошло не так");
 
             }
         }
@@ -369,15 +383,26 @@ namespace KursApp
 
             DataCommands dc = new DataCommands();
             Risk r = (Risk)((Button)sender).DataContext;
-            //await dc.DeliteRisk((Risk)((Button)sender).DataContext);
-            //AllRisklst.Add(((Risk)(((Button)sender).DataContext)));
             SelectedRisks.Remove(r);
             if (SelectedRisks == null) SelectedRisks = new List<Risk>();
             SelRisks.Items.Remove(r);
             r.Status = 2;
+            FindCurrentRisk(r);
             await dc.UpdateRisks(r);
             UnSelRisks.Items.Add(r);
             Drawing();
+        }
+        private void FindCurrentRisk(Risk risk)
+        {
+            for (int i = 0; i < SelectedRisks.Count; i++)
+            {
+                if (risk.Id == SelectedRisks[i].Id)
+                {
+                    SelectedRisks[i].Status = risk.Status;
+                    SelectedRisks[i].OwnerId = risk.OwnerId;
+                    SelectedRisks[i].OwnerLogin = risk.OwnerLogin;
+                }
+            }
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

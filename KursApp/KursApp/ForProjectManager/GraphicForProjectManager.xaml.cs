@@ -47,6 +47,13 @@ namespace KursApp
         {
             if (flag)
             {
+                Label l = new Label();
+                l.VerticalAlignment = VerticalAlignment.Top;
+                l.HorizontalAlignment = HorizontalAlignment.Center;
+                l.FontSize = 15;
+                l.Margin = new Thickness(0, 25, 0, 0);
+                l.Content = $"Матрица рисков для { project.Name}";
+                grid.Children.Add(l);
                 Back.Background = new ImageBrush(new BitmapImage(new Uri(path)));
                 DataCommands dc = new DataCommands();
                 SelectedRisks = await dc.GiveAllRisks(project);
