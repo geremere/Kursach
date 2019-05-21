@@ -40,6 +40,21 @@ namespace KursApp
             Influence = influence;
             Status = status;
         }
+        public Risk(int id, string riskName, string soursOfRisk, string effects, string description,
+            string typeOfProject, double probability, double influence, int status,int ownerId, string ownerLogin)
+        {
+            Id = id;
+            RiskName = riskName;
+            SoursOfRisk = soursOfRisk;
+            Effects = effects;
+            Description = description;
+            TypeOfProject = typeOfProject;
+            Probability = probability;
+            Influence = influence;
+            Status = status;
+            OwnerId = ownerId;
+            OwnerLogin = ownerLogin;
+        }
 
 
         int status;
@@ -77,7 +92,7 @@ namespace KursApp
             }
             set
             {
-                if (value <= 0) throw new ArgumentException("id >0");
+                //if (value <= 0) throw new ArgumentException("id > 0");
                 ownerid = value;
             }
         }

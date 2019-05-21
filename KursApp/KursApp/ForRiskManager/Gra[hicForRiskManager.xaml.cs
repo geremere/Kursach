@@ -235,12 +235,10 @@ namespace KursApp
                 if (SelRisks.SelectedItems == null) throw new NullReferenceException("Выберете риск поля кторого вы хотите обновить");
                 if (Double.Parse(Parsing(TBINf.Text)) == default(Double) || Double.Parse(Parsing(TBProb.Text)) == default(Double))
                     throw new ArgumentException("Значения Probability и Influence лежать в диапозоне (0,1)");
-                if (Owner.SelectedItem == null) throw new NullReferenceException("Выберете пользователя которому хотите назначить риск");
-
                 ((Risk)SelRisks.SelectedItem).Influence = double.Parse(Parsing(TBINf.Text));
                 ((Risk)SelRisks.SelectedItem).Probability = double.Parse(Parsing(TBProb.Text));
                 DataCommands dc = new DataCommands();
-                await dc.UpdateRisks((Risk)SelRisks.SelectedItem, (User)Owner.SelectedItem);
+                await dc.UpdateRisks((Risk)SelRisks.SelectedItem);
                 SelRisks.Items.Clear();
                 SelectedRisks = await dc.GiveAllRisks(project);
                 for (int i = 0; i < SelectedRisks.Count; i++)

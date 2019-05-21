@@ -8,6 +8,10 @@ namespace KursApp
 {
     public class User
     {
+        public User()
+        {
+        }
+
         public User(int id, string name, string login, string password, string position)
         {
             Id = id;

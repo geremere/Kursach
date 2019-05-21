@@ -50,6 +50,10 @@ namespace KursApp
 
                 DataCommands dc = new DataCommands();
                 SelectedRisks = await dc.GiveAllRisks(project);
+                if(SelectedRisks==null)
+                {
+                    SelectedRisks = new List<Risk>();
+                }
                 Drawing();
                 TreeCommands tc = new TreeCommands();
                 vert = await tc.GiveALlVertex();
@@ -78,8 +82,9 @@ namespace KursApp
         {
             for (int i = 0; i < SelectedRisks.Count; i++)
             {
-                if (Math.Sqrt((SelectedRisks[i].point.X - center.X) * (SelectedRisks[i].point.X - center.X) +
-                        (SelectedRisks[i].point.Y - center.Y) * (SelectedRisks[i].point.Y - center.Y)) < radius)
+                if ((Math.Sqrt((SelectedRisks[i].point.X - center.X) * (SelectedRisks[i].point.X - center.X) +
+                        (SelectedRisks[i].point.Y - center.Y) * (SelectedRisks[i].point.Y - center.Y)) < radius) &&
+                        SelectedRisks[i].Status==1)
                     Dangerous.Items.Add(SelectedRisks[i]);
             }
         }
@@ -300,7 +305,7 @@ namespace KursApp
 
             for (int i = 0; i < SelectedRisks.Count; i++)
             {
-                if (SelectedRisks[i].Probability != default(Double) && SelectedRisks[i].Influence != default(Double))
+                if (SelectedRisks[i].Probability != default(Double) && SelectedRisks[i].Influence != default(Double) && SelectedRisks[i].Status==1)
                 {
                     SelectedRisks[i].point.X = 425 * SelectedRisks[i].Probability + 75;
                     SelectedRisks[i].point.Y = -350 * SelectedRisks[i].Influence + 400;

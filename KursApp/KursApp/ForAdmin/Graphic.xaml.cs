@@ -154,7 +154,8 @@ namespace KursApp
 
             for (int i = 0; i < SelRisks.Items.Count; i++)
             {
-                if(((Risk)SelRisks.Items[i]).Probability!=default(Double)&& ((Risk)SelRisks.Items[i]).Influence!=default(Double) && ((Risk)SelRisks.Items[i]).Status==1)
+                if(((Risk)SelRisks.Items[i]).Probability!=default(Double)&& ((Risk)SelRisks.Items[i]).Influence!=default(Double) &&
+                    ((Risk)SelRisks.Items[i]).Status==1)
                 {
                     ((Risk)SelRisks.Items[i]).point.X = 425 * ((Risk)SelRisks.Items[i]).Probability + 75;
                     ((Risk)SelRisks.Items[i]).point.Y = -350 * ((Risk)SelRisks.Items[i]).Influence + 400;
@@ -477,11 +478,13 @@ namespace KursApp
                 
             DataCommands dc = new DataCommands();
             Risk r = (Risk)((Button)sender).DataContext;
-            SelectedRisks.Remove(r);
             if (SelectedRisks == null) SelectedRisks = new List<Risk>();
             SelRisks.Items.Remove(r);
             r.Status = 2;
             FindCurrentRisk(r);
+            User us = new User();
+            us.Id = r.OwnerId;
+            us.Login = r.OwnerLogin;
             await dc.UpdateRisks(r);
             UnSelRisks.Items.Add(r);
             Drawing();
@@ -527,9 +530,9 @@ namespace KursApp
                             r.OwnerLogin = piow.Owner.Login;
                             r.OwnerId = piow.Owner.Id;
                             await dc.IsertRisks(r, project.Name, piow.Owner);
-                            FindCurrentRisk(r);
                         }
                         SelectedRisks.Add(r);
+                        FindCurrentRisk(r);
                         SelectedChanged();
                     }
                     catch
@@ -601,13 +604,16 @@ namespace KursApp
                     ((Risk)NewRisks.SelectedItem).Influence = double.Parse(Parsing(TBINfNew.Text));
                     ((Risk)NewRisks.SelectedItem).Probability = double.Parse(Parsing(TBProbNew.Text));
                     ((Risk)NewRisks.SelectedItem).Status = 1;
+                    ((Risk)NewRisks.SelectedItem).OwnerId = ((User)OwnerNew.SelectedItem).Id;
+                    ((Risk)NewRisks.SelectedItem).OwnerLogin = ((User)OwnerNew.SelectedItem).Login;
+
                     FindCurrentRisk(((Risk)NewRisks.SelectedItem));
 
                     DataCommands dc = new DataCommands();
                     await dc.UpdateRisks((Risk)NewRisks.SelectedItem,(User)OwnerNew.SelectedItem);
                     NewRisks.Items.Clear();
                     SelRisks.Items.Clear();
-                    SelectedRisks = await dc.GiveAllRisks(project);
+                    //SelectedRisks = await dc.GiveAllRisks(project);
                     for (int i = 0; i < SelectedRisks.Count; i++)
                     {
                         if(SelectedRisks[i].Status==0)

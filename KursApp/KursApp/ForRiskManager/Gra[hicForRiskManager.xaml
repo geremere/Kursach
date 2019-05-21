@@ -74,7 +74,6 @@
                             <TextBox x:Name="TBProb" Margin="150,5,300,70" />
                             <Label x:Name="LInf" Content="Influence" Margin="0,35,400,35"/>
                             <Label x:Name="LProb" Content="Probability" Margin="0,5,400,70"/>
-                            <ComboBox x:Name="Owner" Text="Owner" Margin="300,15,50.2,38"  IsEditable="True" IsReadOnly="True"/>
                             <Button x:Name="SetUp" Content="Set Up" Click="SetUp_Click" Margin="5,70,450,10"/>
                             <TextBox x:Name="TBINf" Margin="150,35,300,40"/>
                         </Grid>

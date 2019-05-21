@@ -15,33 +15,8 @@ namespace KursApp
 
         public DataCommands()
         {
-            string pathToDb = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database.mdf");
-            pathToDb = Trimer(ref pathToDb);
             string key = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='|DataDirectory|\Database.mdf';Integrated Security=False;Trusted_Connection=True";
             sqlConnect = new SqlConnection(key);
-        }
-        private string Trimer(ref string pathToDb)
-        {
-            int count = 0;
-            int capacity = 0;
-            string line = "";
-            for (int i = pathToDb.Length - 1; i > 0; i--)
-            {
-                if (pathToDb[i] == '\\')
-                {
-                    count++;
-                }
-                if (count == 3)
-                {
-                    capacity = i + 1;
-                    break;
-                }
-            }
-            for (int i = 0; i < capacity; i++)
-            {
-                line += pathToDb[i];
-            }
-            return line;
         }
 
         /// <summary>
@@ -120,12 +95,14 @@ namespace KursApp
         {
             await sqlConnect.OpenAsync();
             SqlCommand command =
-                new SqlCommand("UPDATE [RiskData] SET [Probability]= @Probability, [Influence]= @Influence, [Status]= @Status WHERE id=@id", sqlConnect);
+                new SqlCommand("UPDATE [RiskData] SET [Probability]= @Probability, [Influence]= @Influence, [OwnerLogin]= @OwnerLogin, [Status]= @Status, [OwnerId]= @OwnerId WHERE id=@id", sqlConnect);
 
             command.Parameters.AddWithValue("Id", risk.Id);
+            command.Parameters.AddWithValue("Status", risk.Status);
             command.Parameters.AddWithValue("Probability", risk.Probability);
             command.Parameters.AddWithValue("Influence", risk.Influence);
-            command.Parameters.AddWithValue("Status", risk.Status);
+            command.Parameters.AddWithValue("OwnerLogin", risk.OwnerLogin);
+            command.Parameters.AddWithValue("OwnerId", risk.OwnerId);
             await command.ExecuteNonQueryAsync();
             sqlConnect.Close();
 
@@ -170,11 +147,24 @@ namespace KursApp
                 {     
                     if(project.Name == Convert.ToString(sqlReader["Project"]))
                     {
-                        lst.Add(new Risk(Convert.ToInt32(sqlReader["Id"]),Convert.ToString(sqlReader["RiskName"]),Convert.ToString(sqlReader["SourseOfRisk"]),
-                        Convert.ToString(sqlReader["Effects"]),Convert.ToString(sqlReader["Descriprion"]), 
-                        Convert.ToString(sqlReader["TypeOfProject"]), 
-                        Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Probability"]))),
-                        Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Influence"]))), Convert.ToInt32(sqlReader["Status"])));
+                        if (Convert.ToInt32(sqlReader["Status"]) == 0)
+                        {
+                            lst.Add(new Risk(Convert.ToInt32(sqlReader["Id"]), Convert.ToString(sqlReader["RiskName"]), Convert.ToString(sqlReader["SourseOfRisk"]),
+                            Convert.ToString(sqlReader["Effects"]), Convert.ToString(sqlReader["Descriprion"]),
+                            Convert.ToString(sqlReader["TypeOfProject"]),
+                            Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Probability"]))),
+                            Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Influence"]))), Convert.ToInt32(sqlReader["Status"])));
+                        }
+                        else
+                        {
+                                lst.Add(new Risk(Convert.ToInt32(sqlReader["Id"]), Convert.ToString(sqlReader["RiskName"]), Convert.ToString(sqlReader["SourseOfRisk"]),
+                                Convert.ToString(sqlReader["Effects"]), Convert.ToString(sqlReader["Descriprion"]),
+                                Convert.ToString(sqlReader["TypeOfProject"]),
+                                Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Probability"]))),
+                                Convert.ToDouble(Parsing(Convert.ToString(sqlReader["Influence"]))), Convert.ToInt32(sqlReader["Status"]),
+                                Convert.ToInt32(sqlReader["OwnerId"]), Convert.ToString(sqlReader["OwnerLogin"])));
+
+                        }
                     }
                 }
                 return lst;
