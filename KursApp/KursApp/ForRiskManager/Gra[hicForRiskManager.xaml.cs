@@ -405,7 +405,7 @@ namespace KursApp
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            ProjectChoise pc = new ProjectChoise(user);
+            SelectProject pc = new SelectProject(user);
             Close();
             pc.Show();
         }

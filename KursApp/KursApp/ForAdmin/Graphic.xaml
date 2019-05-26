@@ -10,7 +10,7 @@
         <Button x:Name="Back" Height="40" Width="40"  Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="1119,17,0,0" RenderTransformOrigin="0.54,1.047"></Button>
         <Line X1="75" X2="75" Y1="50" Y2="400" Stroke="Black"/>
         <Line X1="75" X2="500" Y1="400" Y2="400" Stroke="Black"/>
-        <Label x:Name="Im" Content="Impact" Margin="20,40,1100,590"/>
+        <Label x:Name="Im" Content="Influence" Margin="12,38,1107.6,591.4"/>
         <Label x:Name="Probability" Content="Probability" Margin="430,395,685,230"/>
         <Polyline Stroke="Black" Points="70, 60, 75, 50, 80, 60" />
         <Polyline Stroke="Black" Points="490, 395, 500, 400, 490, 405" />

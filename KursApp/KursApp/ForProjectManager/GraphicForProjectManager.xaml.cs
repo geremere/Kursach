@@ -571,7 +571,7 @@ namespace KursApp
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Projects p = new Projects();
+            ProjectChoise p = new ProjectChoise(user);
             Close();
             p.Show();
         }
